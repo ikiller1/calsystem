@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head> 
+<meta charset="utf-8"> 
+<title>菜鸟教程(runoob.com)</title> 
+</head>
+<body>
+<script>
+function add()
+{
+//document.getElementById("w1").innerHTML="新文本!";
+//var para=document.createElement("td");
+var para0=document.getElementById("t1");
+
+var para1=document.createElement("td");
+para1.setAttribute("id","test");
+var para2=document.createElement("td");
+var node1=document.createTextNode("这是一个新段落。");
+var node2=document.createTextNode("这是一个新段落。");
+para1.appendChild(node1);
+para2.appendChild(node2);
+
+var para3=document.createElement("tr");
+para3.appendChild(para1);
+para3.appendChild(para2);
+
+para0.appendChild(para3);
+//var element=doentcum.getElementById("div1");
+//element.appendChild(para);
+}
+function del()
+{
+x=document.getElementsByTagName("tr");
+document.write("第一个段落的文本为: " + x[0].innerHTML);
+var parent=document.getElementById("div1");
+var child=document.getElementById("p1");
+parent.removeChild(child);
+
+
+}
+</script>
+<form action="printday.php" method="post">
+<table border="1" id="t1">
+  <caption>Monthly savings</caption>
+  <tr id="tr1">
+    <th id="w1">Month</th>
+    <th>Savings</th>
+  </tr>
+  <tr>
+    <td>January</td>
+    <td>$100</td>
+  </tr>
+  <tr>
+    <td>February</td>
+    <td>$50</td>
+  </tr>
+</table>
+<input type="button"  onclick="add()" value="add">
+</form>
+</body>
+</html>
