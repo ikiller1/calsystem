@@ -30,7 +30,7 @@
 <a href="test/printday.html">打印oneday</a>
 </p>
 <p>
-<a href="test/js.html">js test</a>
+<a href="test/js.html">table adjust test </a>
 </p>
 <p>
 <a href="test/test.php?id=981">test</a>
