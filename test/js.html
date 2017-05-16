@@ -33,9 +33,21 @@ function del()
 	parent[parent.length-1].parentNode.removeChild(parent[parent.length-1]);
 	}
 }
+function check()
+{
+var r=confirm("are you sure ?");
+var x=document.getElementById("myForm");
+if(r==true)
+{
+	x.submit();
+}
+else
+{
+}
+}
 </script>
 
-<form action="printday.php" method="post">
+<form action="dest.php" id="myForm" method="post">
 <table border="1" id="t1">
   <caption>Monthly savings</caption>
   <tbody>
@@ -55,6 +67,7 @@ function del()
 </table>
 <input type="button"  onclick="add()" value="add">
 <input type="button"  onclick="del()" value="del">
+<input type="button"  onclick="check()" value="submit">
 </form>
 </body>
 </html>
