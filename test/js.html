@@ -54,9 +54,19 @@ else
 	return false;
 }
 }
+function changecolor(thisitem)
+{
+	if(thisitem.value!=0)
+		thisitem.setAttribute("style","background-color:yellow;");
+	else
+		thisitem.setAttribute("style","background-color:white;");
+}
+function cal() {
+    document.getElementsByName("pay")[0].value=document.forms["myForm"]["i1"].value+document.forms["myForm"]["i2"].value;
+}
 </script>
 
-<form action="dest.php" id="myForm"  onsubmit="return check()" method="post">
+<form action="dest.php" id="myForm"  name="myForm" oninput="cal()" onsubmit="return check()" method="post">
 <table border="1" id="t1">
   <caption>Monthly savings</caption>
   <tbody>
@@ -66,7 +76,7 @@ else
   </tr>
   <tr id="tt1">
     <td>January</td>
-    <td><input name="i1" type="number" required="required" ></td>
+    <td><input name="i1" type="number" onchange="changecolor(this)"  required="required" ></td>
   </tr>
   <tr>
     <td>February</td>
