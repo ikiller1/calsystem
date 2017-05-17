@@ -5,8 +5,21 @@
 <title>菜鸟教程(runoob.com)</title> 
 </head>
 <body>
-
-<form action="welcome.php" method="post">
+<script>
+function check()
+{
+var r=confirm("are you sure to submit ?");
+var x=document.getElementById("myForm");
+if(r==true)
+{
+	x.submit();
+}
+else
+{
+}
+}
+</script>
+<form action="welcome.html" method="post">
 
 <table style="text-align:center" border="1" >
   <caption>费用明细(IMP)</caption>
@@ -243,7 +256,7 @@
   <!-- ----------------------------------------------------------------->
 </table>
 
-<input type="submit" value="提交">
+<input type="submit" onclick="check()" value="提交">
 
 </form>
 
