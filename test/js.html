@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head> 
 <meta charset="utf-8"> 
@@ -14,7 +14,8 @@ function add()
 var para1=document.createElement("td");
 var para2=document.createElement("td");
 var para3=document.createElement("input");
-para3.setAttribute("type","text");
+para3.setAttribute("type","number");
+para3.setAttribute("required","required");
 para3.setAttribute("value","0");
 para3.setAttribute("name",id_header.concat(id_body.toString()));
 var node1=document.createTextNode("这是一个新段落。");
@@ -45,15 +46,17 @@ var r=confirm("are you sure to submit ?");
 var x=document.getElementById("myForm");
 if(r==true)
 {
-	x.submit();
+	<!-- x.submit(); -->
+	return true;
 }
 else
 {
+	return false;
 }
 }
 </script>
 
-<form action="dest.php" id="myForm" method="post">
+<form action="dest.php" id="myForm"  onsubmit="return check()" method="post">
 <table border="1" id="t1">
   <caption>Monthly savings</caption>
   <tbody>
@@ -63,18 +66,18 @@ else
   </tr>
   <tr id="tt1">
     <td>January</td>
-    <td><input name="i1" type="text" value=0></td>
+    <td><input name="i1" type="number" required="required" ></td>
   </tr>
   <tr>
     <td>February</td>
-    <td><input name="i2" type="text" value=0></td>
+    <td><input name="i2" type="number" required="required" ></td>
   </tr>
   </tbody>
 </table>
-pay:<input type="text" name="pay" value=123><br>
+pay:<input type="number" name="pay" value=123 required ><br>
 <input type="button"  onclick="add()" value="add">
 <input type="button"  onclick="del()" value="del">
-<input type="button"  onclick="check()" value="submit"><br>
+<input type="submit"   value="submit"><br>
 </form>
 </body>
 </html>

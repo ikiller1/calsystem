@@ -3,7 +3,7 @@
 	<meta charset="GBK" />
 	<meta http-equiv="content-type" content="text/html" />
 	<meta name="author" content="Tuesday 2014-10-16" />
-	<title>xampp (phpStudy ÖØĞÂ±àÒë°æ)</title>
+	<title>xampp (phpStudy é‡æ–°ç¼–è¯‘ç‰ˆ)</title>
 
 <style type="text/css">
     #content table{ width: 600px;}
@@ -29,18 +29,18 @@ $username = "root";
 $password = "root";
 
     $sql2 = "SHOW DATABASES";
-// ´´½¨Á¬½Ó
+// åˆ›å»ºè¿æ¥
 $conn = new mysqli($servername, $username, $password);
-// ¼ì²âÁ¬½Ó
+// æ£€æµ‹è¿æ¥
 if ($conn->connect_error) {
-    die("Á¬½ÓÊ§°Ü: " . $conn->connect_error);
+    die("è¿æ¥å¤±è´¥: " . $conn->connect_error);
 }
 else {
-	echo "Êı¾İ¿âÁ¬½Ó³É¹¦";
+	echo "æ•°æ®åº“è¿æ¥æˆåŠŸ";
 	echo "<br>";
 }
 	if ($conn->query("USE myDB") === TRUE) {
-    echo "Êı¾İ¿âÑ¡Ôñ³É¹¦";
+    echo "æ•°æ®åº“é€‰æ‹©æˆåŠŸ";
 	
 	} else {
 		echo "Error creating database: " . $conn->error;
@@ -94,7 +94,7 @@ function cal() {
 }
 </script>
 
-<form name="test" action="insert.php" method="post" onkeyup="cal()">
+<form name="test" action="insert.php" method="post" oninput="cal()">
 DATE: 
 <input type="date"  name="date1" value=
 <?php echo $_POST["date"]; ?> 
@@ -108,7 +108,7 @@ COST: <input type="text" name="cost" value=
 ints: <input type="text" name="ints" value=
 <?php echo $pay-$cost; ?> 
 ><br>
-<input type="submit" value="Ìá½»">
+<input type="submit" value="æäº¤">
 </form>
 </body>
 </html>
