@@ -78,10 +78,12 @@ function CreateTestData($conn)
 	{
 		$sql1 = "CREATE TABLE IF NOT EXISTS t_$name (
 					date DATE,
-					id INT(6) UNSIGNED AUTO_INCREMENT,
+					id SMALLINT UNSIGNED AUTO_INCREMENT,
 					pay DOUBLE ,
 					cost DOUBLE,
-					PRIMARY KEY (id)
+					changeid CHAR,
+					PRIMARY KEY (id),
+					INDEX (changeid)
 					)
 					engine=InnoDB";
 		if ($conn->query($sql1) === TRUE) {
