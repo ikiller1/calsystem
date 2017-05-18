@@ -82,7 +82,8 @@ function CreateTestData($conn)
 					pay DOUBLE ,
 					cost DOUBLE,
 					PRIMARY KEY (id)
-					)";
+					)
+					engine=InnoDB";
 		if ($conn->query($sql1) === TRUE) {
 			// echo "数据表创建成功";
 		} else {
