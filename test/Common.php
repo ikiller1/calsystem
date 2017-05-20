@@ -362,6 +362,7 @@ function SetOneData($conn,$tableName,$data,$id)
 	else
 	{//Number($data["_1A"])
 					$sql6="UPDATE  $tableName SET 
+					date ='".$_POST["date"]."',
 					_1A = ".$_POST["_1A"].",
 					_1B = ".$_POST["_1B"].",
 					_1C = ".$_POST["_1C"].",
