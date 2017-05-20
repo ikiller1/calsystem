@@ -36,7 +36,11 @@
 <a href="test/test.php?id=981">test</a>
 </p>
 <p>
-<a href="test/demo.php">demo</a>
+<a href="test/demo.php">BLANK</a>
+</p>
+
+<p>
+<a href="test/showtables.php">DEMO 1</a>
 </p>
 </body>
 </html>

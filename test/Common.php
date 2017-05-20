@@ -240,7 +240,7 @@ function GetDataPerMonth($conn,$tableName)
 	// $month=5;
 	// $number = sprintf("%02d",$month);
 	$data=array();
-	$sql7="select id ,_29A from $tableName";
+	$sql7="select id , _29A , _50A ,_50B from $tableName";
 	$result=$conn->query($sql7);
 	echo $conn->error;
 	if($result->num_rows>0)
@@ -250,8 +250,9 @@ function GetDataPerMonth($conn,$tableName)
 			// echo $row["pay"]."<br>".$row["cost"]."<br>";
 			$id=$row["id"];
 			$ints=$row["_29A"];
-			// $cost=$row["cost"];
-			$t_array=array($id,$ints);
+			$_50A=$row["_50A"];
+			$_50B=$row["_50B"];
+			$t_array=array($id,$ints,$_50A,$_50B);
 			array_push($data,$t_array);
 		}
 		return $data;
@@ -278,11 +279,11 @@ function ShowDataPerMonth($tableName,$data)
 	echo "</th>";
 	
 	echo "<th>";
-	echo "cost";
+	echo "业务编号";
 	echo "</th>";
 	
 	echo "<th>";
-	echo "ints";
+	echo "提单号";
 	echo "</th>";
 	echo "</tr>";
 	///
@@ -301,13 +302,13 @@ function ShowDataPerMonth($tableName,$data)
 		echo $data[$x][1];
 		echo "</td>";
 		
-		/* echo "<td>";
+		echo "<td>";
 		echo $data[$x][2];
-		echo "</td>"; */
+		echo "</td>";
 		
-		/* echo "<td>";
-		echo $data[$x][1]-$data[$x][2];
-		echo "</td>"; */
+		echo "<td>";
+		echo $data[$x][3];
+		echo "</td>";
 		
 		echo "</tr>";
 	}
@@ -342,9 +343,9 @@ function SetOneData($conn,$tableName,$data,$id)
 {
 	if($id==0)//插入新纪录
 	{
-			$sql5 = "INSERT INTO $tableName (data)VALUES (CURDATE())";
+			$sql5 = "INSERT INTO $tableName (date)VALUES (CURDATE())";
 			if ($conn->query($sql5) === TRUE) {
-				// echo "数据插入成功";
+				echo "加入新纪录成功";
 			} else {
 				echo $conn->error;
 			}
@@ -486,5 +487,24 @@ function ShowDetail($data)
 		echo "<br>";
 	} 
 }
-
+function ShowTables($conn)
+{
+	$data=array();
+	$sql7="show tables;";
+	$result=$conn->query($sql7);
+	echo $conn->error;
+	if($result->num_rows>0)
+	{
+		while($row = $result->fetch_array()) 
+		{
+			// echo $row["pay"]."<br>".$row["cost"]."<br>";
+			$id=$row["id"];
+			$ints=$row["_29A"];
+			// $cost=$row["cost"];
+			$t_array=array($id,$ints);
+			array_push($data,$t_array);
+		}
+		return $data;
+	}
+}
 ?> 

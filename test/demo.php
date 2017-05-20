@@ -12,7 +12,9 @@ $tableName=$_GET["tableName"];
 $conn=Login($ROLE_ROOT);
 UseDatabase($conn);
 // CreateTestData($conn);
+if($id!=0)
 $data=GetOneData($conn,$tableName,$id);
+
 echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"post\" name=\"myForm\" oninput=\"calculate()\">";
 ?> 
 <!--<form action="insert.php?tableName=$tableName" method="post" name="myForm" oninput="calculate()">
