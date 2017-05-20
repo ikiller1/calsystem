@@ -249,7 +249,7 @@ function GetDataPerMonth($conn,$tableName)
 	// $month=5;
 	// $number = sprintf("%02d",$month);
 	$data=array();
-	$sql7="select id , _29A , _50A ,_50B from $tableName";
+	$sql7="select id , date, _29A , _50A ,_50B from $tableName";
 	$result=$conn->query($sql7);
 	echo $conn->error;
 	if($result->num_rows>0)
@@ -261,7 +261,8 @@ function GetDataPerMonth($conn,$tableName)
 			$ints=$row["_29A"];
 			$_50A=$row["_50A"];
 			$_50B=$row["_50B"];
-			$t_array=array($id,$ints,$_50A,$_50B);
+			$date=$row["date"];
+			$t_array=array($id,$ints,$_50A,$_50B,$date);
 			array_push($data,$t_array);
 		}
 		return $data;
@@ -277,7 +278,7 @@ function ShowDataPerMonth($tableName,$data)
 	echo "<th rowspan=\"2\">";
 	echo "id";
 	echo "</th>";
-	echo "<th colspan=\"3\">";
+	echo "<th colspan=\"4\">";
 	echo "detail";
 	echo "</th>";
 	echo "</tr>";
@@ -294,6 +295,11 @@ function ShowDataPerMonth($tableName,$data)
 	echo "<th>";
 	echo "提单号";
 	echo "</th>";
+	
+	echo "<th>";
+	echo "日期";
+	echo "</th>";
+	
 	echo "</tr>";
 	///
 	$arrlength=count($data);
@@ -317,6 +323,10 @@ function ShowDataPerMonth($tableName,$data)
 		
 		echo "<td>";
 		echo $data[$x][3];
+		echo "</td>";
+		
+		echo "<td>";
+		echo $data[$x][4];
 		echo "</td>";
 		
 		echo "</tr>";
