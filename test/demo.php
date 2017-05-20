@@ -7,17 +7,16 @@
 <body>
 <?php
 include 'Common.php';
-$id="1";
-$tableName="t_201705";
+$id=$_GET["id"];
+$tableName=$_GET["tableName"];
 $conn=Login($ROLE_ROOT);
 UseDatabase($conn);
 // CreateTestData($conn);
 $data=GetOneData($conn,$tableName,$id);
-// ShowDataPerMonth($tableName,$data);
-echo $data["_1A"];
+echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"post\" name=\"myForm\" oninput=\"calculate()\">";
 ?> 
-<form action="insert.php" method="post" name="myForm" oninput="calculate()">
-
+<!--<form action="insert.php?tableName=$tableName" method="post" name="myForm" oninput="calculate()">
+-->
 <table style="text-align:center" border="1" >
   <caption>费用明细(IMP)</caption>
   <tr>

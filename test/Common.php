@@ -240,7 +240,7 @@ function GetDataPerMonth($conn,$tableName)
 	// $month=5;
 	// $number = sprintf("%02d",$month);
 	$data=array();
-	$sql7="select id ,pay, cost from $tableName";
+	$sql7="select id ,_29A from $tableName";
 	$result=$conn->query($sql7);
 	echo $conn->error;
 	if($result->num_rows>0)
@@ -249,9 +249,9 @@ function GetDataPerMonth($conn,$tableName)
 		{
 			// echo $row["pay"]."<br>".$row["cost"]."<br>";
 			$id=$row["id"];
-			$pay=$row["pay"];
-			$cost=$row["cost"];
-			$t_array=array($id,$pay,$cost);
+			$ints=$row["_29A"];
+			// $cost=$row["cost"];
+			$t_array=array($id,$ints);
 			array_push($data,$t_array);
 		}
 		return $data;
@@ -274,7 +274,7 @@ function ShowDataPerMonth($tableName,$data)
 	
 	echo "<tr>";
 	echo "<th>";
-	echo "pay";
+	echo "ints";
 	echo "</th>";
 	
 	echo "<th>";
@@ -292,7 +292,7 @@ function ShowDataPerMonth($tableName,$data)
 		echo "<tr>";
 		
 		echo "<th>";
-		echo "<a href=\"detail.php?tableName=".$tableName."&"."id=".$data[$x][0]."\">";
+		echo "<a href=\"demo.php?tableName=".$tableName."&"."id=".$data[$x][0]."\">";
 		echo $data[$x][0];
 		echo "</a>";
 		echo "</th>";
@@ -301,13 +301,13 @@ function ShowDataPerMonth($tableName,$data)
 		echo $data[$x][1];
 		echo "</td>";
 		
-		echo "<td>";
+		/* echo "<td>";
 		echo $data[$x][2];
-		echo "</td>";
+		echo "</td>"; */
 		
-		echo "<td>";
+		/* echo "<td>";
 		echo $data[$x][1]-$data[$x][2];
-		echo "</td>";
+		echo "</td>"; */
 		
 		echo "</tr>";
 	}
@@ -414,7 +414,7 @@ function SetOneData($conn,$tableName,$data,$id)
 					_16D = ".$_POST["_16D"].",
 					_17A = ".$_POST["_17A"].",
 					_17B = ".$_POST["_17B"].",
-					_17C = ".$_POST["_1A"].",
+					_17C = ".$_POST["_17C"].",
 					_17D = ".$_POST["_17D"].",
 					_18A = ".$_POST["_18A"].",
 					_18B = ".$_POST["_18B"].",
@@ -473,126 +473,7 @@ function SetOneData($conn,$tableName,$data,$id)
 			} else {
 				echo $conn->error;
 			}
-					/*
-		$sql6="UPDATE  $tableName SET 
-					_1A =$data["_1A"],
-					_1B =$data["_1B"],
-					_1C =$data["_1C"],
-					_1D =$data["_1D"],
-					_2A =$data["_2A"],
-					_2B =$data["_2B"],
-					_2C =$data["_2C"],
-					_2D =$data["_2D"],
-					_3A =$data["_3A"],
-					_3B =$data["_3B"],
-					_3C =$data["_3C"],
-					_3D =$data["_3D"],
-					_4A =$data["_4A"],
-					_4B =$data["_4B"],
-					_4C =$data["_4C"],
-					_4D =$data["_4D"],
-					_5A =$data["_5A"],
-					_5B =$data["_5B"],
-					_5C =$data["_5C"],
-					_5D =$data["_5D"],
-					_6A =$data["_6A"],
-					_6B =$data["_6B"],
-					_6C =$data["_6C"],
-					_6D =$data["_6D"],
-					_7A =$data["_7A"],
-					_7B =$data["_7B"],
-					_7C =$data["_7C"],
-					_7D =$data["_7D"],
-					_8A =$data["_8A"],
-					_8B =$data["_8B"],
-					_8C =$data["_8C"],
-					_8D =$data["_8D"],
-					_9A =$data["_9A"],
-					_9B =$data["_9B"],
-					_9C =$data["_9C"],
-					_9D =$data["_9D"],
-					_10A =$data["_10A"],
-					_10B =$data["_10B"],
-					_10D =$data["_10D"],
-					_11A =$data["_11A"],
-					_11B =$data["_11B"],
-					_11D =$data["_11D"],
-					_12A =$data["_12A"],
-					_12B =$data["_12B"],
-					_12C =$data["_12C"],
-					_12D =$data["_12D"],
-					_13A =$data["_13A"],
-					_13B =$data["_13B"],
-					_13C =$data["_13C"],
-					_13D =$data["_13D"],
-					_14A =$data["_14A"],
-					_14B =$data["_14B"],
-					_14C =$data["_14C"],
-					_14D =$data["_14D"],
-					_15A =$data["_15A"],
-					_15B =$data["_15B"],
-					_15C =$data["_15C"],
-					_15D =$data["_15D"],
-					_16A =$data["_16A"],
-					_16B =$data["_16B"],
-					_16C =$data["_16C"],
-					_16D =$data["_16D"],
-					_17A =$data["_17A"],
-					_17B =$data["_17B"],
-					_17C =$data["_1A"],
-					_17D =$data["_17D"],
-					_18A =$data["_18A"],
-					_18B =$data["_18B"],
-					_18C =$data["_18C"],
-					_18D =$data["_18D"],
-					_19A =$data["_19A"],
-					_19B =$data["_19B"],
-					_19C =$data["_19C"],
-					_19D =$data["_19D"],
-					_20A =$data["_20A"],
-					_20B =$data["_20B"],
-					_20C =$data["_20C"],
-					_20D =$data["_20D"],
-					_21A =$data["_21A"],
-					_21B =$data["_21B"],
-					_21C =$data["_21C"],
-					_21D =$data["_21D"],
-					_22A =$data["_22A"],
-					_22B =$data["_22B"],
-					_22C =$data["_22C"],
-					_22D =$data["_22D"],
-					_23A =$data["_23A"],
-					_23B =$data["_23B"],
-					_23C =$data["_23C"],
-					_23D =$data["_23D"],
-					_24A =$data["_24A"],
-					_24B =$data["_24B"],
-					_24C =$data["_24C"],
-					_24D =$data["_24D"],
-					_25A =$data["_25A"],
-					_25B =$data["_25B"],
-					_25C =$data["_25C"],
-					_25D =$data["_25D"],
-					_26A =$data["_26A"],
-					_26B =$data["_26B"],
-					_26C =$data["_26C"],
-					_26D =$data["_26D"],
-					_27A =$data["_27A"],
-					_27B =$data["_27B"],
-					_27C =$data["_27C"],
-					_27D =$data["_27D"],
-					_28A =$data["_28A"],
-					_28B =$data["_28B"],
-					_29A =$data["_29A"],
-					_50A =$data["_50A"],
-					_50B =$data["_50B"],
-					_51A =$data["_51A"],
-					_51B =$data["_51B"],
-					_52A =$data["_52A"],
-					_52B =$data["_52B"],
-					_53A =$data["_53A"],
-					_53B =$data["_53B"],
-					WHERE id=$id;";*/
+
 		
 	}
 	

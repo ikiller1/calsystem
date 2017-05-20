@@ -12,8 +12,8 @@
 include 'Common.php';
 $conn=Login($ROLE_ROOT);
 UseDatabase($conn);
-$tableName="t_201705";
-$id=1;
+$tableName=$_GET["tableName"];
+$id=$_GET["id"];
 
 $data=array();
 $data["_1A"]=$_POST["_1A"];
