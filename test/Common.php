@@ -3,7 +3,7 @@ $ROLE_ROOT="ROLE_ROOT";
 $servername = "localhost";
 $username = "root";
 $password = "root";
-
+header("Content-type: text/html;charset=utf-8");
 function Login($role)
 {
 	global $ROLE_ROOT;
@@ -21,7 +21,10 @@ function Login($role)
 		die("连接失败: " . $conn->connect_error);
 	}
 	else {
-		echo "数据库连接成功";
+		// echo "数据库连接成功";
+		if ($conn->query( "set names utf8") === TRUE){}
+		else
+			die("连接失败: " . $conn->connect_error);
 		echo "<br>";
 	}
 	
@@ -35,7 +38,7 @@ function UseDatabase($conn)
 {
 	if ($conn->query("USE myDB") === TRUE) 
 	{
-		echo "数据库选择成功";
+		// echo "数据库选择成功";
 	} 
 	else 
 	{
@@ -48,7 +51,7 @@ function CreateTestData($conn)
 {
 	// 创建数据库
 	$sql3 = "DROP DATABASE IF EXISTS myDB ";
-	$sql4 = "CREATE DATABASE myDB";
+	$sql4 = "CREATE DATABASE myDB default charset utf8 COLLATE utf8_general_ci";
 	if ($conn->query($sql3) === TRUE) 
 	{
 		echo "数据库删除成功";
@@ -192,16 +195,16 @@ function CreateTestData($conn)
 					_28B DOUBLE NOT NULL DEFAULT 0,
 					_29A DOUBLE NOT NULL DEFAULT 0,
 					_50A DOUBLE NOT NULL DEFAULT 0,
-					_50B DOUBLE NOT NULL DEFAULT 0,
-					_51A DOUBLE NOT NULL DEFAULT 0,
-					_51B DOUBLE NOT NULL DEFAULT 0,
+					_50B TEXT NOT NULL ,
+					_51A TEXT NOT NULL ,
+					_51B TEXT NOT NULL ,
 					_52A DOUBLE NOT NULL DEFAULT 0,
 					_52B DOUBLE NOT NULL DEFAULT 0,
 					_53A DOUBLE NOT NULL DEFAULT 0,
 					_53B DOUBLE NOT NULL DEFAULT 0,
 					PRIMARY KEY (id)
 					)
-					engine=InnoDB";
+					engine=InnoDB DEFAULT CHARSET='utf8'";
 		if ($conn->query($sql1) === TRUE) {
 			// echo "数据表创建成功";
 		} else {
@@ -461,14 +464,17 @@ function SetOneData($conn,$tableName,$data,$id)
 					_28B = ".$_POST["_28B"].",
 					_29A = ".$_POST["_29A"].",
 					_50A = ".$_POST["_50A"].",
-					_50B = ".$_POST["_50B"].",
-					_51A = ".$_POST["_51A"].",
-					_51B = ".$_POST["_51B"].",
+					_50B = "."'".$_POST["_50B"]."',
+					_51A = "."'".$_POST["_51A"]."',
+					_51B = "."'".$_POST["_51B"]."', 
 					_52A = ".$_POST["_52A"].",
 					_52B = ".$_POST["_52B"].",
 					_53A = ".$_POST["_53A"].",
 					_53B = ".$_POST["_53B"]."
 					WHERE id=".$id;
+					/* _50B = "."'".$_POST["_50B"]."',
+					_51A = "."'".$_POST["_51A"]."',
+					_51B = "."'".$_POST["_51B"]."', */
 		if ($conn->query($sql6) === TRUE) {
 				// echo "数据插入成功";
 			} else {

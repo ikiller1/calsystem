@@ -25,13 +25,13 @@ echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"p
     <th style="background-color:PaleTurquoise" colspan="1">业务编号</th>
     <td colspan="1"><input type="number" name="_50A" value=<?php echo $data["_50A"]; ?>></td>
 	<th style="background-color:PaleTurquoise" colspan="1">提单号</th>
-    <td colspan="1"><input type="number" name="_50B" value=<?php echo $data["_50B"]; ?>></td>
+    <td colspan="1"><input type="text" name="_50B" value=<?php echo $data["_50B"]; ?>></td>
   </tr>
   <tr>
     <th style="background-color:PaleTurquoise" colspan="1">船名航次</th>
-    <td colspan="1"><input type="number" name="_51A" value=<?php echo $data["_51A"]; ?>></td>
+    <td colspan="1"><input type="text" name="_51A" value=<?php echo $data["_51A"]; ?>></td>
 	<th style="background-color:PaleTurquoise" colspan="1">起运港</th>
-    <td colspan="1"><input type="number" name="_51B" value=<?php echo $data["_51A"]; ?>></td>
+    <td colspan="1"><input type="text" name="_51B" value=<?php echo $data["_51B"]; ?>></td>
   </tr>
   <tr>
     <th style="background-color:PaleTurquoise" colspan="1">买入汇率1</th>
@@ -41,9 +41,9 @@ echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"p
   </tr>
   <tr>
     <th style="background-color:PaleTurquoise" colspan="1">卖出汇率1</th>
-    <td colspan="1"><input type="number" name="_53A" value=<?php echo $data["_52A"]; ?>></td>
+    <td colspan="1"><input type="number" name="_53A" value=<?php echo $data["_53A"]; ?>></td>
 	<th style="background-color:PaleTurquoise" colspan="1">对应金额1</th>
-    <td colspan="1"><input type="number" name="_53B" value=<?php echo $data["_52B"]; ?>></td>
+    <td colspan="1"><input type="number" name="_53B" value=<?php echo $data["_53B"]; ?>></td>
   </tr>
   <tr>
     <th style="background-color:PaleTurquoise" colspan="1" rowspan="2">类目</th>
