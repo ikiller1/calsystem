@@ -52,20 +52,21 @@ $cost=0;
 // echo $_POST["date"]."<br>";
 $month=substr($_POST["date"],5,2);
 $date=$_POST["date"];
+$ints=0.0;
 // echo $month;
 // for($month=1;$month<=12;$month++)
 {
 	$number = sprintf("%02d",$month);
-	// $sql7="select SUM(pay), SUM(cost) ,date from t_2017$number group by date";
-	$sql7="select pay, cost from t_2017$month where date=\"$date\"";
+	// $sql7="select SUM(_29A) from t_2017$month group by date";
+	$sql7="select _29A from t_2017$month where date=\"$date\"";
 	$result=$conn->query($sql7);
 	if($result->num_rows>0)
 	{
 		while($row = $result->fetch_array()) 
 		{
 			// echo $row["pay"]."<br>".$row["cost"]."<br>";
-			$pay=$row["pay"];
-			$cost=$row["cost"];
+			// $pay=$row["pay"];
+			$ints=$ints+$row["_29A"];
 			/* print ("
 			<script>
 			function cal(){
@@ -85,6 +86,8 @@ $date=$_POST["date"];
 			print ("\"><br>"); */
 		}
 	}
+	else 
+		$ints=0;
 }
 $conn->close();
 ?> 
@@ -99,14 +102,9 @@ DATE:
 <input type="date"  name="date1" value=
 <?php echo $_POST["date"]; ?> 
 ><br>
-PAY: <input type="text" name="pay" value=
-<?php echo $pay; ?> 
-><br>
-COST: <input type="text" name="cost" value=
-<?php echo $cost; ?> 
-><br>
+
 ints: <input type="text" name="ints" value=
-<?php echo $pay-$cost; ?> 
+<?php echo $ints; ?> 
 ><br>
 <input type="submit" value="提交">
 </form>

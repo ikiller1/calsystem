@@ -3,7 +3,7 @@
 	<meta charset="GBK" />
 	<meta http-equiv="content-type" content="text/html" />
 	<meta name="author" content="Tuesday 2014-10-16" />
-	<title>xampp (phpStudy ÖØĞÂ±àÒë°æ)</title>
+	<title>xampp (phpStudy é‡æ–°ç¼–è¯‘ç‰ˆ)</title>
 
 <style type="text/css">
     #content table{ width: 600px;}
@@ -18,18 +18,18 @@ $username = "root";
 $password = "root";
 
     $sql2 = "SHOW DATABASES";
-// ´´½¨Á¬½Ó
+// åˆ›å»ºè¿æ¥
 $conn = new mysqli($servername, $username, $password);
-// ¼ì²âÁ¬½Ó
+// æ£€æµ‹è¿æ¥
 if ($conn->connect_error) {
-    die("Á¬½ÓÊ§°Ü: " . $conn->connect_error);
+    die("è¿æ¥å¤±è´¥: " . $conn->connect_error);
 }
 else {
-	echo "Êı¾İ¿âÁ¬½Ó³É¹¦";
+	echo "æ•°æ®åº“è¿æ¥æˆåŠŸ";
 	echo "<br>";
 }
 	if ($conn->query("USE myDB") === TRUE) {
-    echo "Êı¾İ¿âÑ¡Ôñ³É¹¦";
+    echo "æ•°æ®åº“é€‰æ‹©æˆåŠŸ";
 	
 	} else {
 		echo "Error creating database: " . $conn->error;
@@ -41,19 +41,19 @@ $sum_cost=0;
 for($month=1;$month<=12;$month++)
 {
 	$number = sprintf("%02d",$month);
-	$sql7="select SUM(pay), SUM(cost) from t_2017$number";
+	$sql7="select SUM(_29A) from t_2017$number";
 	$result=$conn->query($sql7);
 	if($result->num_rows>0)
 	{
 		while($row = $result->fetch_array()) 
 		{
-			$sum_pay+=$row["SUM(pay)"];
-			$sum_cost+=$row["SUM(cost)"];
+			// $sum_pay+=$row["SUM(pay)"];
+			// $sum_cost+=$row["SUM(cost)"];
 			// var_dump($sum_pay);
-			echo "month" . $month . "<br>";
-			echo  "sum_pay: " . $row["SUM(pay)"]. "<br>";
-			echo  "sum_cost: " . $row["SUM(cost)"]. "<br>";
-			echo  "sum_pay-sum_cost=" . ($sum_pay-$sum_cost) . "<br>";
+			echo "æœˆä»½:" . $month . "     ";
+			// echo  "sum_pay: " . $row["SUM(pay)"]. "<br>";
+			// echo  "sum_cost: " . $row["SUM(cost)"]. "<br>";
+			echo  "åˆ©æ¶¦é¢:" . ($row["SUM(_29A)"]) . "<br>";
 			echo "<br>";
 		}
 	}

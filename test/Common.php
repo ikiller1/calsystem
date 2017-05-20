@@ -278,7 +278,7 @@ function ShowDataPerMonth($tableName,$data)
 	
 	echo "<tr>";
 	echo "<th>";
-	echo "ints";
+	echo "利润";
 	echo "</th>";
 	
 	echo "<th>";
