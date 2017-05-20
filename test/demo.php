@@ -15,7 +15,7 @@ UseDatabase($conn);
 if($id!=0)
 $data=GetOneData($conn,$tableName,$id);
 
-echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"post\" name=\"myForm\" oninput=\"calculate()\">";
+echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"post\" name=\"myForm\" oninput=\"calculate()\" onsubmit=\"return check()\">";
 ?> 
 <!--<form action="insert.php?tableName=$tableName" method="post" name="myForm" oninput="calculate()">
 -->
@@ -23,7 +23,7 @@ echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"p
   <caption>费用明细(IMP)</caption>
   <tr>
     <th style="background-color:PaleTurquoise" colspan="1">业务编号</th>
-    <td colspan="1"><input type="number" name="_50A" value=<?php echo $data["_50A"]; ?>></td>
+    <td colspan="1"><input type="number" name="_50A" value=<?php echo $data["_50A"]; ?> onchange="changecolor(this)"></td>
 	<th style="background-color:PaleTurquoise" colspan="1">提单号</th>
     <td colspan="1"><input type="text" name="_50B" value=<?php echo $data["_50B"]; ?>></td>
   </tr>
@@ -261,6 +261,10 @@ echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"p
 </table>
 
 <input type="submit" value="提交">
+<?php 
+echo "<input type=\"button\" value=\"删除\" onclick=\"javascript:window.location.href='deleteData.php?tableName=".$tableName."&id=".$id."'\">";
+?>
+
 
 </form>
 <script>
@@ -377,7 +381,31 @@ function calculate()
 	//计算毛利
 	document.forms["myForm"]["_29A"].value=Number(document.forms["myForm"]["_28B"].value)-Number(document.forms["myForm"]["_28A"].value-0);
 }
-
+function changecolor(thisitem)
+{
+	if(thisitem.value!=0)
+		thisitem.setAttribute("style","background-color:yellow;");
+	else
+		thisitem.setAttribute("style","background-color:white;");
+}
+function check()
+{
+var r=confirm("are you sure to submit ?");
+var x=document.getElementById("myForm");
+if(r==true)
+{
+	<!-- x.submit(); -->
+	return true;
+}
+else
+{
+	return false;
+}
+}
+function deleteData()
+{
+	
+}
 </script>
 </body>
 </html>

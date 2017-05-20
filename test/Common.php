@@ -6,10 +6,16 @@ $password = "root";
 header("Content-type: text/html;charset=utf-8");
 function Login($role)
 {
+	// global $conn;
 	global $ROLE_ROOT;
 	global $servername;
 	global $username;
 	global $password;
+	//var_dump($conn);
+/* 	if($conn!=NULL){
+		echo "conn in the pool"."<br>";
+		return $conn;
+	} */
 	if($role===$ROLE_ROOT)
 	{
 		echo "role=root"."<br>";
@@ -27,7 +33,7 @@ function Login($role)
 			die("连接失败: " . $conn->connect_error);
 		echo "<br>";
 	}
-	
+	// var_dump( $conn);
 	return $conn;
 }
 function Logout($conn)
@@ -484,6 +490,17 @@ function SetOneData($conn,$tableName,$data,$id)
 		
 	}
 	
+}
+function deleteOneData($conn,$tableName,$id)
+{
+	echo "deleteOneData";
+	$sql="DELETE FROM ".$tableName." WHERE id=".$id;
+	if ($conn->query($sql) === TRUE) {
+				// echo "数据插入成功";
+			} else {
+				echo $conn->error;
+			}
+	// DELETE FROM runoob_tbl WHERE runoob_id=3;
 }
 function ShowDetail($data)
 {
