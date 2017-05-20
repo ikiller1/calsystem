@@ -17,12 +17,13 @@ $data=GetOneData($conn,$tableName,$id);
 echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"post\" name=\"myForm\" oninput=\"calculate()\" onsubmit=\"return check()\">";
 ?> 
 <!--<form action="insert.php?tableName=$tableName" method="post" name="myForm" oninput="calculate()">
+ onchange="changecolor(this)"
 -->
 <table style="text-align:center" border="1" >
   <caption>费用明细(IMP)</caption>
   <tr>
     <th style="background-color:PaleTurquoise" colspan="1">业务编号</th>
-    <td colspan="1"><input type="number" step="0.0001"   name="_50A" value=<?php echo $data["_50A"]; ?> onchange="changecolor(this)"></td>
+    <td colspan="1"><input type="text" name="_50A" value=<?php echo $data["_50A"]; ?>></td>
 	<th style="background-color:PaleTurquoise" colspan="1">提单号</th>
     <td colspan="1"><input type="text" name="_50B" value=<?php echo $data["_50B"]; ?>></td>
 	<th style="background-color:PaleTurquoise" colspan="1">日期</th>
