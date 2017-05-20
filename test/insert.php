@@ -16,8 +16,9 @@ $tableName=$_GET["tableName"];
 $id=$_GET["id"];
 
 $data=array();
-$data["_1A"]=$_POST["_1A"];
-// echo  $data["_1A"];
+
+
+
 SetOneData($conn,$tableName,$data,$id);
 Logout($conn);
 ?> 
