@@ -5,27 +5,24 @@
 <title>菜鸟教程(runoob.com)</title> 
 </head>
 <body>
-<script>
-function check()
-{
-var r=confirm("are you sure to submit ?");
-var x=document.getElementById("myForm");
-if(r==true)
-{
-	x.submit();
-}
-else
-{
-}
-}
-</script>
-<form action="welcome.html" method="post">
+<?php
+include 'Common.php';
+$id="1";
+$tableName="t_201705";
+$conn=Login($ROLE_ROOT);
+UseDatabase($conn);
+// CreateTestData($conn);
+$data=GetOneData($conn,$tableName,$id);
+// ShowDataPerMonth($tableName,$data);
+echo $data["_1A"];
+?> 
+<form action="welcome.php" method="post">
 
-<table style="number-align:center" border="1" >
+<table style="text-align:center" border="1" >
   <caption>费用明细(IMP)</caption>
   <tr>
     <th style="background-color:PaleTurquoise" colspan="1">业务编号</th>
-    <td colspan="1"><input type="number" name="1A" value=0></td>
+    <td colspan="1"><input type="number" name="" value=0></td>
 	<th style="background-color:PaleTurquoise" colspan="1">提单号</th>
     <td colspan="1"><input type="number" name="4" value=0></td>
   </tr>
@@ -57,10 +54,11 @@ else
   <tr>
     <th style="background-color:PaleTurquoise" colspan="1" rowspan="6">始发港  </th>
 	<th style="background-color:PaleTurquoise">海运费</th>
-    <td colspan="1"><input type="number" name="F3" value=0></td>
-	<td colspan="1"><input type="number" name="F4" value=0></td>
-    <td colspan="1"><input type="number" name="F5" value=0></td>
-	<td colspan="1"><input type="number" name="F6" value=0></td>
+    <td colspan="1"><input type="number" name="1A" value=<?php echo $data["_1A"]; ?>
+	></td>
+	<td colspan="1"><input type="number" name="1B" value=0></td>
+    <td colspan="1"><input type="number" name="1C" value=0></td>
+	<td colspan="1"><input type="number" name="1D" value=0></td>
   </tr>
   <tr>
 	<th style="background-color:PaleTurquoise">包装费</th>
@@ -256,7 +254,7 @@ else
   <!-- ----------------------------------------------------------------->
 </table>
 
-<input type="submit" onclick="check()" value="提交">
+<input type="submit" value="提交">
 
 </form>
 

@@ -79,11 +79,124 @@ function CreateTestData($conn)
 		$sql1 = "CREATE TABLE IF NOT EXISTS t_$name (
 					date DATE,
 					id SMALLINT UNSIGNED AUTO_INCREMENT,
-					pay DOUBLE ,
-					cost DOUBLE,
-					changeid CHAR,
-					PRIMARY KEY (id),
-					INDEX (changeid)
+					_1A INT NOT NULL DEFAULT 0,
+					_1B INT NOT NULL DEFAULT 0,
+					_1C INT NOT NULL DEFAULT 0,
+					_1D INT NOT NULL DEFAULT 0,
+					_2A INT NOT NULL DEFAULT 0,
+					_2B INT NOT NULL DEFAULT 0,
+					_2C INT NOT NULL DEFAULT 0,
+					_2D INT NOT NULL DEFAULT 0,
+					_3A INT NOT NULL DEFAULT 0,
+					_3B INT NOT NULL DEFAULT 0,
+					_3C INT NOT NULL DEFAULT 0,
+					_3D INT NOT NULL DEFAULT 0,
+					_4A INT NOT NULL DEFAULT 0,
+					_4B INT NOT NULL DEFAULT 0,
+					_4C INT NOT NULL DEFAULT 0,
+					_4D INT NOT NULL DEFAULT 0,
+					_5A INT NOT NULL DEFAULT 0,
+					_5B INT NOT NULL DEFAULT 0,
+					_5C INT NOT NULL DEFAULT 0,
+					_5D INT NOT NULL DEFAULT 0,
+					_6A INT NOT NULL DEFAULT 0,
+					_6B INT NOT NULL DEFAULT 0,
+					_6C INT NOT NULL DEFAULT 0,
+					_6D INT NOT NULL DEFAULT 0,
+					_7A INT NOT NULL DEFAULT 0,
+					_7B INT NOT NULL DEFAULT 0,
+					_7C INT NOT NULL DEFAULT 0,
+					_7D INT NOT NULL DEFAULT 0,
+					_8A INT NOT NULL DEFAULT 0,
+					_8B INT NOT NULL DEFAULT 0,
+					_8C INT NOT NULL DEFAULT 0,
+					_8D INT NOT NULL DEFAULT 0,
+					_9A INT NOT NULL DEFAULT 0,
+					_9B INT NOT NULL DEFAULT 0,
+					_9C INT NOT NULL DEFAULT 0,
+					_9D INT NOT NULL DEFAULT 0,
+					_10A INT NOT NULL DEFAULT 0,
+					_10B INT NOT NULL DEFAULT 0,
+					_10D INT NOT NULL DEFAULT 0,
+					_11A INT NOT NULL DEFAULT 0,
+					_11B INT NOT NULL DEFAULT 0,
+					_11D INT NOT NULL DEFAULT 0,
+					_12A INT NOT NULL DEFAULT 0,
+					_12B INT NOT NULL DEFAULT 0,
+					_12C INT NOT NULL DEFAULT 0,
+					_12D INT NOT NULL DEFAULT 0,
+					_13A INT NOT NULL DEFAULT 0,
+					_13B INT NOT NULL DEFAULT 0,
+					_13C INT NOT NULL DEFAULT 0,
+					_13D INT NOT NULL DEFAULT 0,
+					_14A INT NOT NULL DEFAULT 0,
+					_14B INT NOT NULL DEFAULT 0,
+					_14C INT NOT NULL DEFAULT 0,
+					_14D INT NOT NULL DEFAULT 0,
+					_15A INT NOT NULL DEFAULT 0,
+					_15B INT NOT NULL DEFAULT 0,
+					_15C INT NOT NULL DEFAULT 0,
+					_15D INT NOT NULL DEFAULT 0,
+					_16A INT NOT NULL DEFAULT 0,
+					_16B INT NOT NULL DEFAULT 0,
+					_16C INT NOT NULL DEFAULT 0,
+					_16D INT NOT NULL DEFAULT 0,
+					_17A INT NOT NULL DEFAULT 0,
+					_17B INT NOT NULL DEFAULT 0,
+					_17C INT NOT NULL DEFAULT 0,
+					_17D INT NOT NULL DEFAULT 0,
+					_18A INT NOT NULL DEFAULT 0,
+					_18B INT NOT NULL DEFAULT 0,
+					_18C INT NOT NULL DEFAULT 0,
+					_18D INT NOT NULL DEFAULT 0,
+					_19A INT NOT NULL DEFAULT 0,
+					_19B INT NOT NULL DEFAULT 0,
+					_19C INT NOT NULL DEFAULT 0,
+					_19D INT NOT NULL DEFAULT 0,
+					_20A INT NOT NULL DEFAULT 0,
+					_20B INT NOT NULL DEFAULT 0,
+					_20C INT NOT NULL DEFAULT 0,
+					_20D INT NOT NULL DEFAULT 0,
+					_21A INT NOT NULL DEFAULT 0,
+					_21B INT NOT NULL DEFAULT 0,
+					_21C INT NOT NULL DEFAULT 0,
+					_21D INT NOT NULL DEFAULT 0,
+					_22A INT NOT NULL DEFAULT 0,
+					_22B INT NOT NULL DEFAULT 0,
+					_22C INT NOT NULL DEFAULT 0,
+					_22D INT NOT NULL DEFAULT 0,
+					_23A INT NOT NULL DEFAULT 0,
+					_23B INT NOT NULL DEFAULT 0,
+					_23C INT NOT NULL DEFAULT 0,
+					_23D INT NOT NULL DEFAULT 0,
+					_24A INT NOT NULL DEFAULT 0,
+					_24B INT NOT NULL DEFAULT 0,
+					_24C INT NOT NULL DEFAULT 0,
+					_24D INT NOT NULL DEFAULT 0,
+					_25A INT NOT NULL DEFAULT 0,
+					_25B INT NOT NULL DEFAULT 0,
+					_25C INT NOT NULL DEFAULT 0,
+					_25D INT NOT NULL DEFAULT 0,
+					_26A INT NOT NULL DEFAULT 0,
+					_26B INT NOT NULL DEFAULT 0,
+					_26C INT NOT NULL DEFAULT 0,
+					_26D INT NOT NULL DEFAULT 0,
+					_27A INT NOT NULL DEFAULT 0,
+					_27B INT NOT NULL DEFAULT 0,
+					_27C INT NOT NULL DEFAULT 0,
+					_27D INT NOT NULL DEFAULT 0,
+					_28A INT NOT NULL DEFAULT 0,
+					_28B INT NOT NULL DEFAULT 0,
+					_29A INT NOT NULL DEFAULT 0,
+					_50A INT NOT NULL DEFAULT 0,
+					_50B INT NOT NULL DEFAULT 0,
+					_51A INT NOT NULL DEFAULT 0,
+					_51B INT NOT NULL DEFAULT 0,
+					_52A INT NOT NULL DEFAULT 0,
+					_52B INT NOT NULL DEFAULT 0,
+					_53A INT NOT NULL DEFAULT 0,
+					_53B INT NOT NULL DEFAULT 0,
+					PRIMARY KEY (id)
 					)
 					engine=InnoDB";
 		if ($conn->query($sql1) === TRUE) {
@@ -96,7 +209,7 @@ function CreateTestData($conn)
 		$pay=100;
 		$cost=50;
 		$date=$name*100+1;
-		for($j=1;$j<=28;$j++)
+		/*for($j=1;$j<=28;$j++)
 		{
 			// $sql5 = "INSERT INTO intrests (date,pay,cost)VALUES (CURDATE(), $pay,$cost)";
 			// $sql5 = "INSERT INTO month5 (date,pay,cost)VALUES (DATE($date), $pay,$cost)";
@@ -111,7 +224,7 @@ function CreateTestData($conn)
 			$date=$date+1;
 			$pay=$pay+10;
 			$cost=$cost+9;
-		}
+		}*/
 
 		$name=$name+1;
 	}
@@ -206,7 +319,10 @@ function GetOneData($conn,$tableName,$id)
 	echo $conn->error;
 	if($result->num_rows>0)
 	{
-		while($row = $result->fetch_array()) 
+		$row = $result->fetch_array();
+		echo $row["_1B"];
+		return $row;
+		/* while($row = $result->fetch_array()) 
 		{
 			$id=$row["id"];
 			$pay=$row["pay"];
@@ -216,7 +332,7 @@ function GetOneData($conn,$tableName,$id)
 			$data["cost"]=$cost;
 			// array_push($data,"cost",$cost);
 		}
-		return $data;
+		return $data; */
 	}
 }
 function ShowDetail($data)
