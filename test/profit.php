@@ -41,7 +41,7 @@ $sum_cost=0;
 for($month=1;$month<=12;$month++)
 {
 	$number = sprintf("%02d",$month);
-	$sql7="select SUM(_29A) from t_2017$number";
+	$sql7="select SUM(_29A) from OrdersDetail_2017$number";
 	$result=$conn->query($sql7);
 	if($result->num_rows>0)
 	{
