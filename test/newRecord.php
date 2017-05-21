@@ -8,5 +8,5 @@ UseDatabase($conn);
 $data="";
 SetOneData($conn,$tableName,$data,$id);
 echo "<br>"."<br>";
-echo "<a href=\"print.php?tableName=".$tableName."\">点击返回</a> ";
+echo "<a href=\"printOrders.php?tableName=".$tableName."\">点击返回</a> ";
 ?>

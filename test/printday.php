@@ -58,7 +58,7 @@ $ints=0.0;
 {
 	$number = sprintf("%02d",$month);
 	// $sql7="select SUM(_29A) from t_2017$month group by date";
-	$sql7="select _29A from t_2017$month where date=\"$date\"";
+	$sql7="select _29A from OrdersDetail_2017$month where date=\"$date\"";
 	$result=$conn->query($sql7);
 	if($result->num_rows>0)
 	{
