@@ -52,7 +52,24 @@ function UseDatabase($conn)
 	}
 	echo "<br>";
 }
-
+function CreateCustumerData($conn)
+{
+	$sql1 = "CREATE TABLE IF NOT EXISTS t_custumer (
+					date DATE,
+					id INT UNSIGNED AUTO_INCREMENT,
+					name TEXT NOT NULL,
+					address TEXT NOT NULL,
+					_50A TEXT,
+					PRIMARY KEY (id) 
+					)
+					engine=InnoDB DEFAULT CHARSET='utf8'";
+		if ($conn->query($sql1) === TRUE) {
+			// echo "数据表创建成功";
+		} else {
+			echo "Error creating database: " . $conn->error;
+			die();
+		}
+}
 function CreateTestData($conn)
 {
 	// 创建数据库
@@ -88,7 +105,7 @@ function CreateTestData($conn)
 	$name=201701;
 	for($i=1;$i<=12;$i++)
 	{
-		$sql1 = "CREATE TABLE IF NOT EXISTS t_$name (
+		$sql1 = "CREATE TABLE IF NOT EXISTS OrdersDetail_$name (
 					date DATE,
 					id SMALLINT UNSIGNED AUTO_INCREMENT,
 					_1A DOUBLE NOT NULL DEFAULT 0,
@@ -208,7 +225,8 @@ function CreateTestData($conn)
 					_52B DOUBLE NOT NULL DEFAULT 0,
 					_53A DOUBLE NOT NULL DEFAULT 0,
 					_53B DOUBLE NOT NULL DEFAULT 0,
-					PRIMARY KEY (id)
+					PRIMARY KEY (id),
+					INDEX (date)
 					)
 					engine=InnoDB DEFAULT CHARSET='utf8'";
 		if ($conn->query($sql1) === TRUE) {
@@ -249,7 +267,7 @@ function GetDataPerMonth($conn,$tableName)
 	// $month=5;
 	// $number = sprintf("%02d",$month);
 	$data=array();
-	$sql7="select id , _29A , _50A ,_50B from $tableName";
+	$sql7="select id , date, _29A , _50A ,_50B from $tableName";
 	$result=$conn->query($sql7);
 	echo $conn->error;
 	if($result->num_rows>0)
@@ -261,7 +279,8 @@ function GetDataPerMonth($conn,$tableName)
 			$ints=$row["_29A"];
 			$_50A=$row["_50A"];
 			$_50B=$row["_50B"];
-			$t_array=array($id,$ints,$_50A,$_50B);
+			$date=$row["date"];
+			$t_array=array($id,$ints,$_50A,$_50B,$date);
 			array_push($data,$t_array);
 		}
 		return $data;
@@ -277,7 +296,7 @@ function ShowDataPerMonth($tableName,$data)
 	echo "<th rowspan=\"2\">";
 	echo "id";
 	echo "</th>";
-	echo "<th colspan=\"3\">";
+	echo "<th colspan=\"4\">";
 	echo "detail";
 	echo "</th>";
 	echo "</tr>";
@@ -294,6 +313,11 @@ function ShowDataPerMonth($tableName,$data)
 	echo "<th>";
 	echo "提单号";
 	echo "</th>";
+	
+	echo "<th>";
+	echo "日期";
+	echo "</th>";
+	
 	echo "</tr>";
 	///
 	$arrlength=count($data);
@@ -317,6 +341,10 @@ function ShowDataPerMonth($tableName,$data)
 		
 		echo "<td>";
 		echo $data[$x][3];
+		echo "</td>";
+		
+		echo "<td>";
+		echo $data[$x][4];
 		echo "</td>";
 		
 		echo "</tr>";
@@ -529,6 +557,108 @@ function ShowTables($conn)
 			array_push($data,$t_array);
 		}
 		return $data;
+	}
+}
+function ShowCustumerOutline($conn,$tableName,$data)
+{
+	echo "<table border=\"1\">";
+	// echo "<caption>".$tableName."</caption>";
+	///
+	echo "<tr>";
+	echo "<th rowspan=\"2\">";
+	echo "id";
+	echo "</th>";
+	echo "<th colspan=\"2\">";
+	echo "detail";
+	echo "</th>";
+	echo "</tr>";
+	
+	echo "<tr>";
+	echo "<th>";
+	echo "名字";
+	echo "</th>";
+	
+	echo "<th>";
+	echo "业务编号";
+	echo "</th>";
+	
+	echo "</tr>";
+	///
+	$arrlength=count($data);
+	for($x=0;$x<$arrlength;$x++)
+	{		// <a href="test/print.php">row 1, cell 1</a>
+		echo "<tr>";
+		
+		echo "<th>";
+		echo "<a href=\"CustumerDetail.php?tableName=".$tableName."&"."id=".$data[$x][0]."\">";
+		echo $data[$x][0];
+		echo "</a>";
+		echo "</th>";
+		
+		echo "<td>";
+		echo $data[$x][1];
+		echo "</td>";
+		
+		echo "<td>";
+		echo $data[$x][2];
+		echo "</td>";
+		
+		/* echo "<td>";
+		echo $data[$x][3];
+		echo "</td>";
+		
+		echo "<td>";
+		echo $data[$x][4];
+		echo "</td>"; */
+		
+		echo "</tr>";
+	}
+	echo "</table>";
+}
+function GetCustumerOutline($conn,$tableName)
+{
+	$data=array();
+	$sql7="select id , name, _50A from $tableName";
+	$result=$conn->query($sql7);
+	echo $conn->error;
+	if($result->num_rows>0)
+	{
+		while($row = $result->fetch_array()) 
+		{
+			// echo $row["pay"]."<br>".$row["cost"]."<br>";
+			$id=$row["id"];
+			$name=$row["name"];
+			$_50A=$row["_50A"];
+			/* $_50B=$row["_50B"];
+			$date=$row["date"]; */
+			$t_array=array($id,$name,$_50A);
+			array_push($data,$t_array);
+		}
+		return $data;
+	}
+}
+function GetOneCustumer($conn,$tableName,$id)
+{
+	$data=array();
+	$sql7="select * from $tableName where id=$id ";
+	$result=$conn->query($sql7);
+	echo $conn->error;
+	if($result->num_rows>0)
+	{
+		$row = $result->fetch_array();
+		// echo $row["_1B"];
+		return $row;
+		/* while($row = $result->fetch_array()) 
+		{
+			$id=$row["id"];
+			$pay=$row["pay"];
+			$data["pay"]=$pay;
+			// array_push($data,"pay",$pay);
+			$cost=$row["cost"];
+			$data["cost"]=$cost;
+			// array_push($data,"cost",$cost);
+		}
+		return $data; */
 	}
 }
 ?> 
