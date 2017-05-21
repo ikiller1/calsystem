@@ -24,7 +24,10 @@ UseDatabase($conn);
 	{
 		while($row = $result->fetch_array()) 
 		{
-			echo "<a href=\"print.php?tableName=".$row[0]."\">";
+			//echo substr_compare($row[0],"orders",0,6,FALSE);
+			if(substr_compare($row[0],"ordersdetail",0,12,FALSE)==0)
+			{
+			echo "<a href=\"printOrders.php?tableName=".$row[0]."\">";
 			echo $row[0];
 			echo "</a>";
 			echo "<br>";
@@ -35,6 +38,15 @@ UseDatabase($conn);
 			// $cost=$row["cost"];
 			//$t_array=array($id,$ints);
 			//array_push($data,$t_array);
+			}
+			else
+			{
+				//echo "custumer"."<br>";printCustumer.php
+				echo "<a href=\"printCustumer.php?tableName=".$row[0]."\">";
+				echo $row[0];
+				echo "</a>";
+				echo "<br>";
+			}
 		}
 		return $data;
 	}
