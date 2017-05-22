@@ -44,5 +44,8 @@
 <p>
 <a href="test/printday.html">计算某一天的利润</a>
 </p>
+<p>
+<a href="test/remote.html">jquery test</a>
+</p>
 </body>
 </html>
