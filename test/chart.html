@@ -2,17 +2,42 @@
 <head>
    <meta charset="UTF-8" />
    <title>Highcharts 教程 | 菜鸟教程(runoob.com)</title>
-   <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-   <script src="https://code.highcharts.com/highcharts.js"></script>
+   
+   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
 </head>
 <body>
 <div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
+<button id="button" class="autocompare">Add series</button>
+<?php
+$cars=array("7.0", "6.9", "9.5", "14.5", "18.2", "21.5", "25.2",	"26.5", "23.3", "18.3", "13.9", "9.6");
+?>
 <script language="JavaScript">
+	 
+		 //echo "7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2,	26.5, 23.3, 18.3, 13.9, 9.6";
+
+var odata;
+var sdata;
+var chart;
+var series=new Array();
 $(document).ready(function() {
-   var title = {
+	
+	$.post("/test/demo_test_post.php",{
+			name:"菜鸟教程",
+			url:"localhost"
+		},
+		function(data,status){
+			//alert("数据: \n" + data + "\n状态: " + status);
+			odata=data;
+			//odata= JSON.parse(data);
+			//sdata=data;
+		});
+		
+	var title = {
       text: '月利润'   
    };
-   var subtitle = {
+	var subtitle = {
       text: 'Source: localhost.com'
    };
    var xAxis = {
@@ -41,23 +66,22 @@ $(document).ready(function() {
       borderWidth: 1
    };
 
-   var series =  [
-      {
-         name: 'Import',
-         data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2,	26.5, 23.3, 18.3, 13.9, 9.6]
-      }, 
-      {
-         name: 'Export',
-         data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8,	24.1, 20.1, 14.1, 8.6, 2.5]
-      },
-      {
-         name: 'Sum',
-         data: [6.8, 7.7, 15.2, 25.8, 35.2, 43.5, 50, 	50.6, 43.4, 32.4, 22.5, 12.1]
-      }
-   ];
+	//series =  [
+      
+//{
+    //     name: 'Export',
+    //     data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8,	24.1, 20.1, 14.1, 8.6, 2.5]
+    //  }
+      
+ //  ];
 
    var json = {};
-
+	
+	//sdata=series.shift();
+	//sdata[name]=odata[name];
+	//series.push(sdata);
+	
+	//series.push(odata);
    json.title = title;
    json.subtitle = subtitle;
    json.xAxis = xAxis;
@@ -65,8 +89,21 @@ $(document).ready(function() {
    json.tooltip = tooltip;
    json.legend = legend;
    json.series = series;
+   
+   //$('#container').highcharts(json);
+   chart =new Highcharts.chart('container',json);
+	
+//chart.addSeries(odata,true);
+});
 
-   $('#container').highcharts(json);
+$('#button').click(function () {
+chart.addSeries(odata,true);
+//chart.redraw();
+    //if (chart.series.length === 2) {
+        /*chart.addSeries({
+            "data": [{y:194.1}, {y:95.6}, {y:54.4},{y: 29.9}, {y:71.5},{y: 106.4}, {y:129.2},{y: 144.0}, {y:176.0}, {y:135.6}, {y:148.5}, {y:216.4}]
+        });*/
+    //}
 });
 </script>
 </body>
