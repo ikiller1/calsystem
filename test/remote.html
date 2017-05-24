@@ -21,19 +21,11 @@
   </style> -->
   <script>
   $(function() {
-    function log( message ) {
-      $( "<div>" ).text( message ).prependTo( "#log" );
-      $( "#log" ).scrollTop( 0 );
-    }
- 
-    $( "#birds" ).autocomplete({
-      source: "search.php",
-      minLength: 2,
-      select: function( event, ui ) {
-        log( ui.item ?
-          "Selected: " + ui.item.value + " aka " + ui.item.id :
-          "Nothing selected, input was " + this.value );
-      }
+
+    $( "#orderid" ).autocomplete({
+      source: "EchoOrderId.php",
+      minLength: 1
+
     });
   });
   </script>
@@ -41,8 +33,8 @@
 <body>
  
 <div class="ui-widget">
-  <label for="birds">鸟：</label>
-  <input id="birds">
+  <label for="orderid">鸟：</label>
+  <input id="orderid">
 </div>
  
 <div class="ui-widget" style="margin-top:2em; font-family:Arial">

@@ -12,7 +12,9 @@
 </head>
 
 <body>
-
+<p>
+<a href="test/EchoOrderId.php">echoorderid</a>
+</p>
 <p>
 <a href="test/func.html">insert</a>
 </p>
