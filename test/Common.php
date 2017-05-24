@@ -75,7 +75,7 @@ function CreateCustumerData($conn)
 function CreateOrderIdData($conn)
 {
 	$sql1 = "CREATE TABLE IF NOT EXISTS t_orderid (
-					id INT UNSIGNED AUTO_INCREMENT,
+					id INT UNSIGNED NOT NULL,
 					tablename CHAR(30) NOT NULL,
 					orderid CHAR(30) NOT NULL ,
 					PRIMARY KEY (id) ,
@@ -282,8 +282,26 @@ function CreateTestData($conn)
 	echo "创建测试数据成功（表格）";
 	return true;
 }
-function FindIdByOrderId($tableName)
-{}
+function FindIdByOrderId($conn,$orderid)
+{
+	$data=array();
+	$sql7="select id ,tablename from t_orderid";
+	$result=$conn->query($sql7);
+	echo $conn->error;
+	if($result->num_rows>0)
+	{
+		while($row = $result->fetch_array()) 
+		{
+			// echo $row["pay"]."<br>".$row["cost"]."<br>";
+			$id=$row["id"];
+			$tablename=$row["tablename"];
+			$t_array=array($id,$tablename);
+			//array_push($data,$t_array);
+			return $t_array;
+		}
+		
+	}
+}
 function AddCustumerData($conn)
 {
 	$sql5 = "INSERT INTO t_custumer (date)VALUES (CURDATE())";
@@ -335,9 +353,9 @@ function GetOrderIdData($conn,$tag)
 		return null;
 	}
 }
-function AddOrderIdData($conn,$tableName,$orderId)
+function AddOrderIdData($conn,$tableName,$id,$orderId)
 {
-	$sql5 = "INSERT INTO t_orderid (tablename,orderid)VALUES ('$tableName','$orderId')";
+	$sql5 = "INSERT INTO t_orderid (id,tablename,orderid)VALUES ($id,'$tableName','$orderId')";
 			if ($conn->query($sql5) === TRUE) {
 				echo "orderid加入新纪录成功";
 			} else {
@@ -473,7 +491,7 @@ function SetOneData($conn,$tableName,$data,$id)
 	{//Number($data["_1A"])
 		if(empty($_POST["_50A"])==false)
 		{
-			AddOrderIdData($conn,$tableName,$_POST["_50A"]);
+			AddOrderIdData($conn,$tableName,$id,$_POST["_50A"]);
 		}
 					$sql6="UPDATE  $tableName SET 
 					date ='".$_POST["date"]."',
