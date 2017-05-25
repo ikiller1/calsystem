@@ -53,16 +53,16 @@ function UseDatabase($conn)
 	//echo "<br>";
 }
 function CreateCustumerData($conn)
-{
+{//UNIQUE (_50A)
 	$sql1 = "CREATE TABLE IF NOT EXISTS t_custumer (
 					id INT UNSIGNED AUTO_INCREMENT,
 					date DATE NOT NULL,
 					
 					name TEXT NOT NULL,
 					address TEXT NOT NULL,
-					_50A CHAR(30) ,
-					PRIMARY KEY (id) ,
-					UNIQUE KEY (_50A)
+					_50A CHAR(30) DEFAULT NULL,
+					PRIMARY KEY (id) 
+					
 					)
 					engine=InnoDB DEFAULT CHARSET='utf8'";
 		if ($conn->query($sql1) === TRUE) {
@@ -128,6 +128,7 @@ function CreateTestData($conn)
 		$sql1 = "CREATE TABLE IF NOT EXISTS OrdersDetail_$name (
 					date DATE,
 					id SMALLINT UNSIGNED AUTO_INCREMENT,
+					custumerid INT UNSIGNED DEFAULT 0,
 					_1A DOUBLE NOT NULL DEFAULT 0,
 					_1B DOUBLE NOT NULL DEFAULT 0,
 					_1C DOUBLE NOT NULL DEFAULT 0,
@@ -285,7 +286,7 @@ function CreateTestData($conn)
 function FindIdByOrderId($conn,$orderid)
 {
 	$data=array();
-	$sql7="select id ,tablename from t_orderid";
+	$sql7="select id ,tablename from t_orderid where orderid='$orderid'";
 	$result=$conn->query($sql7);
 	echo $conn->error;
 	if($result->num_rows>0)
@@ -301,6 +302,38 @@ function FindIdByOrderId($conn,$orderid)
 		}
 		
 	}
+	$t_array=array(0,0);
+	return $t_array;
+}
+function GetCustumerData($conn)
+{
+	//if($tag==1)
+	{
+		$data=array();
+		$sql7="select name,id from t_custumer";
+		$result=$conn->query($sql7);
+		echo $conn->error;
+		if($result->num_rows>0)
+		{
+			while($row = $result->fetch_array()) 
+			{
+				// echo $row["pay"]."<br>".$row["cost"]."<br>";
+				$id=$row["id"];
+				$name=$row["name"];
+				$t_array=array($id,$name);
+				array_push($data,$t_array);
+			}
+		return $data;
+		}
+		else return null;
+	}
+	/* else if(tag==2)
+	{
+		
+	}
+	else {
+		return null;
+	} */
 }
 function AddCustumerData($conn)
 {
@@ -495,6 +528,7 @@ function SetOneData($conn,$tableName,$data,$id)
 		}
 					$sql6="UPDATE  $tableName SET 
 					date ='".$_POST["date"]."',
+					custumerid ='".$_POST["custumerid"]."',
 					_1A = ".$_POST["_1A"].",
 					_1B = ".$_POST["_1B"].",
 					_1C = ".$_POST["_1C"].",
