@@ -1,26 +1,30 @@
 <?php
 include 'Common.php';
-$orderid=$_POST["orderid"];
+//header("Content-type: text/json");
+// sleep( 2 );
+// no term passed - just exit early with no response
+if (empty($_GET['term'])) exit ;
+$q = strtolower($_GET["term"]);
+// remove slashes if they were magically added
+if (get_magic_quotes_gpc()) $q = stripslashes($q);
+$result = array();
 $conn=Login($ROLE_ROOT);
 UseDatabase($conn);
-$data=FindIdByOrderId($conn,$orderid);
-$result=array();
-array_push($result,$data[0]);
-array_push($result,$data[1]);
+$data=GetCustumerData($conn);
 //foreach ($data as $value) {
-	//echo $data[0].$data[1];
+	
 	//echo $value[0]."<br>".$value[1]."<br>";
 //}
-/* foreach ($data as $value) {
+foreach ($data as $value) {
 	 //if (strpos(strtolower($key), $q) !== false) {
 	if (strpos(strtolower($value[1]), $q) !== false) {
-		//array_push($result, array("id"=>$value, "label"=>$key, "value" => strip_tags($key)));
-		array_push($result,$value[1]);
+		array_push($result, array("label"=>$value[1], "value" => $value[0],"id" => $value[0]));
+		//array_push($result,$value[1]);
 	}
 	if (count($result) > 6)
 		break; 
 	//echo $value[0]."<br>".$value[1]."<br>";
-} */
+}
 
 // json_encode is available in PHP 5.2 and above, or you can install a PECL module in earlier versions
 $output = json_encode($result);
