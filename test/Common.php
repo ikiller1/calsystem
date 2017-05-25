@@ -18,7 +18,7 @@ function Login($role)
 	} */
 	if($role===$ROLE_ROOT)
 	{
-		echo "role=root"."<br>";
+		//echo "role=root"."<br>";
 	}
 	// 创建连接
 	$conn = new mysqli($servername, $username, $password);
@@ -31,7 +31,7 @@ function Login($role)
 		if ($conn->query( "set names utf8") === TRUE){}
 		else
 			die("连接失败: " . $conn->connect_error);
-		echo "<br>";
+		//echo "<br>";
 	}
 	// var_dump( $conn);
 	return $conn;
@@ -50,17 +50,37 @@ function UseDatabase($conn)
 	{
 		echo "Error creating database: " . $conn->error;
 	}
-	echo "<br>";
+	//echo "<br>";
 }
 function CreateCustumerData($conn)
-{
+{//UNIQUE (_50A)
 	$sql1 = "CREATE TABLE IF NOT EXISTS t_custumer (
-					date DATE,
 					id INT UNSIGNED AUTO_INCREMENT,
+					date DATE NOT NULL,
+					
 					name TEXT NOT NULL,
 					address TEXT NOT NULL,
-					_50A TEXT,
+					_50A CHAR(30) DEFAULT NULL,
 					PRIMARY KEY (id) 
+					
+					)
+					engine=InnoDB DEFAULT CHARSET='utf8'";
+		if ($conn->query($sql1) === TRUE) {
+			// echo "数据表创建成功";
+		} else {
+			echo "Error creating database: " . $conn->error;
+			die();
+		}
+}
+function CreateOrderIdData($conn)
+{
+	$sql1 = "CREATE TABLE IF NOT EXISTS t_orderid (
+					id INT UNSIGNED NOT NULL,
+					tablename CHAR(30) NOT NULL,
+					orderid CHAR(30) NOT NULL ,
+					PRIMARY KEY (id) ,
+					UNIQUE KEY (orderid),
+					INDEX (orderid)
 					)
 					engine=InnoDB DEFAULT CHARSET='utf8'";
 		if ($conn->query($sql1) === TRUE) {
@@ -108,6 +128,7 @@ function CreateTestData($conn)
 		$sql1 = "CREATE TABLE IF NOT EXISTS OrdersDetail_$name (
 					date DATE,
 					id SMALLINT UNSIGNED AUTO_INCREMENT,
+					custumerid INT UNSIGNED DEFAULT 0,
 					_1A DOUBLE NOT NULL DEFAULT 0,
 					_1B DOUBLE NOT NULL DEFAULT 0,
 					_1C DOUBLE NOT NULL DEFAULT 0,
@@ -217,7 +238,7 @@ function CreateTestData($conn)
 					_28A DOUBLE NOT NULL DEFAULT 0,
 					_28B DOUBLE NOT NULL DEFAULT 0,
 					_29A DOUBLE NOT NULL DEFAULT 0,
-					_50A TEXT NOT NULL ,
+					_50A CHAR(30) ,
 					_50B TEXT NOT NULL ,
 					_51A TEXT NOT NULL ,
 					_51B TEXT NOT NULL ,
@@ -226,7 +247,8 @@ function CreateTestData($conn)
 					_53A DOUBLE NOT NULL DEFAULT 0,
 					_53B DOUBLE NOT NULL DEFAULT 0,
 					PRIMARY KEY (id),
-					INDEX (date)
+					INDEX (date),
+					UNIQUE KEY (_50A)
 					)
 					engine=InnoDB DEFAULT CHARSET='utf8'";
 		if ($conn->query($sql1) === TRUE) {
@@ -261,7 +283,118 @@ function CreateTestData($conn)
 	echo "创建测试数据成功（表格）";
 	return true;
 }
-
+function FindIdByOrderId($conn,$orderid)
+{
+	$data=array();
+	$sql7="select id ,tablename from t_orderid where orderid='$orderid'";
+	$result=$conn->query($sql7);
+	echo $conn->error;
+	if($result->num_rows>0)
+	{
+		while($row = $result->fetch_array()) 
+		{
+			// echo $row["pay"]."<br>".$row["cost"]."<br>";
+			$id=$row["id"];
+			$tablename=$row["tablename"];
+			$t_array=array($id,$tablename);
+			//array_push($data,$t_array);
+			return $t_array;
+		}
+		
+	}
+	$t_array=array(0,0);
+	return $t_array;
+}
+function GetCustumerData($conn)
+{
+	//if($tag==1)
+	{
+		$data=array();
+		$sql7="select name,id from t_custumer";
+		$result=$conn->query($sql7);
+		echo $conn->error;
+		if($result->num_rows>0)
+		{
+			while($row = $result->fetch_array()) 
+			{
+				// echo $row["pay"]."<br>".$row["cost"]."<br>";
+				$id=$row["id"];
+				$name=$row["name"];
+				$t_array=array($id,$name);
+				array_push($data,$t_array);
+			}
+		return $data;
+		}
+		else return null;
+	}
+	/* else if(tag==2)
+	{
+		
+	}
+	else {
+		return null;
+	} */
+}
+function AddCustumerData($conn)
+{
+	$sql5 = "INSERT INTO t_custumer (date)VALUES (CURDATE())";
+			if ($conn->query($sql5) === TRUE) {
+				echo "Custumer加入新纪录成功";
+			} else {
+				echo $conn->error;
+			}
+}
+function SetCustumerData($conn,$id)
+{
+	$sql6="UPDATE  t_custumer SET 
+					name ='".$_POST["name"]."',
+					address = '".$_POST["address"]."',
+					_50A = '".$_POST["_50A"]."' 
+					WHERE id=".$id;
+	if ($conn->query($sql6) === TRUE) {
+		echo "Custumer更改纪录成功";
+	} else {
+		echo $conn->error;
+	}
+}
+function GetOrderIdData($conn,$tag)
+{
+	if($tag==1)
+	{
+		$data=array();
+		$sql7="select * from t_orderid";
+		$result=$conn->query($sql7);
+		echo $conn->error;
+		if($result->num_rows>0)
+		{
+			while($row = $result->fetch_array()) 
+			{
+				// echo $row["pay"]."<br>".$row["cost"]."<br>";
+				$id=$row["id"];
+				$orderid=$row["orderid"];
+				$t_array=array($id,$orderid);
+				array_push($data,$t_array);
+			}
+		return $data;
+		}
+	}
+	else if(tag==2)
+	{
+		
+	}
+	else {
+		return null;
+	}
+}
+function AddOrderIdData($conn,$tableName,$id,$orderId)
+{
+	$sql5 = "INSERT INTO t_orderid (id,tablename,orderid)VALUES ($id,'$tableName','$orderId')";
+			if ($conn->query($sql5) === TRUE) {
+				echo "orderid加入新纪录成功";
+			} else {
+				echo $conn->error;
+			}
+}
 function GetDataPerMonth($conn,$tableName)
 {
 	// $month=5;
@@ -290,7 +423,7 @@ function GetDataPerMonth($conn,$tableName)
 function ShowDataPerMonth($tableName,$data)
 {
 	echo "<table border=\"1\">";
-	echo "<caption>".$tableName."</caption>";
+	echo "<caption id='tableName'>".$tableName."</caption>";
 	///
 	echo "<tr>";
 	echo "<th rowspan=\"2\">";
@@ -389,8 +522,13 @@ function SetOneData($conn,$tableName,$data,$id)
 	}
 	else
 	{//Number($data["_1A"])
+		if(empty($_POST["_50A"])==false)
+		{
+			AddOrderIdData($conn,$tableName,$id,$_POST["_50A"]);
+		}
 					$sql6="UPDATE  $tableName SET 
 					date ='".$_POST["date"]."',
+					custumerid ='".$_POST["custumerid"]."',
 					_1A = ".$_POST["_1A"].",
 					_1B = ".$_POST["_1B"].",
 					_1C = ".$_POST["_1C"].",

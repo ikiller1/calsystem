@@ -15,6 +15,7 @@ $tableName="t_201705";
 $conn=Login($ROLE_ROOT);
 CreateTestData($conn);
 CreateCustumerData($conn);
+CreateOrderIdData($conn);
 // $data=GetDataPerMonth($conn,$tableName);
 // ShowDataPerMonth($tableName,$data);
 

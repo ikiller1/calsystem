@@ -1,18 +1,9 @@
-<!DOCTYPE HTML><html>
-<head>
-	<meta charset="utf-8" />
-	<meta http-equiv="content-type" content="text/html" />
-	<meta name="author" content="Tuesday 2014-10-16" />
-	<title>xampp</title>
-
-<style type="text/css">
-    #content table{ width: 600px;}
-    #content a{color: white;}
-</style>
-</head>
-
-<body>
-
+<?php
+include 'header.php';
+?>
+<p>
+<a href="test/EchoOrderId.php">echoorderid</a>
+</p>
 <p>
 <a href="test/func.html">insert</a>
 </p>
@@ -43,6 +34,9 @@
 </p>
 <p>
 <a href="test/printday.html">计算某一天的利润</a>
+</p>
+<p>
+<a href="test/remote.html">jquery test</a>
 </p>
 </body>
 </html>

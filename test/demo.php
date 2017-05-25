@@ -2,6 +2,12 @@
 <html>
 <head> 
 <meta charset="utf-8"> 
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!--<link href="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.theme.min.css" rel="stylesheet">-->
+   <!--<script src="http://cdn.hcharts.cn/jquery/jquery.min.js"></script>-->
+   <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <!--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>-->
+  <script src="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <title>菜鸟教程(runoob.com)</title> 
 </head>
 <body>
@@ -27,13 +33,16 @@ echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"p
 	<th style="background-color:PaleTurquoise" colspan="1">提单号</th>
     <td colspan="1"><input type="text" name="_50B" value=<?php echo $data["_50B"]; ?>></td>
 	<th style="background-color:PaleTurquoise" colspan="1">日期</th>
-    <td colspan="1"><input type="date" name="date" value=<?php echo $data["date"]; ?>></td>
+    <td colspan="1"><input type="date" name="date" value=<?php echo $data["date"]; ?> style="height:97%; width:97%;"></td>
   </tr>
   <tr>
     <th style="background-color:PaleTurquoise" colspan="1">船名航次</th>
     <td colspan="1"><input type="text" name="_51A" value=<?php echo $data["_51A"]; ?>></td>
 	<th style="background-color:PaleTurquoise" colspan="1">起运港</th>
     <td colspan="1"><input type="text" name="_51B" value=<?php echo $data["_51B"]; ?>></td>
+	<th style="background-color:PaleTurquoise" colspan="1">用户信息</th>
+    <td colspan="1"><input type="text" id="custumerid" name="custumerid" value=<?php echo $data["custumerid"]; ?>></td>
+	<td><a id="link" href="">LinkToOrder</a></td>
   </tr>
   <tr>
     <th style="background-color:PaleTurquoise" colspan="1">买入汇率1</th>
@@ -270,6 +279,55 @@ echo "<input type=\"button\" value=\"删除\" onclick=\"javascript:window.locati
 
 </form>
 <script>
+$(function() {
+$( "#custumerid" ).autocomplete({
+      source: "EchoCustumer.php",
+      minLength: 1
+	  //,
+	  /* select: function( event, ui ) {
+		  //console.log(ui.item.label+" "+ui.item.value+" "+ui.item.id);
+		  log( ui.item ? ui.item.id : 0 );
+      } */
+
+    });
+	});
+$(document).ready(function() {
+	
+ 		var custumerid=document.forms["myForm"]["custumerid"].value;
+	console.log("text length :"+custumerid.length);
+	console.log("text:"+custumerid);
+	if(custumerid==0)
+	{	
+		console.log("custumerid is 0");
+		//alert("数据: \n" +  "\n状态: ");
+		document.getElementById("link").href="error.html";
+	}
+	else
+	{
+		var ln="CustumerDetail.php?tableName=t_custumer&id=";
+		ln=ln.concat(custumerid);
+		document.getElementById("link").href=ln;
+	}
+/* $(function() {
+	
+	 function log( id ) {
+		if(id==0)
+		{
+			document.getElementById("link").href="error.html";
+		}
+		else
+		{
+			console.log("LOG:"+id);
+			var ln="CustumerDetail.php?tableName=t_custumer&id=";
+			ln=ln.concat(id);
+			//document.forms["myForm"]["custumerid"].value="qweqweqwe";
+			document.getElementById("link").href=ln;
+			console.log("LN:"+ln);
+		}
+	} 
+    */
+  }); 
+  
 function calculate()
 {	//第一列
 	document.forms["myForm"]["_6A"].value=Number(document.forms["myForm"]["_1A"].value)
