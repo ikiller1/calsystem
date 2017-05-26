@@ -27,7 +27,7 @@ include 'header.php';
 </p>
 
 <p>
-<a href="test/showtables.php">DEMO 1</a>
+<a href="test/showtablesAll.php">DEMO 1</a>
 </p>
 <p>
 <a href="test/profit.php">计算月利润</a>

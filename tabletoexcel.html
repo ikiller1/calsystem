@@ -1,0 +1,90 @@
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>无标题页</title>
+    <script type="text/javascript" language="javascript">
+    function PrintTableToExcel(objTab)
+{
+  try 
+  {
+    var xls = new ActiveXObject( "Excel.Application" );
+  }
+  catch(e) 
+  {
+  alert(e)
+    //alert( "要打印该表，您必须安装Excel电子表格软件，同时浏览器须使用“ActiveX 控件”，您的浏览器须允许执行控件。 请点击【帮助】了解浏览器设置方法！");
+    return false;
+  }
+  xls.visible = true;
+  var xlBook = xls.Workbooks.Add;
+  var xlsheet = xlBook.Worksheets(1);
+  var x = 1;
+  var y = 1;
+  for (var i = 0; i < objTab.rows.length; i++)
+  {
+    y = 1;
+    for (var j = 0; j < objTab.rows[i].cells.length; j++)
+    {
+      xlsheet.Cells(x, y).Value = objTab.rows[i].cells[j].innerHTML;
+      xlsheet.Cells(x, y).Borders.LineStyle = 1;
+      y++;
+    }
+    x++;
+  }
+  xlsheet.Columns.AutoFit; //自动适应大小
+  return;
+}
+
+ 
+
+    </script>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <table id="Table1" cellpadding="0" cellspacing="0" style="width:90%">
+            <tr>
+                <td>
+                    姓名</td>
+                <td>
+                    学号</td>
+                <td>
+                    语文</td>
+                <td>
+                    数学</td>
+            </tr>
+            <tr>
+                <td>
+                    张三</td>
+                <td>
+                    200118056</td>
+                <td>
+                    78</td>
+                <td>
+                    95</td>
+            </tr>
+            <tr>
+                <td>
+                    李四</td>
+                <td>
+                    201118057</td>
+                <td>
+                    89</td>
+                <td>
+                    37</td>
+            </tr>
+            <tr>
+                <td>
+                    王五</td>
+                <td>
+                    201118058</td>
+                <td>
+                    92</td>
+                <td>
+                    88</td>
+            </tr>
+        </table>
+        <input id="Submit1" type="submit" value="submit" onclick="PrintTableToExcel(Table1)" />
+    </div>
+    </form>
+</body>
+</html>

@@ -1,18 +1,6 @@
-<!DOCTYPE HTML><html>
-<head>
-
-<meta charset="UTF-8" />
-   <!--<script src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>-->
-   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-   <!--<link href="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.theme.min.css" rel="stylesheet">-->
-   <!--<script src="http://cdn.hcharts.cn/jquery/jquery.min.js"></script>-->
-   <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-  <!--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>-->
-  <script src="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js"></script>
-  
-</head>
-
-<body>
+<?php
+include '../header.php';
+?>
 
 
 <?php
@@ -35,7 +23,7 @@ echo "<p id=\"id\" hidden>".$id."</p>";
 echo "<form action=\"insertCustumer.php?"."id=".$id."\" method=\"post\" name=\"myForm\" onsubmit=\"return check()\">";
 ?> 
 
-<table style="text-align:center" border="1" >
+<table id="tabletest" style="text-align:center" border="1" >
   <caption>custumer detail</caption>
   <tr>
     <th style="background-color:PaleTurquoise" colspan="1">order id</th>
@@ -50,10 +38,53 @@ echo "<form action=\"insertCustumer.php?"."id=".$id."\" method=\"post\" name=\"m
 	<th style="background-color:PaleTurquoise" colspan="1">address</th>
     <td colspan="1"><input type="text" name="address" value=<?php echo $data["address"]; ?>></td>
   </tr>
+<body>
 </table>
 <input type="submit" value="提交">
 </form>
 
+	<div id="export">
+
+		<a data-type="json" href="javascript:;">导出json</a>
+
+		<a data-type="txt" href="javascript:;">导出txt</a>
+
+		<a data-type="csv" href="javascript:;">导出csv</a>
+
+		<a data-type="xls" href="javascript:;">导出excel</a>
+
+		<a data-type="doc" href="javascript:;">导出word</a>
+
+	</div>
+	<script src="Blob.js"></script>
+
+	<script src="FileSaver.js"></script>
+
+	<script src="tableExport.js"></script>
+	<script>
+
+
+
+	var $exportLink = document.getElementById('export');
+
+	$exportLink.addEventListener('click', function(e){
+
+		e.preventDefault();
+
+		if(e.target.nodeName === "A"){
+
+			tableExport('tabletest', '测试测试', e.target.getAttribute('data-type'));
+
+		}
+
+		
+
+	}, false);
+
+
+
+	</script>
+	
 <script language="JavaScript">
 $(function() {
 
