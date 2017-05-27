@@ -3,6 +3,7 @@
 <head>
 <title></title>
 <meta charset="utf-8">
+
 <script src="http://localhost/resource/jquery.min.js"></script>
 <script src="http://localhost/resource/highcharts.js"></script>
 <!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
@@ -17,9 +18,15 @@
   <!--<script src="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js"></script>-->
   <!--<script src="http://localhost/resource/jquery.min.js"></script>-->
   <link rel="stylesheet" href="http://localhost/resource/jquery-ui.css">
-  
+ <!-- <script src="http://cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>-->
+ 
   <!--<script src="https://cdn.bootcss.com/highcharts/5.0.11/highcharts.js"></script>-->
   <!--<script src="http://localhost/resource/highcharts.js"></script>-->
+  
+<script type="text/javascript" src="../resource/xlsx.core.min.js"></script>
+<!--<script type="text/javascript" src="../resource/Blob.min.js"></script>-->
+<script type="text/javascript" src="../resource/FileSaver.min.js"></script>
+<script type="text/javascript" src="../resource/tableexport.js"></script>
   
 <style>
 ul {

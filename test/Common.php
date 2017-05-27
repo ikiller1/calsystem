@@ -57,7 +57,7 @@ function CreateCustumerData($conn)
 	$sql1 = "CREATE TABLE IF NOT EXISTS t_custumer (
 					id INT UNSIGNED AUTO_INCREMENT,
 					date DATE NOT NULL,
-					
+					notes TEXT NOT NULL,
 					name TEXT NOT NULL,
 					address TEXT NOT NULL,
 					_50A CHAR(30) DEFAULT NULL,
@@ -95,6 +95,7 @@ function CreateOrderTable($conn,$tableName)
 	$sql1 = "CREATE TABLE  OrdersDetail_$tableName (
 					date DATE,
 					id SMALLINT UNSIGNED AUTO_INCREMENT,
+					notes TEXT NOT NULL ,
 					custumerid INT UNSIGNED DEFAULT 0,
 					_1A DOUBLE NOT NULL DEFAULT 0,
 					_1B DOUBLE NOT NULL DEFAULT 0,
@@ -264,6 +265,7 @@ function CreateTestData($conn)
 					date DATE,
 					id SMALLINT UNSIGNED AUTO_INCREMENT,
 					custumerid INT UNSIGNED DEFAULT 0,
+					notes TEXT NOT NULL ,
 					_1A DOUBLE NOT NULL DEFAULT 0,
 					_1B DOUBLE NOT NULL DEFAULT 0,
 					_1C DOUBLE NOT NULL DEFAULT 0,
@@ -483,6 +485,7 @@ function SetCustumerData($conn,$id)
 {
 	$sql6="UPDATE  t_custumer SET 
 					name ='".$_POST["name"]."',
+					notes ='".$_POST["notes"]."',
 					address = '".$_POST["address"]."',
 					_50A = '".$_POST["_50A"]."' 
 					WHERE id=".$id;
@@ -664,6 +667,7 @@ function SetOneData($conn,$tableName,$data,$id)
 					$sql6="UPDATE  $tableName SET 
 					date ='".$_POST["date"]."',
 					custumerid ='".$_POST["custumerid"]."',
+					notes ='".$_POST["notes"]."',
 					_1A = ".$_POST["_1A"].",
 					_1B = ".$_POST["_1B"].",
 					_1C = ".$_POST["_1C"].",

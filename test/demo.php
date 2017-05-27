@@ -11,12 +11,13 @@ UseDatabase($conn);
 // CreateTestData($conn);
 if($id!=0)
 $data=GetOneData($conn,$tableName,$id);
+Logout($conn);
 echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"post\" name=\"myForm\" oninput=\"calculate()\" onsubmit=\"return check()\">";
 ?> 
 <!--<form action="insert.php?tableName=$tableName" method="post" name="myForm" oninput="calculate()">
  onchange="changecolor(this)"
 -->
-<table id="tabletest" style="text-align:center" border="1" >
+<table id="tabletest" name="tabletest" style="text-align:center" border="1" >
   <caption>费用明细(IMP)</caption>
   <tr>
     <th style="background-color:PaleTurquoise" colspan="1">业务编号</th>
@@ -261,7 +262,10 @@ echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"p
   </tr>
   <!-- ----------------------------------------------------------------->
 </table>
-
+<textarea name="notes" rows="10" cols="30">
+<?php echo $data["notes"]; ?>
+</textarea>
+<br>
 <input type="submit" value="提交">
 <?php 
 echo "<input type=\"button\" value=\"删除\" onclick=\"javascript:window.location.href='deleteData.php?tableName=".$tableName."&id=".$id."'\">";
@@ -269,44 +273,33 @@ echo "<input type=\"button\" value=\"删除\" onclick=\"javascript:window.locati
 
 
 </form>
-<div id="export">
 
-		<a data-type="json" href="javascript:;">导出json</a>
-
-		<a data-type="txt" href="javascript:;">导出txt</a>
-
-		<a data-type="csv" href="javascript:;">导出csv</a>
-
-		<a data-type="xls" href="javascript:;">导出excel</a>
-
-		<a data-type="doc" href="javascript:;">导出word</a>
-
-	</div>
-	<script src="Blob.js"></script>
-
-	<script src="FileSaver.js"></script>
-
-	<script src="tableExport.js"></script>
 	<script>
+	
+{
+	
+console.log("daochu");
+/* var ArabicTable = document.getElementById('tabletest');
+    TableExport(ArabicTable, {
+        formats: ['xlsx']
+    }); */
+ var DefaultTable = document.getElementById('tabletest');
+    new TableExport(DefaultTable, {
+        headers: true,                              // (Boolean), display table headers (th or td elements) in the <thead>, (default: true)
+        footers: true,                              // (Boolean), display table footers (th or td elements) in the <tfoot>, (default: false)
+        formats: ['xlsx'],             // (String[]), filetype(s) for the export, (default: ['xls', 'csv', 'txt'])
+        filename: 'id',                             // (id, String), filename for the downloaded file, (default: 'id')
+        bootstrap: false,                           // (Boolean), style buttons using bootstrap, (default: false)
+        position: 'bottom',                         // (top, bottom), position of the caption element relative to table, (default: 'bottom')
+        ignoreRows: null,                           // (Number, Number[]), row indices to exclude from the exported file(s) (default: null)
+        ignoreCols: null,                           // (Number, Number[]), column indices to exclude from the exported file(s) (default: null)
+        ignoreCSS: '.tableexport-ignore',           // (selector, selector[]), selector(s) to exclude cells from the exported file(s) (default: '.tableexport-ignore')
+        emptyCSS: '.tableexport-empty',             // (selector, selector[]), selector(s) to replace cells with an empty string in the exported file(s) (default: '.tableexport-empty')
+        trimWhitespace: true                        // (Boolean), remove all leading/trailing newlines, spaces, and tabs from cell text in the exported file(s) (default: true)
+    }); 
 
 
-
-	var $exportLink = document.getElementById('export');
-
-	$exportLink.addEventListener('click', function(e){
-
-		e.preventDefault();
-
-		if(e.target.nodeName === "A"){
-
-			tableExport('tabletest', '测试测试', e.target.getAttribute('data-type'));
-
-		}
-
-		
-
-	}, false);
-
+}
 
 
 	</script>
