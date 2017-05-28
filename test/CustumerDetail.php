@@ -21,7 +21,7 @@ echo $data["address"]."<br>";
 echo $data["_50A"]."<br>"; */
 //<th><a id="link" href="">2</a></th>
 echo "<p id=\"id\" hidden>".$id."</p>";
-echo "<form action=\"insertCustumer.php?"."id=".$id."\" method=\"post\" name=\"myForm\" onsubmit=\"return check()\">";
+echo "<form action=\"insertCustumer.php?"."id=".$id."\" method=\"post\" name=\"myForm\" id=\"myForm\" onsubmit=\"return check()\">";
 ?> 
 
 <table id="tabletest" style="text-align:center" border="1" >
@@ -47,9 +47,25 @@ echo "<form action=\"insertCustumer.php?"."id=".$id."\" method=\"post\" name=\"m
 <br>
 <input type="submit" value="提交">
 </form>
-
+<input type="button" onclick="onpreexport()" value="preexport"></button>
 	<script>
-
+function onpreexport()
+{
+	console.log("onpreexport");
+	var elements = document.getElementsByTagName('td');
+	for(var i = 0; i < elements.length; i++) {
+	// 获取 input id 最后两个字母 (1a/1b/2a/2b...)
+	//var id_unique = document.getElementById(elements[i].id).id.slice(-2);
+	//document.getElementById('td' + id_unique).innerHTML = document.getElementById(elements[i].id).value;
+	if(elements[i].childNodes[0].value!=null)
+		elements[i].innerHTML=elements[i].childNodes[0].value;
+	else 
+		elements[i].innerHTML="";
+}
+document.getElementById("myForm").action="export.html"
+toexport();
+}
+function toexport()
 {
 	
 console.log("daochu");
