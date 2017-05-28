@@ -9,8 +9,30 @@
 <body>
 
 <?php
-print ("<input type=\"text\" name=\"pay\" value=\"123\"><br>");
+// print ("<input type=\"text\" name=\"pay\" value=\"123\"><br>");
+echo getcwd();
+mkdir("filestorage");
+chdir("filestorage");
+for($i=0;$i<10;$i=$i+1)
+if(file_put_contents("test".$i.".txt","Hello World. Testing!")===true)
+{
+	echo "file:".$i."created succesful"."<br>";
+}
 
+$files = scandir(getcwd());
+$arrlength=count($files);
+ 
+for($x=0;$x<$arrlength;$x++)
+{
+    echo $files[$x];
+    echo "<br>";
+	if($files[$x]===".."||$files[$x]===".")
+	{}
+	else
+	{
+		unlink($files[$x]);
+	}
+}
 ?> 
 </body>
 </html>

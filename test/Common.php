@@ -96,6 +96,7 @@ function CreateOrderTable($conn,$tableName)
 					date DATE,
 					id SMALLINT UNSIGNED AUTO_INCREMENT,
 					notes TEXT NOT NULL ,
+					files TEXT NOT NULL ,
 					custumerid INT UNSIGNED DEFAULT 0,
 					_1A DOUBLE NOT NULL DEFAULT 0,
 					_1B DOUBLE NOT NULL DEFAULT 0,

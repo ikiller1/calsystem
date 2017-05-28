@@ -17,6 +17,7 @@ echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"p
 <!--<form action="insert.php?tableName=$tableName" method="post" name="myForm" id="myForm" oninput="calculate()">
  onchange="changecolor(this)"
 -->
+<input type="button" onclick="onpreexport()" value="preexport"></button>
 <table id="tabletest" name="tabletest" style="text-align:center" border="1" >
   <caption>费用明细(IMP)</caption>
   <tr>
@@ -275,7 +276,7 @@ echo "<input type=\"button\" value=\"删除\" onclick=\"javascript:window.locati
 
 
 </form>
-<input type="button" onclick="onpreexport()" value="preexport"></button>
+
 	<script>
 function onpreexport()
 {
@@ -519,5 +520,58 @@ function deleteData()
 	
 }
 </script>
+<!--upload file s-->
+
+<fieldset style="width:250px;height:80px">
+<legend>上传文件</legend>
+<form action="upload_file.php" method="post" enctype="multipart/form-data" id="uploadform">
+	<label for="file">文件名：</label>
+	<input type="file" name="file" id="file"><br>
+	<input type="button"  id="button" value="提交">
+</form>
+<progress value="0"></progress>
+</fieldset>
+
+<script>
+$(':button').click(function(){
+	var formElement = document.getElementById("uploadform");
+    //var formData = new FormData($('form')[1]);
+	var formData = new FormData(formElement);
+    $.ajax({
+        url: '../upload/upload_file.php',  //server script to process data
+        type: 'POST',
+        xhr: function() {  // custom xhr
+            myXhr = $.ajaxSettings.xhr();
+            if(myXhr.upload){ // check if upload property exists
+                myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // for handling the progress of the upload
+            }
+            return myXhr;
+        },
+        //Ajax事件
+        beforeSend: beforeSendHandler,
+        success: completeHandler,
+        error: errorHandler,
+        // Form数据
+        data: formData,
+        //Options to tell JQuery not to process data or worry about content-type
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+});
+function progressHandlingFunction(e){
+    if(e.lengthComputable){
+        $('progress').attr({value:e.loaded,max:e.total});
+    }
+}
+function beforeSendHandler()
+{console.log("beforeSendHandler");
+}
+function completeHandler()
+{console.log("completeHandler");}
+function errorHandler()
+{console.log("errorHandler");}
+</script>
+<!--upload file s-->
 </body>
 </html>
