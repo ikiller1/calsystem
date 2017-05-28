@@ -12,9 +12,9 @@ UseDatabase($conn);
 if($id!=0)
 $data=GetOneData($conn,$tableName,$id);
 Logout($conn);
-echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"post\" name=\"myForm\" oninput=\"calculate()\" onsubmit=\"return check()\">";
+echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"post\" name=\"myForm\" id=\"myForm\" oninput=\"calculate()\" onsubmit=\"return check()\">";
 ?> 
-<!--<form action="insert.php?tableName=$tableName" method="post" name="myForm" oninput="calculate()">
+<!--<form action="insert.php?tableName=$tableName" method="post" name="myForm" id="myForm" oninput="calculate()">
  onchange="changecolor(this)"
 -->
 <table id="tabletest" name="tabletest" style="text-align:center" border="1" >
@@ -124,8 +124,8 @@ echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"p
 	<th style="background-color:PaleTurquoise">清关费</th>
     <td colspan="1"><input type="number" step="0.0001"   name="_9A" value=<?php echo $data["_9A"]; ?>></td>
 	<td colspan="1"><input type="number" step="0.0001"   name="_9B" value=<?php echo $data["_9B"]; ?>></td>
-    <th colspan="1" rowspan="3"><input type="number" step="0.0001"   name="_9C" value=<?php echo $data["_9C"]; ?>></th>
-	<th colspan="1" rowspan="3"><input type="number" step="0.0001"   name="_9D" value=<?php echo $data["_9D"]; ?>></th>
+    <td rowspan="3"><input type="number" step="0.0001"   name="_9C" value=<?php echo $data["_9C"]; ?>></th>
+	<td rowspan="3"><input type="number" step="0.0001"   name="_9D" value=<?php echo $data["_9D"]; ?>></th>
   </tr>
   <tr>
 	<th style="background-color:PaleTurquoise">非贸中心费用</th>
@@ -246,19 +246,21 @@ echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"p
   </tr>
   <!-- ----------------------------------------------------------------->
   <tr>
-    <th style="background-color:PaleTurquoise" colspan="2" rowspan="2">合计  </th>
+    <th style="background-color:PaleTurquoise" rowspan="2" colspan="2" >合计  </th>
     <td colspan="1"><input type="number" step="0.0001"   name="_27A" value=<?php echo $data["_27A"]; ?>></td>
 	<td colspan="1"><input type="number" step="0.0001"   name="_27B" value=<?php echo $data["_27B"]; ?>></td>
     <td colspan="1"><input type="number" step="0.0001"   name="_27C" value=<?php echo $data["_27C"]; ?>></td>
 	<td colspan="1"><input type="number" step="0.0001"   name="_27D" value=<?php echo $data["_27D"]; ?>></td>
   </tr>
   <tr>
-    <td colspan="2" rowspan="1"><input type="number" step="0.0001"   name="_28A" value=<?php echo $data["_28A"]; ?>></td>
-	<td colspan="2" rowspan="1"><input type="number" step="0.0001"   name="_28B" value=<?php echo $data["_28B"]; ?>></td>
+    <td rowspan="1" colspan="2" ><input type="number" step="0.0001" name="_28A" value=<?php echo $data["_28A"]; ?> style="height:97%; width:97%;"></td>
+	<td></td>
+	<td rowspan="1" colspan="1" ><input type="number" step="0.0001" name="_28B" value=<?php echo $data["_28B"]; ?> style="height:97%; width:97%;"></td>
+	
   </tr>
   <tr>
     <th style="background-color:PaleTurquoise" colspan="2">毛利  </th>
-	<td colspan="4" rowspan="1"><input type="number" step="0.0001"   name="_29A" value=<?php echo $data["_29A"]; ?>></td>
+	<td colspan="1" rowspan="1"><input type="number" step="0.0001"   name="_29A" value=<?php echo $data["_29A"]; ?>></td>
   </tr>
   <!-- ----------------------------------------------------------------->
 </table>
@@ -273,9 +275,33 @@ echo "<input type=\"button\" value=\"删除\" onclick=\"javascript:window.locati
 
 
 </form>
-
+<input type="button" onclick="onpreexport()" value="preexport"></button>
 	<script>
+function onpreexport()
+{
+	console.log("onpreexport");
+	var elements = document.getElementsByTagName('td');
+	for(var i = 0; i < elements.length; i++) 
+	{
+		//if(elements[i].childNodes[0].value!=null)
+		//console.log(elements[i].childNodes[0].getAttribute("class"));
+		if(elements[i].childNodes[0]==null)
+		{
+			
+		}
+		else
+		{
+			if(elements[i].childNodes[0].value!=null)
+				elements[i].innerHTML=elements[i].childNodes[0].value;
+			else 
+				elements[i].innerHTML="";
+		}
+	}
+	document.getElementById("myForm").action="export.html";
+	toexport();
+}
 	
+function toexport()	
 {
 	
 console.log("daochu");
