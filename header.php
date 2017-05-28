@@ -115,11 +115,11 @@ li a:hover, .dropdown:hover .dropbtn {
 	
 
   <li><a class="active" href="../index.php">主页</a></li>
-  <li><a href="http://localhost/test/printCustumer.php?tableName=t_custumer">客户</a></li>
+  <li><a href="/test/printCustumer.php?tableName=t_custumer">客户</a></li>
   <div class="dropdown">
     <a href="#" class="dropbtn">订单</a>
     <div class="dropdown-content">
-      <a href="http://localhost/test/showtables.php">进口</a>
+      <a href="/test/showtables.php">进口</a>
       <a href="#">出口</a>
     </div>
   </div>
@@ -130,7 +130,7 @@ li a:hover, .dropdown:hover .dropbtn {
       <a href="#">日报</a>
       <a href="#">月报</a>
       <a href="#">季报</a>
-	  <a href="http://localhost/test/chart.php">年报</a>
+	  <a href="/test/chart.php">年报</a>
     </div>
   </div>
   
