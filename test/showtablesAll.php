@@ -1,6 +1,9 @@
-<?php
-include '../header.php';
-?>
+<!DOCTYPE HTML><html>
+<head>
+<meta charset="UTF-8" />
+</head>
+
+<body>
 
 <?php
 include 'Common.php';
@@ -36,22 +39,20 @@ UseDatabase($conn);
 			else
 			{
 				//echo "custumer"."<br>";printCustumer.php
-				/* echo "<a href=\"printCustumer.php?tableName=".$row[0]."\">";
+				echo "<a href=\"printCustumer.php?tableName=".$row[0]."\">";
 				echo $row[0];
 				echo "</a>";
-				echo "<br>"; */
+				echo "<br>";
 			}
 		}
 		//return $data;
 	}
 
 ?> 
-<fieldset style="width:250px;height:80px">
-<legend>NEW</legend>
+
 <input type="month" id="date" name="tableName" >
-<input type="button" class="buttonNew" value="new" onclick="addOrderTable()"  >
-<label id="state"></label>
-</fieldset>
+<input type="button" value="new" onclick="addOrderTable()">
+<label id="state">123</label>
 
 
 <script>
@@ -83,7 +84,7 @@ console.log("-----------------"+tableName.substr(0,4)+tableName.substr(5,2));
 	  //location.reload(true);
 	  //if(xmlhttp.responseText=="success")
 	  //document.getElementById("state").innerHTML="新记录创建成功";
-		setTimeout(function(){window.location.reload();},1500);
+		setTimeout(function(){window.location.reload();},1200);
     }
   }
   xmlhttp.open("POST","CreateOrderTable.php",true);

@@ -1,20 +1,11 @@
-<html>
-<head>
-   <meta charset="UTF-8" />
-   <title>Highcharts 教程 | 菜鸟教程(runoob.com)</title>
-   <!-- <script src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script> -->
-   <!-- <script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script> -->
-   <script src="https://cdn.bootcss.com/highcharts/5.0.11/highcharts.js"></script>
-   <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-   <!-- //<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
-<!-- <script src="https://code.highcharts.com/highcharts.js"></script> -->
-<!-- <script src="https://code.highcharts.com/modules/exporting.js"></script> -->
-</head>
-<body>
+<?php
+include '../header.php';
+?>
+
 <div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
 <!-- <button id="button" class="autocompare">Add series</button> -->
 
-<script language="JavaScript">
+<script >
 var odata;
 var sdata;
 var chart=null;

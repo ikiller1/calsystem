@@ -1,0 +1,54 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+
+<form action="upload_file.php" method="post" enctype="multipart/form-data">
+	<label for="file">文件名：</label>
+	<input type="file" name="file" id="file"><br>
+	<input type="button"  id="button" value="提交">
+</form>
+<progress></progress>
+<script>
+$(':button').click(function(){
+    var formData = new FormData($('form')[0]);
+    $.ajax({
+        url: 'upload_file.php',  //server script to process data
+        type: 'POST',
+        xhr: function() {  // custom xhr
+            myXhr = $.ajaxSettings.xhr();
+            if(myXhr.upload){ // check if upload property exists
+                myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // for handling the progress of the upload
+            }
+            return myXhr;
+        },
+        //Ajax事件
+        beforeSend: beforeSendHandler,
+        success: completeHandler,
+        error: errorHandler,
+        // Form数据
+        data: formData,
+        //Options to tell JQuery not to process data or worry about content-type
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+});
+function progressHandlingFunction(e){
+    if(e.lengthComputable){
+        $('progress').attr({value:e.loaded,max:e.total});
+    }
+}
+function beforeSendHandler()
+{console.log("beforeSendHandler");
+}
+function completeHandler()
+{console.log("completeHandler");}
+function errorHandler()
+{console.log("errorHandler");}
+</script>
+</body>
+</html>

@@ -1,18 +1,6 @@
-<!DOCTYPE HTML><html>
-<head>
-
-<meta charset="UTF-8" />
-   <!--<script src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>-->
-   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-   <!--<link href="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.theme.min.css" rel="stylesheet">-->
-   <!--<script src="http://cdn.hcharts.cn/jquery/jquery.min.js"></script>-->
-   <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-  <!--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>-->
-  <script src="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js"></script>
-  
-</head>
-
-<body>
+<?php
+include '../header.php';
+?>
 
 
 <?php
@@ -24,6 +12,7 @@ $tableName=$_GET["tableName"];
 $conn=Login($ROLE_ROOT);
 UseDatabase($conn);
 $data=GetOneCustumer($conn,$tableName,$id);
+Logout($conn);
 // ShowDetail($data);
 /* echo $data["date"]."<br>";
 echo $data["id"]."<br>";
@@ -32,10 +21,10 @@ echo $data["address"]."<br>";
 echo $data["_50A"]."<br>"; */
 //<th><a id="link" href="">2</a></th>
 echo "<p id=\"id\" hidden>".$id."</p>";
-echo "<form action=\"insertCustumer.php?"."id=".$id."\" method=\"post\" name=\"myForm\" onsubmit=\"return check()\">";
+echo "<form action=\"insertCustumer.php?"."id=".$id."\" method=\"post\" name=\"myForm\" id=\"myForm\" onsubmit=\"return check()\">";
 ?> 
 
-<table style="text-align:center" border="1" >
+<table id="tabletest" style="text-align:center" border="1" >
   <caption>custumer detail</caption>
   <tr>
     <th style="background-color:PaleTurquoise" colspan="1">order id</th>
@@ -50,10 +39,69 @@ echo "<form action=\"insertCustumer.php?"."id=".$id."\" method=\"post\" name=\"m
 	<th style="background-color:PaleTurquoise" colspan="1">address</th>
     <td colspan="1"><input type="text" name="address" value=<?php echo $data["address"]; ?>></td>
   </tr>
+<body>
 </table>
+<textarea name="notes" rows="10" cols="30">
+<?php echo $data["notes"]; ?>
+</textarea>
+<br>
 <input type="submit" value="提交">
 </form>
+<input type="button" onclick="onpreexport()" value="preexport"></button>
+	<script>
+function onpreexport()
+{
+	console.log("onpreexport");
+	var elements = document.getElementsByTagName('td');
+	for(var i = 0; i < elements.length; i++) 
+	{
+		//if(elements[i].childNodes[0].value!=null)
+		//console.log(elements[i].childNodes[0].getAttribute("class"));
+		if(elements[i].childNodes[0]==null)
+		{
+			
+		}
+		else
+		{
+			if(elements[i].childNodes[0].value!=null)
+				elements[i].innerHTML=elements[i].childNodes[0].value;
+			else 
+				elements[i].innerHTML="";
+		}
+	}
+	document.getElementById("myForm").action="export.html";
+	toexport();
+}
+function toexport()
+{
+	
+console.log("daochu");
+/* var ArabicTable = document.getElementById('tabletest');
+    TableExport(ArabicTable, {
+        formats: ['xlsx']
+    }); */
+ var DefaultTable = document.getElementById('tabletest');
+    new TableExport(DefaultTable, {
+        headers: true,                              // (Boolean), display table headers (th or td elements) in the <thead>, (default: true)
+        footers: true,                              // (Boolean), display table footers (th or td elements) in the <tfoot>, (default: false)
+        formats: ['xlsx'],             // (String[]), filetype(s) for the export, (default: ['xls', 'csv', 'txt'])
+        filename: 'id',                             // (id, String), filename for the downloaded file, (default: 'id')
+        bootstrap: false,                           // (Boolean), style buttons using bootstrap, (default: false)
+        position: 'bottom',                         // (top, bottom), position of the caption element relative to table, (default: 'bottom')
+        ignoreRows: null,                           // (Number, Number[]), row indices to exclude from the exported file(s) (default: null)
+        ignoreCols: null,                           // (Number, Number[]), column indices to exclude from the exported file(s) (default: null)
+        ignoreCSS: '.tableexport-ignore',           // (selector, selector[]), selector(s) to exclude cells from the exported file(s) (default: '.tableexport-ignore')
+        emptyCSS: '.tableexport-empty',             // (selector, selector[]), selector(s) to replace cells with an empty string in the exported file(s) (default: '.tableexport-empty')
+        trimWhitespace: true                        // (Boolean), remove all leading/trailing newlines, spaces, and tabs from cell text in the exported file(s) (default: true)
+    }); 
 
+
+}
+
+
+
+	</script>
+	
 <script language="JavaScript">
 $(function() {
 

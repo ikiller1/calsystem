@@ -62,6 +62,6 @@ for($month=1;$month<=12;$month++)
 
 $conn->close();
 ?> 
-<a href="chart.html" >图表</a>
+<a href="chart.php" >图表</a>
 </body>
 </html>

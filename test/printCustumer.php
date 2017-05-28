@@ -1,11 +1,7 @@
-<!DOCTYPE HTML><html>
-<head>
+<?php
+include '../header.php';
+?>
 
-<meta charset="UTF-8" />
-
-</head>
-
-<body>
 
 
 <?php
@@ -14,7 +10,9 @@ $tableName=$_GET["tableName"];
 $conn=Login($ROLE_ROOT);
 UseDatabase($conn);
 $data=GetCustumerOutline($conn,$tableName);
+
 ShowCustumerOutline($conn,$tableName,$data);
+Logout($conn);
 echo "<br>";
 /* echo "<p><a href=\"newRecord.php?id=0&"."tableName=".$tableName."\"".">new record</a>";
 echo "</p>"; */
@@ -42,7 +40,7 @@ var xmlhttp;
 	  //location.reload(true);
 	  //if(xmlhttp.responseText=="success")
 	  //document.getElementById("orderid").innerHTML="新记录创建成功";
-		setTimeout(function(){window.location.reload();},2000);
+		setTimeout(function(){window.location.reload();},1500);
     }
   }
   xmlhttp.open("POST","newCustumer.php",true);
