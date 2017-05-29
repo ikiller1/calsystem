@@ -264,7 +264,7 @@ echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"p
 	<td colspan="1" rowspan="1"><input type="number" step="0.0001"   name="_29A" value=<?php echo $data["_29A"]; ?>></td>
   </tr>
   <tr>
-	  <th rowspan="3" colspan="1">备注</th>
+	  <th rowspan="3" colspan="1">备注(请不要输入">"."<"等字符)</th>
 	  <td rowspan="3" colspan="4"><input type="text" style="height:97%; width:97%;" name="notes" rows="3" cols="50" value=<?php echo $data["notes"]; ?> ></td>
   </tr>
   
@@ -506,7 +506,7 @@ function changecolor(thisitem)
 }
 function check()
 {
-var r=confirm("are you sure to submit ?");
+var r=confirm("确定提交该次修改？");
 var x=document.getElementById("myForm");
 if(r==true)
 {
@@ -539,6 +539,12 @@ function deleteData()
 $(':button').click(function(){
 	console.log(document.getElementById("_50A").value);
 	var tag=document.getElementById("_50A").value;
+	var filexist=document.getElementById("file").value;
+	if(tag.length==0||filexist.length==0)
+	{
+		alert("业务编号为空或未选择文件");
+		return;
+	}
 	var formElement = document.getElementById("uploadform");
     //var formData = new FormData($('form')[1]);
 	var formData = new FormData(formElement);
@@ -554,9 +560,23 @@ $(':button').click(function(){
             return myXhr;
         },
         //Ajax事件
-        beforeSend: beforeSendHandler,
-        success: completeHandler,
-        error: errorHandler,
+        beforeSend: beforeSendHandler(),
+        success: function(result){console.log(result);
+		var obj = JSON.parse(result);
+		console.log(obj.code);
+		if(obj.code==0)
+		{
+			alert(obj.msg);
+		}
+		else 
+		{
+			alert(obj.msg);
+		}
+		},
+        error: errorHandler(),
+		complete:function(result){
+			// console.log(result);
+		},
         // Form数据
         data: formData,
         //Options to tell JQuery not to process data or worry about content-type
@@ -573,10 +593,20 @@ function progressHandlingFunction(e){
 function beforeSendHandler()
 {console.log("beforeSendHandler");
 }
-function completeHandler()
-{console.log("completeHandler");}
+function successHandler(result)
+{
+	console.log("successHandler");
+}
+function completeHandler(xhr,status)
+{
+	console.log("completeHandler");
+	//alert("completeHandler");
+}
 function errorHandler()
-{console.log("errorHandler");}
+{
+	console.log("errorHandler");
+	//alert("errorHandler");
+}
 </script>
 <!--upload file s-->
 </body>

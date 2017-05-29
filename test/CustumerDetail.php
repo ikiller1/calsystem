@@ -40,7 +40,7 @@ echo "<form action=\"insertCustumer.php?"."id=".$id."\" method=\"post\" name=\"m
     <td colspan="1"><input type="text" name="address" value=<?php echo $data["address"]; ?>></td>
   </tr>
   <tr>
-	  <th rowspan="3" colspan="1">备注</th>
+	  <th rowspan="3" colspan="1">备注(请不要输入">"."<"等字符)</th>
 	  <td rowspan="3" colspan="4"><input type="text" style="height:97%; width:97%;" name="notes" rows="3" cols="50" value=<?php echo $data["notes"]; ?> ></td>
   </tr>
 
@@ -99,7 +99,20 @@ console.log("daochu");
 
 
 }
-
+function check()
+{
+var r=confirm("确定提交该次修改？");
+var x=document.getElementById("myForm");
+if(r==true)
+{
+	<!-- x.submit(); -->
+	return true;
+}
+else
+{
+	return false;
+}
+}
 
 
 	</script>
