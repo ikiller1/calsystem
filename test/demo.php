@@ -263,11 +263,14 @@ echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"p
     <th style="background-color:PaleTurquoise" colspan="2">毛利  </th>
 	<td colspan="1" rowspan="1"><input type="number" step="0.0001"   name="_29A" value=<?php echo $data["_29A"]; ?>></td>
   </tr>
+  <tr>
+	  <th rowspan="3" colspan="1">备注</th>
+	  <td rowspan="3" colspan="4"><input type="text" style="height:97%; width:97%;" name="notes" rows="3" cols="50" value=<?php echo $data["notes"]; ?> ></td>
+  </tr>
+  
   <!-- ----------------------------------------------------------------->
 </table>
-<textarea name="notes" rows="10" cols="30">
-<?php echo $data["notes"]; ?>
-</textarea>
+
 <br>
 <input type="submit" value="提交">
 <?php 
@@ -529,7 +532,7 @@ function deleteData()
 	<input type="file" name="file" id="file"><br>
 	<input type="button"  id="button" value="提交">
 </form>
-<progress value="0"></progress>
+<progress value="0" max="100"></progress>
 </fieldset>
 
 <script>

@@ -39,11 +39,13 @@ echo "<form action=\"insertCustumer.php?"."id=".$id."\" method=\"post\" name=\"m
 	<th style="background-color:PaleTurquoise" colspan="1">address</th>
     <td colspan="1"><input type="text" name="address" value=<?php echo $data["address"]; ?>></td>
   </tr>
-<body>
+  <tr>
+	  <th rowspan="3" colspan="1">备注</th>
+	  <td rowspan="3" colspan="4"><input type="text" style="height:97%; width:97%;" name="notes" rows="3" cols="50" value=<?php echo $data["notes"]; ?> ></td>
+  </tr>
+
 </table>
-<textarea name="notes" rows="10" cols="30">
-<?php echo $data["notes"]; ?>
-</textarea>
+
 <br>
 <input type="submit" value="提交">
 </form>
