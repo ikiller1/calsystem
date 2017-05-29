@@ -17,6 +17,8 @@ echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"p
 <!--<form action="insert.php?tableName=$tableName" method="post" name="myForm" id="myForm" oninput="calculate()">
  onchange="changecolor(this)"
 -->
+<p id="tableName" hidden><?php echo $tableName; ?></p>
+<p id="id" hidden><?php echo $id; ?></p>
 <input type="button" onclick="onpreexport()" value="preexport"></button>
 <table id="tabletest" name="tabletest" style="text-align:center" border="1" >
   <caption>费用明细(IMP)</caption>
@@ -42,6 +44,8 @@ echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"p
     <td colspan="1"><input type="number" step="0.0001"   name="_52A" value=<?php echo $data["_52A"]; ?>></td>
 	<th style="background-color:PaleTurquoise" colspan="1">对应金额1</th>
     <td colspan="1"><input type="number" step="0.0001"   name="_52B" value=<?php echo $data["_52B"]; ?>></td>
+	<th style="background-color:PaleTurquoise" colspan="1">相关文件</th>
+	<td><a id="linktofiles" href="">LinkToFiles</a></td>
   </tr>
   <tr>
     <th style="background-color:PaleTurquoise" colspan="1">卖出汇率1</th>
@@ -348,8 +352,11 @@ $( "#custumerid" ).autocomplete({
     });
 	});
 $(document).ready(function() {
-	
+	var tableName=document.getElementById("tableName").innerHTML;
+	var id=document.getElementById("id").innerHTML;
+	document.getElementById("linktofiles").href="../upload/filestorage/"+tableName+"/"+id;
  		var custumerid=document.forms["myForm"]["custumerid"].value;
+		
 	console.log("text length :"+custumerid.length);
 	console.log("text:"+custumerid);
 	if(custumerid==0)
@@ -539,16 +546,21 @@ function deleteData()
 $(':button').click(function(){
 	console.log(document.getElementById("_50A").value);
 	var tag=document.getElementById("_50A").value;
+	var tableName=document.getElementById("tableName").innerHTML;
+	var id=document.getElementById("id").innerHTML;
 	var filexist=document.getElementById("file").value;
-	if(tag.length==0||filexist.length==0)
+	//if(tag.length==0||filexist.length==0)
+	if(filexist.length==0)
 	{
-		alert("业务编号为空或未选择文件");
+		alert("未选择文件");
 		return;
 	}
 	var formElement = document.getElementById("uploadform");
     //var formData = new FormData($('form')[1]);
 	var formData = new FormData(formElement);
 	formData.append("tag",tag);
+	formData.append("tableName",tableName);
+	formData.append("id",id);
     $.ajax({
         url: '../upload/upload_file.php',  //server script to process data
         type: 'POST',
@@ -566,11 +578,11 @@ $(':button').click(function(){
 		console.log(obj.code);
 		if(obj.code==0)
 		{
-			alert(obj.msg);
+			alert(obj.msg+":"+obj.fullpath);
 		}
 		else 
 		{
-			alert(obj.msg);
+			alert(obj.code+":"+obj.msg);
 		}
 		},
         error: errorHandler(),
