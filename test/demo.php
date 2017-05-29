@@ -22,7 +22,7 @@ echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"p
   <caption>费用明细(IMP)</caption>
   <tr>
     <th style="background-color:PaleTurquoise" colspan="1">业务编号</th>
-    <td colspan="1"><input type="text" name="_50A" value=<?php echo $data["_50A"]; ?>></td>
+    <td colspan="1"><input type="text" id="_50A" name="_50A" value=<?php echo $data["_50A"]; ?>></td>
 	<th style="background-color:PaleTurquoise" colspan="1">提单号</th>
     <td colspan="1"><input type="text" name="_50B" value=<?php echo $data["_50B"]; ?>></td>
 	<th style="background-color:PaleTurquoise" colspan="1">日期</th>
@@ -537,9 +537,12 @@ function deleteData()
 
 <script>
 $(':button').click(function(){
+	console.log(document.getElementById("_50A").value);
+	var tag=document.getElementById("_50A").value;
 	var formElement = document.getElementById("uploadform");
     //var formData = new FormData($('form')[1]);
 	var formData = new FormData(formElement);
+	formData.append("tag",tag);
     $.ajax({
         url: '../upload/upload_file.php',  //server script to process data
         type: 'POST',
