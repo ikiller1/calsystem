@@ -21,10 +21,10 @@ UseDatabase($conn);
 			//echo substr_compare($row[0],"orders",0,6,FALSE);
 			if(substr_compare($row[0],"ordersdetail",0,12,FALSE)==0)
 			{
-			echo "<a href=\"printOrders.php?tableName=".$row[0]."\">";
+			echo "<a class='item' href=\"printOrders.php?tableName=".$row[0]."\">";
 			echo $row[0];
 			echo "</a>";
-			echo "<br>";
+			//echo "<br>";
 			//echo $row[0]."<br>";
 			// echo $row["pay"]."<br>".$row["cost"]."<br>";
 			//$id=$row["id"];

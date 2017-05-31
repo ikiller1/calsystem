@@ -49,6 +49,27 @@ if(!isset($_SESSION['mode']))
 <script type="text/javascript" src="/resource/tableexport.js"></script>
   
 <style>
+/*Comment:
+a.three:link {color:#ff0000;}
+a.three:visited {color:#0000ff;}
+a.three:hover {background:#66ff66;}*/
+
+.item:link,.item:visited
+{
+	display:block;
+	font-weight:bold;
+	color:#FFFFFF;
+	background-color:#98bf21;
+	width:200px;
+	text-align:center;
+	padding:2px;
+	text-decoration:none;
+}
+.item:hover,.item:active
+{
+	background-color:#7A991A;
+}
+
 ul {
     list-style-type: none;
     margin: 0;
