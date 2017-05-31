@@ -537,13 +537,14 @@ function deleteData()
 <form action="upload_file.php" method="post" enctype="multipart/form-data" id="uploadform">
 	<label for="file">文件名：</label>
 	<input type="file" name="file" id="file"><br>
-	<input type="button"  id="button" value="提交">
+	<input type="button"  id="button" value="提交" onclick="uploadfile()">
 </form>
 <progress value="0" max="100"></progress>
 </fieldset>
 
 <script>
-$(':button').click(function(){
+//$(':button').click(function(){
+function uploadfile(){
 	console.log(document.getElementById("_50A").value);
 	var tag=document.getElementById("_50A").value;
 	var tableName=document.getElementById("tableName").innerHTML;
@@ -596,7 +597,7 @@ $(':button').click(function(){
         contentType: false,
         processData: false
     });
-});
+}
 function progressHandlingFunction(e){
     if(e.lengthComputable){
         $('progress').attr({value:e.loaded,max:e.total});
