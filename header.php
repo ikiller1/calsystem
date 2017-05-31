@@ -1,14 +1,26 @@
 <!DOCTYPE html>
+<?php
+
+ini_set("session.use_trans_sid",1);
+
+ini_set("session.use_only_cookies",0);
+
+ini_set("session.use_cookies",0);
+
+session_start();
+$_SESSION['var1']="中华人民共和国";
+$_SESSION['mode']="default";
+?>
 <html>
 <head>
 <title></title>
 <meta charset="utf-8">
 
-<script src="http://localhost/resource/jquery.min.js"></script>
-<script src="http://localhost/resource/highcharts.js"></script>
+<script src="/resource/jquery.min.js"></script>
+<script src="/resource/highcharts.js"></script>
 <!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
 <!--<script src="https://cdn.bootcss.com/highcharts/5.0.11/highcharts.js"></script>-->
-   <script src="http://localhost/resource/jquery-ui.min.js"></script>
+   <script src="/resource/jquery-ui.min.js"></script>
 <!--<script src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>-->
    <!--<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
    <!--<link href="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.theme.min.css" rel="stylesheet">-->
@@ -17,16 +29,16 @@
   <!--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>-->
   <!--<script src="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js"></script>-->
   <!--<script src="http://localhost/resource/jquery.min.js"></script>-->
-  <link rel="stylesheet" href="http://localhost/resource/jquery-ui.css">
+  <link rel="stylesheet" href="/resource/jquery-ui.css">
  <!-- <script src="http://cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>-->
  
   <!--<script src="https://cdn.bootcss.com/highcharts/5.0.11/highcharts.js"></script>-->
   <!--<script src="http://localhost/resource/highcharts.js"></script>-->
   
-<script type="text/javascript" src="../resource/xlsx.core.min.js"></script>
+<script type="text/javascript" src="/resource/xlsx.core.min.js"></script>
 <!--<script type="text/javascript" src="../resource/Blob.min.js"></script>-->
-<script type="text/javascript" src="../resource/FileSaver.min.js"></script>
-<script type="text/javascript" src="../resource/tableexport.js"></script>
+<script type="text/javascript" src="/resource/FileSaver.min.js"></script>
+<script type="text/javascript" src="/resource/tableexport.js"></script>
   
 <style>
 ul {
@@ -156,11 +168,43 @@ li a:hover, .dropdown:hover .dropbtn {
 </ul>
 
 <script>
-function setMode(item){
+function getCookie(cname)
+{
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i=0; i<ca.length; i++) 
+  {
+    var c = ca[i].trim();
+    if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+  }
+  return "";
+}
+
+function setMode(item)
+{
 	console.log("click");
-	document.getElementById("modetag").innerHTML=item.value;
+	var PHPSESSIONID=getCookie("PHPSESSIONID");
+	$.post("/Login.php",{
+			//name:"菜鸟教程",
+			//url:"http://www.runoob.com",
+			mode:item.value//,
+			//PHPSESSIONID:PHPSESSIONID
+		},
+		function(data,status){
+			var json=JSON.parse(data);
+			 if(json==null||json==undefined)
+			{
+				alert("refresh agagin");
+				return; 
+			} 
+			alert("code:" + json.code + "\n"+"msg:"+json.msg+"\n状态: " + status+"\n SID:"+json.sid);
+			//alert(data);
+			document.getElementById("modetag").innerHTML=item.value;
+		});
+	//document.getElementById("modetag").innerHTML=item.value;
 	//document.getElementById("dest").setAttribute("src","http://localhost");
 }
+
 function refresh()
 {
 	console.log("refresh");
