@@ -59,7 +59,7 @@ a.three:hover {background:#66ff66;}*/
 	display:block;
 	font-weight:bold;
 	color:#FFFFFF;
-	background-color:#98bf21;
+	background-color:#C0C0C0;
 	width:200px;
 	text-align:center;
 	padding:2px;
@@ -67,7 +67,7 @@ a.three:hover {background:#66ff66;}*/
 }
 .item:hover,.item:active
 {
-	background-color:#7A991A;
+	background-color:#000000;
 }
 
 ul {
