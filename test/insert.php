@@ -10,6 +10,8 @@
 
 <?php
 include 'Common.php';
+
+
 $conn=Login($ROLE_ROOT);
 UseDatabase($conn);
 $tableName=$_GET["tableName"];

@@ -1,10 +1,12 @@
 <?php
-session_start();
+ 
 $code=1;
 $msg="";
-//session_id($_POST["PHPSESSID"]);
+//session_id($_GET["PHPSESSID"]);
+session_start();
 //echo $_GET["PHPSESSID"]."<br>";
 //echo $_POST["mode"]."<br>";
+
 $premode=$_SESSION["mode"];
 $sid=session_id();
 if($_POST["mode"]=="write"||$_POST["mode"]=="read-only")

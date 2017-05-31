@@ -10,6 +10,13 @@
 
 <?php
 include 'Common.php';
+session_start();
+$mode=$_SESSION["mode"];
+if($mode!="write")
+{
+	echo "没有权限进行此操作";
+	return;
+}
 
 $id=$_GET["id"];
 $tableName=$_GET["tableName"];

@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <?php
-
+//session_id($_GET["PHPSESSID"]);
 ini_set("session.use_trans_sid",1);
 
 ini_set("session.use_only_cookies",0);
 
-ini_set("session.use_cookies",0);
-
+ini_set("session.use_cookies",1);
 session_start();
-$_SESSION['var1']="中华人民共和国";
-$_SESSION['mode']="default";
+//$_SESSION['var1']="中华人民共和国";
+//echo "------------------".session_id();
+if(!isset($_SESSION['mode']))
+{	
+	$_SESSION['mode']="default";
+}
+/* if(!isset($_SESSION['entry'])||$_SESSION['entry']!="default")
+{	
+	echo "<p><a href='/oa-center.php'>进入系统</a></p>";
+	exit;
+} */
 ?>
 <html>
 <head>
@@ -147,7 +155,16 @@ li a:hover, .dropdown:hover .dropbtn {
   </div>
   
   <div class="dropdown">
-    <a href="#" id="modetag" class="dropbtn">access mode</a>
+    <a href="#" id="modetag" class="dropbtn">
+	<?php
+		if(count($_SESSION['mode'])>0)
+			echo $_SESSION['mode'];
+		else 
+			echo "access mode";
+		//$sid=session_id();
+		//echo $sid;
+	?>
+	</a>
     <div class="dropdown-content">
 	<input class="button" onclick="setMode(this)" type="button" value="read-only">
 	<input class="button" onclick="setMode(this)" type="button" value="write">
@@ -166,7 +183,7 @@ li a:hover, .dropdown:hover .dropbtn {
   </div>
   
 </ul>
-
+<p id="sessionid" hidden><?php $sid=session_id(); echo $sid; ?></p>
 <script>
 function getCookie(cname)
 {
@@ -183,12 +200,20 @@ function getCookie(cname)
 function setMode(item)
 {
 	console.log("click");
-	var PHPSESSIONID=getCookie("PHPSESSIONID");
+	var PSID1=getCookie("PHPSESSID");
+	var PSID2=document.getElementById("sessionid");
+	var PSID="";
+	if(PSID1.length>0)
+	{
+		PSID=PSID1;
+	}
+	else
+		PSID=PSID2;
 	$.post("/Login.php",{
 			//name:"菜鸟教程",
 			//url:"http://www.runoob.com",
-			mode:item.value//,
-			//PHPSESSIONID:PHPSESSIONID
+			mode:item.value,
+			PHPSESSID:PSID
 		},
 		function(data,status){
 			var json=JSON.parse(data);
