@@ -200,7 +200,7 @@ li a:hover, .dropdown:hover .dropbtn {
   </div>
   
   <div class="dropdown">
-    <a  id="fresh" class="dropbtn" onclick="refresh()">刷新</a>
+    <a  id="fresh" class="dropbtn" onclick="refresh()" href="#">刷新</a>
     <div class="dropdown-content">
 	
       <!-- <a onclick="">read-only</a> -->
