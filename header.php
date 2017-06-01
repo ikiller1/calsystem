@@ -71,6 +71,9 @@ a.three:hover {background:#66ff66;}*/
 }
 
 ul {
+	/* position:absolute;
+	top:0;
+	left:0; */
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -132,7 +135,6 @@ li a:hover, .dropdown:hover .dropbtn {
 }
 .mode
 {
-	
 	color:white;
 }
 <!--------------------------------------------------->
@@ -148,13 +150,14 @@ li a:hover, .dropdown:hover .dropbtn {
     margin: 4px 2px;
     cursor: pointer;
 }
+
 </style>
 </head>
 <body>
-
+<div>
 <ul>
 	
-
+  
   <li><a class="active" href="../index.php">主页</a></li>
   <li><a href="/test/printCustumer.php?tableName=t_custumer">客户</a></li>
   <div class="dropdown">
@@ -164,7 +167,7 @@ li a:hover, .dropdown:hover .dropbtn {
       <a href="#">出口</a>
     </div>
   </div>
-  
+<!--  
   <div class="dropdown">
     <a href="#" class="dropbtn">报表</a>
     <div class="dropdown-content">
@@ -174,7 +177,7 @@ li a:hover, .dropdown:hover .dropbtn {
 	  <a href="/test/chart.php">年报</a>
     </div>
   </div>
-  
+  -->
   <div class="dropdown">
     <a href="#" id="modetag" class="dropbtn">
 	<?php
@@ -202,9 +205,28 @@ li a:hover, .dropdown:hover .dropbtn {
       <!-- <a onclick="">write</a> -->
     </div>
   </div>
+  <div class="dropdown">
+    <a class="dropbtn"  id="clock" size="35" href="#"></a>
+    <div class="dropdown-content">
+	
+      <!-- <a onclick="">read-only</a> -->
+      <!-- <a onclick="">write</a> -->
+    </div>
+  </div>
   
 </ul>
+</div>
+<div style="height:60px;"></div>
 <p id="sessionid" hidden><?php $sid=session_id(); echo $sid; ?></p>
+
+<script language=javascript>
+var int=self.setInterval("clock()",300)
+function clock()
+  {
+  var t=new Date()
+  document.getElementById("clock").innerHTML=t;
+  }
+</script>
 <script>
 function getCookie(cname)
 {
