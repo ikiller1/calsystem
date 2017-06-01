@@ -598,7 +598,7 @@ function ShowDataPerMonth($tableName,$data)
 		echo "<tr>";
 		
 		echo "<th>";
-		echo "<a href=\"demo.php?tableName=".$tableName."&"."id=".$data[$x][0]."\">";
+		echo "<a class='item' href=\"demo.php?tableName=".$tableName."&"."id=".$data[$x][0]."\">";
 		echo $data[$x][0];
 		echo "</a>";
 		echo "</th>";
@@ -868,7 +868,7 @@ function ShowCustumerOutline($conn,$tableName,$data)
 		echo "<tr>";
 		
 		echo "<th>";
-		echo "<a href=\"CustumerDetail.php?tableName=".$tableName."&"."id=".$data[$x][0]."\">";
+		echo "<a class='item' href=\"CustumerDetail.php?tableName=".$tableName."&"."id=".$data[$x][0]."\">";
 		echo $data[$x][0];
 		echo "</a>";
 		echo "</th>";
