@@ -59,7 +59,12 @@ function CreateCustumerData($conn)
 					date DATE NOT NULL,
 					notes TEXT NOT NULL,
 					name TEXT NOT NULL,
-					address TEXT NOT NULL,
+					sourceaddress TEXT NOT NULL,
+					destaddress TEXT NOT NULL,
+					mailaddress TEXT NOT NULL,
+					phonenumber TEXT NOT NULL,
+					transfertype TEXT NOT NULL,
+					custmertype TEXT NOT NULL,
 					_50A CHAR(30) DEFAULT NULL,
 					PRIMARY KEY (id) 
 					
@@ -487,7 +492,12 @@ function SetCustumerData($conn,$id)
 	$sql6="UPDATE  t_custumer SET 
 					name ='".$_POST["name"]."',
 					notes ='".$_POST["notes"]."',
-					address = '".$_POST["address"]."',
+					sourceaddress = '".$_POST["sourceaddress"]."',
+					destaddress = '".$_POST["destaddress"]."',
+					mailaddress = '".$_POST["mailaddress"]."',
+					phonenumber = '".$_POST["phonenumber"]."',
+					transfertype = '".$_POST["transfertype"]."',
+					custmertype = '".$_POST["custmertype"]."',
 					_50A = '".$_POST["_50A"]."' 
 					WHERE id=".$id;
 	if ($conn->query($sql6) === TRUE) {

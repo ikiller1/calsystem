@@ -36,8 +36,32 @@ echo "<form action=\"insertCustumer.php?"."id=".$id."\" method=\"post\" name=\"m
     <td colspan="1"><input type="text" name="name" value=<?php echo $data["name"]; ?>></td>
 	<th style="background-color:PaleTurquoise" colspan="1">日期</th>
     <td colspan="1"><input type="date" name="date" value=<?php echo $data["date"]; ?>></td>
-	<th style="background-color:PaleTurquoise" colspan="1">address</th>
-    <td colspan="1"><input type="text" name="address" value=<?php echo $data["address"]; ?>></td>
+	
+  </tr>
+  <tr>
+	<th style="background-color:PaleTurquoise" colspan="1">sourceaddress</th>
+    <td colspan="1"><input type="text" name="sourceaddress" value=<?php echo $data["sourceaddress"]; ?>></td>
+	<th style="background-color:PaleTurquoise" colspan="1">destaddress</th>
+    <td colspan="1"><input type="text" name="destaddress" value=<?php echo $data["destaddress"]; ?>></td>
+  </tr>
+  <tr>
+	<th style="background-color:PaleTurquoise" colspan="1">mailaddress</th>
+    <td colspan="1"><input type="text" name="mailaddress" value=<?php echo $data["mailaddress"]; ?>></td>
+	<th style="background-color:PaleTurquoise" colspan="1">phonenumber</th>
+    <td colspan="1"><input type="text" name="phonenumber" value=<?php echo $data["phonenumber"]; ?>></td>
+  </tr>
+  <tr>
+	<th style="background-color:PaleTurquoise" colspan="1">transfertype</th>
+    <td colspan="1"><input type="text" name="transfertype" value=<?php echo $data["transfertype"]; ?>></td>
+	<th style="background-color:PaleTurquoise" colspan="1">custmertype</th>
+    <td colspan="1"><input type="text" name="custmertype" value=<?php echo $data["custmertype"]; ?>>
+	<select name="custmertype" value="ttt">
+	<option value="volvo">Volvo</option>
+	<option value="saab">Saab</option>
+	<option value="fiat">Fiat</option>
+	<option value="audi">Audi</option>
+	</select>
+	</td>
   </tr>
   <tr>
 	  <th rowspan="3" colspan="1">备注(请不要输入">"."<"等字符)</th>
