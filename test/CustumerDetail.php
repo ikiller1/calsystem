@@ -46,21 +46,28 @@ echo "<form action=\"insertCustumer.php?"."id=".$id."\" method=\"post\" name=\"m
   </tr>
   <tr>
 	<th style="background-color:PaleTurquoise" colspan="1">mailaddress</th>
-    <td colspan="1"><input type="text" name="mailaddress" value=<?php echo $data["mailaddress"]; ?>></td>
+    <td colspan="1"><input type="email" name="mailaddress" value=<?php echo $data["mailaddress"]; ?>></td>
 	<th style="background-color:PaleTurquoise" colspan="1">phonenumber</th>
     <td colspan="1"><input type="text" name="phonenumber" value=<?php echo $data["phonenumber"]; ?>></td>
   </tr>
   <tr>
 	<th style="background-color:PaleTurquoise" colspan="1">transfertype</th>
-    <td colspan="1"><input type="text" name="transfertype" value=<?php echo $data["transfertype"]; ?>></td>
+    <td colspan="1"><input list="transfertypes" type="text" name="transfertype" value=<?php echo $data["transfertype"]; ?>>
+		<datalist id="transfertypes">
+		  <option value="国际搬家">
+		  <option value="国内搬家">
+		  <option value="市内搬家">
+		  <option value="国际快递">
+		  <option value="进口清关">
+		  <option value="一般贸易">
+		</datalist>
+	</td>
 	<th style="background-color:PaleTurquoise" colspan="1">custmertype</th>
-    <td colspan="1"><input type="text" name="custmertype" value=<?php echo $data["custmertype"]; ?>>
-	<select name="custmertype" value="ttt">
-	<option value="volvo">Volvo</option>
-	<option value="saab">Saab</option>
-	<option value="fiat">Fiat</option>
-	<option value="audi">Audi</option>
-	</select>
+    <td colspan="1"><input list="custmertypes" type="text" name="custmertype" value=<?php echo $data["custmertype"]; ?>>
+		<datalist id="custmertypes">
+		  <option value="公司">
+		  <option value="个人">
+		</datalist>
 	</td>
   </tr>
   <tr>
