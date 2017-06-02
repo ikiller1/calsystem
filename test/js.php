@@ -1,15 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head> 
-<meta charset="utf-8"> 
-<title>table transfer</title> 
-</head>
-<body>
+<?php
+include '../header.php';
+?>
+
 <script>
+
+
 var id_header="i";
 var id_body=3;
-function add()
+function add(date,profit)
 {
+	console.log("add(date,profit)");
 //2 td. one of them include a input
 var para1=document.createElement("td");
 var para2=document.createElement("td");
@@ -18,17 +18,17 @@ para3.setAttribute("type","number");
 para3.setAttribute("required","required");
 para3.setAttribute("value","0");
 para3.setAttribute("name",id_header.concat(id_body.toString()));
-var node1=document.createTextNode("这是一个新段落。");
-
+var node1=document.createTextNode(date);
+var node2=document.createTextNode(profit);
 para1.appendChild(node1);
-para2.appendChild(para3);
+para2.appendChild(node2);
 //1 tr include 2 td
 var para5=document.createElement("tr");
 para5.appendChild(para1);
 para5.appendChild(para2);
 //add to parent of tr
 var child=document.getElementsByTagName("tr");
-var target=child[1].parentNode;
+var target=child[0].parentNode;
 target.appendChild(para5);
 }
 function del()
@@ -64,30 +64,58 @@ function changecolor(thisitem)
 function cal() {
     document.getElementsByName("pay")[0].value=document.forms["myForm"]["i1"].value+document.forms["myForm"]["i2"].value;
 }
+$(document).ready(
+
+ function()
+{		
+
+$.post("/test/EchoProfitByDay.php",{
+			//name:"菜鸟教程",
+			//url:"localhost"
+		},
+		function(data,status){
+			//console.log("------1----------");
+			var json=JSON.parse(data);
+			var i=0;
+			for (i=0;i<json.length;i++)
+			{
+				if(json[i].name=="sum"){
+					console.log("sum find json");
+					break;
+				}
+			}
+			//console.log(i);
+			var section_data=json[i].data;
+			console.log(section_data.name);
+			for (i=0;i<section_data.length;i++)
+			{
+				/* if(json[i].name=="sum"){
+					console.log("sum find json");
+					break;
+				} */
+				add(section_data[i].name,section_data[i].y);
+			}
+			
+			console.log("------2----------");
+//			chart =new Highcharts.Chart('container',options);
+			//sdata=data;
+		});
+} 
+);
 </script>
 
 <form action="dest.php" id="myForm"  name="myForm" oninput="cal()" onsubmit="return check()" method="post">
 <table border="1" id="t1">
-  <caption>Monthly savings</caption>
+  <caption>Monthly Report</caption>
   <tbody>
   <tr id="tr1">
-    <th id="w1">Month</th>
-    <th>Savings</th>
+    <th id="w1">Date</th>
+    <th>Profits</th>
   </tr>
-  <tr id="tt1">
-    <td>January</td>
-    <td><input name="i1" type="number" onchange="changecolor(this)"  required="required" ></td>
-  </tr>
-  <tr>
-    <td>February</td>
-    <td><input name="i2" type="number" required="required" ></td>
-  </tr>
+  
   </tbody>
 </table>
-pay:<input type="number" name="pay" value=123 required ><br>
-<input type="button"  onclick="add()" value="add">
-<input type="button"  onclick="del()" value="del">
-<input type="submit"   value="submit"><br>
+
 </form>
 </body>
 </html>

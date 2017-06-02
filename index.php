@@ -8,7 +8,7 @@ include 'header.php';
 
 
 <p>
-<a class="item" href="test/js.html">table adjust test </a>
+<a class="item" href="test/js.php">table adjust test </a>
 </p>
 
 
@@ -17,7 +17,7 @@ include 'header.php';
 <a class="item" href="test/showtablesAll.php">DEMO 1</a>
 </p>
 <p>
-<a class="item" href="test/profit.php">计算月利润</a>
+<a class="item" href="test/profitByMonth.php">计算月利润</a>
 </p>
 <p>
 <a class="item" href="test/printday.html">计算某一天的利润</a>

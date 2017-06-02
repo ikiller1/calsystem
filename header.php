@@ -169,17 +169,18 @@ li a:hover, .dropdown:hover .dropbtn {
       <a href="#">出口</a>
     </div>
   </div>
-<!--  
+
   <div class="dropdown">
     <a href="#" class="dropbtn">报表</a>
     <div class="dropdown-content">
+	  <a href="/test/js.php">每日明细</a>
       <a href="#">日报</a>
       <a href="#">月报</a>
       <a href="#">季报</a>
-	  <a href="/test/chart.php">年报</a>
+	  <a href="/test/chartByMonth.php">年报</a>
     </div>
   </div>
-  -->
+  
   <div class="dropdown">
     <a href="#" id="modetag" class="dropbtn">
 	<?php

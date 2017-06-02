@@ -29,6 +29,7 @@ $(document).ready(function() {
         text: 'Source: localhost.com'
     },
     xAxis : {
+		type:"date",
         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     },
@@ -42,6 +43,14 @@ $(document).ready(function() {
             color: '#808080'
         }]
     },
+	plotOptions : {
+      line: {
+         dataLabels: {
+            enabled: true
+         },   
+         enableMouseTracking: false
+      }
+	},
     tooltip : {
         valueSuffix: 'W'
     },
@@ -54,28 +63,34 @@ $(document).ready(function() {
     series:// [{}]
 	[
 	
-	{name: '',data: []}
-	,
+	// {name: '',data: []}
+	/* ,
 	{name:'',data:[]}
 	,
-	{name:'',data:[]}
+	{name:'',data:[]} */
 	
 	]
 			 
 	};
 	
-	$.post("/test/demo_test_post.php",{
-			name:"菜鸟教程",
-			url:"localhost"
+	// $.post("/test/demo_test_post.php",{
+		$.post("/test/EchoProfitByDay.php",{
+			//name:"菜鸟教程",
+			//url:"localhost"
 		},
 		function(data,status){
 			//alert("数据: \n" + data + "\n状态: " + status);
 			//odata=data;
 			console.log("------1----------");
 			var json=JSON.parse(data);
-			options.series[0]=json[0] ;
-			options.series[1]=json[1] ;
-			options.series[2]=json[2] ;
+			for (i=0;i<json.length;i++)
+			{
+				// options.series[i]=json[i] ;
+				options.series.push(json[i]) ;
+			}
+			//options.series[0]=json[0] ;
+			//options.series[1]=json[1] ;
+			//options.series[2]=json[2] ;
 
 			console.log("------2----------");
 			chart =new Highcharts.Chart('container',options);

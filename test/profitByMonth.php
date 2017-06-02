@@ -13,28 +13,11 @@
 
 <body>
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "root";
 
-    $sql2 = "SHOW DATABASES";
-// 创建连接
-$conn = new mysqli($servername, $username, $password);
-// 检测连接
-if ($conn->connect_error) {
-    die("连接失败: " . $conn->connect_error);
-}
-else {
-	echo "数据库连接成功";
-	echo "<br>";
-}
-	if ($conn->query("USE myDB") === TRUE) {
-    echo "数据库选择成功";
-	
-	} else {
-		echo "Error creating database: " . $conn->error;
-	}
-	echo "<br>";
+$conn=Login($ROLE_ROOT);
+UseDatabase($conn);
+
+//Logout($conn);
 
 $sum_pay=0;
 $sum_cost=0;

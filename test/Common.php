@@ -675,6 +675,19 @@ function SetOneData($conn,$tableName,$data,$id)
 		{
 			AddOrderIdData($conn,$tableName,$id,$_POST["_50A"]);
 		}
+		else
+		{
+			//echo "empty"."<br>";
+			//$_POST["_50A"]='NULL';
+		}
+		//echo "prepare:".."<br>";
+		$sql71="UPDATE  $tableName SET 
+				_50A = '".$_POST["_50A"]."'
+				WHERE id=".$id;
+		$sql72="UPDATE  $tableName SET 
+				_50A = NULL
+				WHERE id=".$id;
+				
 					$sql6="UPDATE  $tableName SET 
 					date ='".$_POST["date"]."',
 					custumerid ='".$_POST["custumerid"]."',
@@ -786,24 +799,41 @@ function SetOneData($conn,$tableName,$data,$id)
 					_28A = ".$_POST["_28A"].",
 					_28B = ".$_POST["_28B"].",
 					_29A = ".$_POST["_29A"].",
-					_50A = "."'".$_POST["_50A"]."',
-					_50B = "."'".$_POST["_50B"]."',
-					_51A = "."'".$_POST["_51A"]."',
-					_51B = "."'".$_POST["_51B"]."', 
+					
+					_50B = '".$_POST["_50B"]."',
+					_51A = '".$_POST["_51A"]."',
+					_51B = '".$_POST["_51B"]."', 
 					_52A = ".$_POST["_52A"].",
 					_52B = ".$_POST["_52B"].",
 					_53A = ".$_POST["_53A"].",
 					_53B = ".$_POST["_53B"]."
 					WHERE id=".$id;
+					////_50A = ".$_POST["_50A"].",
 					/* _50B = "."'".$_POST["_50B"]."',
 					_51A = "."'".$_POST["_51A"]."',
 					_51B = "."'".$_POST["_51B"]."', */
 		if ($conn->query($sql6) === TRUE) {
-				// echo "数据插入成功";
+				 //echo "数据插入成功";
 			} else {
 				echo $conn->error;
 			}
-
+		//echo "---1---<br>";
+		if(empty($_POST["_50A"])==false)
+		{
+			if ($conn->query($sql71) === TRUE) {
+				 echo "数据插入成功";
+			} else {
+				echo $conn->error;
+			}
+		}
+		else
+		{
+			if ($conn->query($sql72) === TRUE) {
+				 echo "数据插入成功";
+			} else {
+				echo $conn->error;
+			}
+		}
 		
 	}
 	

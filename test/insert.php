@@ -19,7 +19,7 @@ $id=$_GET["id"];
 
 $data=array();
 
-
+echo $tableName."<br>".$id."<br>";
 
 SetOneData($conn,$tableName,$data,$id);
 Logout($conn);
