@@ -38,7 +38,7 @@ function SketchInvoiceRegister($conn)
 	//if($tag==1)
 	{
 		$data=array();
-		$sql7="select id,title from invoiceregister";
+		$sql7="select id,title, _50A from invoiceregister";
 		$result=$conn->query($sql7);
 		echo $conn->error;
 		if($result->num_rows>0)
@@ -48,7 +48,8 @@ function SketchInvoiceRegister($conn)
 				// echo $row["pay"]."<br>".$row["cost"]."<br>";
 				$id=$row["id"];
 				$title=$row["title"];
-				$t_array=array($id,$title);
+				$_50A=$row["_50A"];
+				$t_array=array($id,$title,$_50A);
 				array_push($data,$t_array);
 			}
 			return $data;
@@ -104,7 +105,8 @@ function ShowSketchInvoiceRegister($tableName,$data)
 		echo "</td>";
 		
 		echo "<td>";
-		echo "123";
+		echo $data[$x][2];
+		
 		//echo $data[$x][2];
 		echo "</td>";
 		
