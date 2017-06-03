@@ -52,4 +52,15 @@ function UseDatabase($conn)
 	}
 	//echo "<br>";
 }
+function AuthCheck()
+{
+	session_start();
+	$mode=$_SESSION["mode"];
+	if($mode!="write")
+	{
+		echo "没有权限进行此操作";
+		die;
+		return false;
+	}
+}
 ?>

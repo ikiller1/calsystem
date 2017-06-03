@@ -160,7 +160,7 @@ li a:hover, .dropdown:hover .dropbtn {
 <ul>
 	
   
-  <li><a class="active" href="../index.php">主页</a></li>
+  <li><a class="active" href="/index.php">主页</a></li>
   <li><a href="/test/printCustumer.php?tableName=t_custumer">客户</a></li>
   <div class="dropdown">
     <a href="#" class="dropbtn">订单</a>
@@ -169,7 +169,13 @@ li a:hover, .dropdown:hover .dropbtn {
       <a href="#">出口</a>
     </div>
   </div>
-
+  <div class="dropdown">
+    <a href="#" class="dropbtn">biaoge</a>
+    <div class="dropdown-content">
+      <a href="/system/view/SketchInvoiceregister.php">发票登记</a>
+      <a href="#">出口</a>
+    </div>
+  </div>
   <div class="dropdown">
     <a href="#" class="dropbtn">报表</a>
     <div class="dropdown-content">

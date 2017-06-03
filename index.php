@@ -23,5 +23,9 @@ include 'header.php';
 <a class="item" href="test/printday.html">计算某一天的利润</a>
 </p>
 
+<p>
+<a class="item" href="/system/view/SketchInvoiceregister.php">createtabletest</a>
+</p>
+
 </body>
 </html>
