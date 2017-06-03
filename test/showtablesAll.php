@@ -6,6 +6,7 @@
 <body>
 
 <?php
+include '../system/basicOperation.php';
 include 'Common.php';
 
 //$id=$_GET["id"];

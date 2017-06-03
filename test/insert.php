@@ -9,6 +9,7 @@
 <body>
 
 <?php
+include '../system/basicOperation.php';
 include 'Common.php';
 
 

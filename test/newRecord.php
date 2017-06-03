@@ -1,4 +1,5 @@
 <?php
+include '../system/basicOperation.php';
 include 'Common.php';
 session_start();
 $mode=$_SESSION["mode"];

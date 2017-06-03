@@ -3,6 +3,7 @@ include '../header.php';
 ?>
 
 <?php
+include '../system/basicOperation.php';
 include 'Common.php';
 
 //$id=$_GET["id"];
@@ -47,7 +48,7 @@ UseDatabase($conn);
 
 ?> 
 <fieldset style="width:250px;height:80px">
-<legend>NEW</legend>
+<legend>创造新的一个月</legend>
 <input type="month" id="date" name="tableName" >
 <input type="button" class="buttonNew" value="new" onclick="addOrderTable()"  >
 <label id="state"></label>

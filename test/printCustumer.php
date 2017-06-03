@@ -5,6 +5,7 @@ include '../header.php';
 
 
 <?php
+include '../system/basicOperation.php';
 include 'Common.php';
 $tableName=$_GET["tableName"];
 $conn=Login($ROLE_ROOT);

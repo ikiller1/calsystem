@@ -217,6 +217,15 @@ li a:hover, .dropdown:hover .dropbtn {
     </div>
   </div>
   
+  <div class="dropdown">
+    <a  id="fresh" class="dropbtn"  href="/test/help.html">帮助</a>
+    <div class="dropdown-content">
+	
+      <!-- <a onclick="">read-only</a> -->
+      <!-- <a onclick="">write</a> -->
+    </div>
+  </div>
+  
 </ul>
 </div>
 <div style="height:60px;"></div>
