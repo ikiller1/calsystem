@@ -170,10 +170,10 @@ li a:hover, .dropdown:hover .dropbtn {
     </div>
   </div>
   <div class="dropdown">
-    <a href="#" class="dropbtn">biaoge</a>
+    <a href="#" class="dropbtn">表格</a>
     <div class="dropdown-content">
       <a href="/system/view/SketchInvoiceregister.php">发票登记</a>
-      <a href="#">出口</a>
+      
     </div>
   </div>
   <div class="dropdown">

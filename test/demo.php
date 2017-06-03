@@ -38,7 +38,7 @@ echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"p
     <td colspan="1"><input type="text" name="_51B" value=<?php echo $data["_51B"]; ?>></td>
 	<th style="background-color:PaleTurquoise" colspan="1">用户信息</th>
     <td colspan="1"><input type="text" id="custumerid" name="custumerid" value=<?php echo $data["custumerid"]; ?>></td>
-	<td><a id="link" href="">LinkToOrder</a></td>
+	<td><a id="link" href="">LinkToCustumer</a></td>
   </tr>
   <tr>
     <th style="background-color:PaleTurquoise" colspan="1">买入汇率1</th>

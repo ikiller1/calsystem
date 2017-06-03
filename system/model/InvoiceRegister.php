@@ -17,7 +17,7 @@ function CreateTable_InvoiceRegister($conn)
 					)
 					engine=InnoDB DEFAULT CHARSET='utf8'";
 		if ($conn->query($sql1) === TRUE) {
-			// echo "数据表创建成功";
+			 echo "InvoiceRegister数据表创建成功";
 		} else {
 			echo "Error creating database: " . $conn->error;
 			die();
