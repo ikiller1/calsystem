@@ -1,6 +1,7 @@
 <?php
 include '../basicOperation.php';
 include '../model/InvoiceRegister.php';
+AuthCheck();
 echo "id:".$_REQUEST["id"].". ";
 $id=$_REQUEST["id"];
 $conn=Login($ROLE_ROOT);

@@ -140,7 +140,7 @@ else
 $(function() {
 
     $( "#_50A" ).autocomplete({
-      source: "EchoOrderId.php",
+      source: "/test/EchoOrderId.php",
       minLength: 1
 
     });

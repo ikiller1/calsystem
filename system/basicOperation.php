@@ -62,5 +62,8 @@ function AuthCheck()
 		die;
 		return false;
 	}
+	else{
+		echo "权限检查通过";
+	}
 }
 ?>

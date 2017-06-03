@@ -9,7 +9,7 @@ AuthCheck();
 $conn=Login($ROLE_ROOT);
 UseDatabase($conn);
 CreateTable_InvoiceRegister($conn);
-AddInvoiceRegister($conn);
+//AddInvoiceRegister($conn);
 Logout($conn);
 // CreateTestData($conn);
 //$data="";

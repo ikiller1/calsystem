@@ -24,7 +24,7 @@ include 'header.php';
 </p>
 
 <p>
-<a class="item" href="/system/view/SketchInvoiceregister.php">createtabletest</a>
+<a class="item" href="/createtabletest.php">createtabletest</a>
 </p>
 
 </body>
