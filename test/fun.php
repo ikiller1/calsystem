@@ -9,6 +9,7 @@
 
 
 <?php
+include '../system/basicOperation.php';
 include 'Common.php';
 
 $tableName="t_201705";

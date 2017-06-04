@@ -3,6 +3,7 @@ include '../header.php';
 ?>
 
 <?php
+include '../system/basicOperation.php';
 include 'Common.php';
 $id=$_GET["id"];
 $tableName=$_GET["tableName"];
@@ -17,11 +18,14 @@ echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"p
 <!--<form action="insert.php?tableName=$tableName" method="post" name="myForm" id="myForm" oninput="calculate()">
  onchange="changecolor(this)"
 -->
+<p id="tableName" hidden><?php echo $tableName; ?></p>
+<p id="id" hidden><?php echo $id; ?></p>
+<input type="button" onclick="onpreexport()" value="preexport"></button>
 <table id="tabletest" name="tabletest" style="text-align:center" border="1" >
   <caption>费用明细(IMP)</caption>
   <tr>
     <th style="background-color:PaleTurquoise" colspan="1">业务编号</th>
-    <td colspan="1"><input type="text" name="_50A" value=<?php echo $data["_50A"]; ?>></td>
+    <td colspan="1"><input type="text" id="_50A" name="_50A" value=<?php echo $data["_50A"]; ?>></td>
 	<th style="background-color:PaleTurquoise" colspan="1">提单号</th>
     <td colspan="1"><input type="text" name="_50B" value=<?php echo $data["_50B"]; ?>></td>
 	<th style="background-color:PaleTurquoise" colspan="1">日期</th>
@@ -34,13 +38,15 @@ echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"p
     <td colspan="1"><input type="text" name="_51B" value=<?php echo $data["_51B"]; ?>></td>
 	<th style="background-color:PaleTurquoise" colspan="1">用户信息</th>
     <td colspan="1"><input type="text" id="custumerid" name="custumerid" value=<?php echo $data["custumerid"]; ?>></td>
-	<td><a id="link" href="">LinkToOrder</a></td>
+	<td><a id="link" href="">LinkToCustumer</a></td>
   </tr>
   <tr>
     <th style="background-color:PaleTurquoise" colspan="1">买入汇率1</th>
     <td colspan="1"><input type="number" step="0.0001"   name="_52A" value=<?php echo $data["_52A"]; ?>></td>
 	<th style="background-color:PaleTurquoise" colspan="1">对应金额1</th>
     <td colspan="1"><input type="number" step="0.0001"   name="_52B" value=<?php echo $data["_52B"]; ?>></td>
+	<th style="background-color:PaleTurquoise" colspan="1">相关文件</th>
+	<td><a id="linktofiles" href="">LinkToFiles</a></td>
   </tr>
   <tr>
     <th style="background-color:PaleTurquoise" colspan="1">卖出汇率1</th>
@@ -262,11 +268,14 @@ echo "<form action=\"insert.php?tableName=".$tableName."&id=".$id."\" method=\"p
     <th style="background-color:PaleTurquoise" colspan="2">毛利  </th>
 	<td colspan="1" rowspan="1"><input type="number" step="0.0001"   name="_29A" value=<?php echo $data["_29A"]; ?>></td>
   </tr>
+  <tr>
+	  <th rowspan="3" colspan="1">备注(请不要输入">"."<"等字符)</th>
+	  <td rowspan="3" colspan="4"><input type="text" style="height:97%; width:97%;" name="notes" rows="3" cols="50" value=<?php echo $data["notes"]; ?> ></td>
+  </tr>
+  
   <!-- ----------------------------------------------------------------->
 </table>
-<textarea name="notes" rows="10" cols="30">
-<?php echo $data["notes"]; ?>
-</textarea>
+
 <br>
 <input type="submit" value="提交">
 <?php 
@@ -275,7 +284,7 @@ echo "<input type=\"button\" value=\"删除\" onclick=\"javascript:window.locati
 
 
 </form>
-<input type="button" onclick="onpreexport()" value="preexport"></button>
+
 	<script>
 function onpreexport()
 {
@@ -344,8 +353,11 @@ $( "#custumerid" ).autocomplete({
     });
 	});
 $(document).ready(function() {
-	
+	var tableName=document.getElementById("tableName").innerHTML;
+	var id=document.getElementById("id").innerHTML;
+	document.getElementById("linktofiles").href="../upload/filestorage/"+tableName+"/"+id;
  		var custumerid=document.forms["myForm"]["custumerid"].value;
+		
 	console.log("text length :"+custumerid.length);
 	console.log("text:"+custumerid);
 	if(custumerid==0)
@@ -502,7 +514,7 @@ function changecolor(thisitem)
 }
 function check()
 {
-var r=confirm("are you sure to submit ?");
+var r=confirm("确定提交该次修改？");
 var x=document.getElementById("myForm");
 if(r==true)
 {
@@ -519,5 +531,97 @@ function deleteData()
 	
 }
 </script>
+<!--upload file s-->
+
+<fieldset style="width:250px;height:80px">
+<legend>上传文件</legend>
+<form action="upload_file.php" method="post" enctype="multipart/form-data" id="uploadform">
+	<label for="file">文件名：</label>
+	<input type="file" name="file" id="file"><br>
+	<input type="button"  id="button" value="提交" onclick="uploadfile()">
+</form>
+<progress value="0" max="100"></progress>
+</fieldset>
+
+<script>
+//$(':button').click(function(){
+function uploadfile(){
+	console.log(document.getElementById("_50A").value);
+	var tag=document.getElementById("_50A").value;
+	var tableName=document.getElementById("tableName").innerHTML;
+	var id=document.getElementById("id").innerHTML;
+	var filexist=document.getElementById("file").value;
+	//if(tag.length==0||filexist.length==0)
+	if(filexist.length==0)
+	{
+		alert("未选择文件");
+		return;
+	}
+	var formElement = document.getElementById("uploadform");
+    //var formData = new FormData($('form')[1]);
+	var formData = new FormData(formElement);
+	formData.append("tag",tag);
+	formData.append("tableName",tableName);
+	formData.append("id",id);
+    $.ajax({
+        url: '../upload/upload_file.php',  //server script to process data
+        type: 'POST',
+        xhr: function() {  // custom xhr
+            myXhr = $.ajaxSettings.xhr();
+            if(myXhr.upload){ // check if upload property exists
+                myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // for handling the progress of the upload
+            }
+            return myXhr;
+        },
+        //Ajax事件
+        beforeSend: beforeSendHandler(),
+        success: function(result){console.log(result);
+		var obj = JSON.parse(result);
+		console.log(obj.code);
+		if(obj.code==0)
+		{
+			alert(obj.msg+":"+obj.fullpath);
+		}
+		else 
+		{
+			alert(obj.code+":"+obj.msg);
+		}
+		},
+        error: errorHandler(),
+		complete:function(result){
+			// console.log(result);
+		},
+        // Form数据
+        data: formData,
+        //Options to tell JQuery not to process data or worry about content-type
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+}
+function progressHandlingFunction(e){
+    if(e.lengthComputable){
+        $('progress').attr({value:e.loaded,max:e.total});
+    }
+}
+function beforeSendHandler()
+{console.log("beforeSendHandler");
+}
+function successHandler(result)
+{
+	console.log("successHandler");
+}
+function completeHandler(xhr,status)
+{
+	console.log("completeHandler");
+	//alert("completeHandler");
+}
+function errorHandler()
+{
+	console.log("errorHandler");
+	//alert("errorHandler");
+}
+</script>
+<!--upload file s-->
 </body>
 </html>

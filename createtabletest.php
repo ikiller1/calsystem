@@ -1,19 +1,15 @@
 <?php
-include '../system/basicOperation.php';
-include 'Common.php';
-session_start();
-$mode=$_SESSION["mode"];
-if($mode!="write")
-{
-	echo "没有权限进行此操作";
-	return;
-}
+include './system/basicOperation.php';
+include './test/Common.php';
+include './system/model/InvoiceRegister.php';
+AuthCheck();
 //$id=$_GET["id"];
-$tableName=$_POST["tableName"];
+//$tableName=$_POST["tableName"];
 //echo $_POST["id"];
 $conn=Login($ROLE_ROOT);
 UseDatabase($conn);
-CreateOrderTable($conn,$tableName);
+CreateTable_InvoiceRegister($conn);
+//AddInvoiceRegister($conn);
 Logout($conn);
 // CreateTestData($conn);
 //$data="";

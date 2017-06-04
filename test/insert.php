@@ -9,7 +9,10 @@
 <body>
 
 <?php
+include '../system/basicOperation.php';
 include 'Common.php';
+
+
 $conn=Login($ROLE_ROOT);
 UseDatabase($conn);
 $tableName=$_GET["tableName"];
@@ -17,7 +20,7 @@ $id=$_GET["id"];
 
 $data=array();
 
-
+echo $tableName."<br>".$id."<br>";
 
 SetOneData($conn,$tableName,$data,$id);
 Logout($conn);

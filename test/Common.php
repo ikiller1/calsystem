@@ -1,57 +1,4 @@
 <?php
-$ROLE_ROOT="ROLE_ROOT";
-$servername = "localhost";
-$username = "root";
-$password = "root";
-// header("Content-type: text/html;charset=utf-8");
-function Login($role)
-{
-	// global $conn;
-	global $ROLE_ROOT;
-	global $servername;
-	global $username;
-	global $password;
-	//var_dump($conn);
-/* 	if($conn!=NULL){
-		echo "conn in the pool"."<br>";
-		return $conn;
-	} */
-	if($role===$ROLE_ROOT)
-	{
-		//echo "role=root"."<br>";
-	}
-	// 创建连接
-	$conn = new mysqli($servername, $username, $password);
-	// 检测连接
-	if ($conn->connect_error) {
-		die("连接失败: " . $conn->connect_error);
-	}
-	else {
-		// echo "数据库连接成功";
-		if ($conn->query( "set names utf8") === TRUE){}
-		else
-			die("连接失败: " . $conn->connect_error);
-		//echo "<br>";
-	}
-	// var_dump( $conn);
-	return $conn;
-}
-function Logout($conn)
-{
-	$conn->close();
-}
-function UseDatabase($conn)
-{
-	if ($conn->query("USE myDB") === TRUE) 
-	{
-		// echo "数据库选择成功";
-	} 
-	else 
-	{
-		echo "Error creating database: " . $conn->error;
-	}
-	//echo "<br>";
-}
 function CreateCustumerData($conn)
 {//UNIQUE (_50A)
 	$sql1 = "CREATE TABLE IF NOT EXISTS t_custumer (
@@ -59,7 +6,12 @@ function CreateCustumerData($conn)
 					date DATE NOT NULL,
 					notes TEXT NOT NULL,
 					name TEXT NOT NULL,
-					address TEXT NOT NULL,
+					sourceaddress TEXT NOT NULL,
+					destaddress TEXT NOT NULL,
+					mailaddress TEXT NOT NULL,
+					phonenumber TEXT NOT NULL,
+					transfertype TEXT NOT NULL,
+					custmertype TEXT NOT NULL,
 					_50A CHAR(30) DEFAULT NULL,
 					PRIMARY KEY (id) 
 					
@@ -96,6 +48,7 @@ function CreateOrderTable($conn,$tableName)
 					date DATE,
 					id SMALLINT UNSIGNED AUTO_INCREMENT,
 					notes TEXT NOT NULL ,
+					files TEXT NOT NULL ,
 					custumerid INT UNSIGNED DEFAULT 0,
 					_1A DOUBLE NOT NULL DEFAULT 0,
 					_1B DOUBLE NOT NULL DEFAULT 0,
@@ -486,7 +439,12 @@ function SetCustumerData($conn,$id)
 	$sql6="UPDATE  t_custumer SET 
 					name ='".$_POST["name"]."',
 					notes ='".$_POST["notes"]."',
-					address = '".$_POST["address"]."',
+					sourceaddress = '".$_POST["sourceaddress"]."',
+					destaddress = '".$_POST["destaddress"]."',
+					mailaddress = '".$_POST["mailaddress"]."',
+					phonenumber = '".$_POST["phonenumber"]."',
+					transfertype = '".$_POST["transfertype"]."',
+					custmertype = '".$_POST["custmertype"]."',
 					_50A = '".$_POST["_50A"]."' 
 					WHERE id=".$id;
 	if ($conn->query($sql6) === TRUE) {
@@ -597,7 +555,7 @@ function ShowDataPerMonth($tableName,$data)
 		echo "<tr>";
 		
 		echo "<th>";
-		echo "<a href=\"demo.php?tableName=".$tableName."&"."id=".$data[$x][0]."\">";
+		echo "<a class='item' href=\"demo.php?tableName=".$tableName."&"."id=".$data[$x][0]."\">";
 		echo $data[$x][0];
 		echo "</a>";
 		echo "</th>";
@@ -664,6 +622,19 @@ function SetOneData($conn,$tableName,$data,$id)
 		{
 			AddOrderIdData($conn,$tableName,$id,$_POST["_50A"]);
 		}
+		else
+		{
+			//echo "empty"."<br>";
+			//$_POST["_50A"]='NULL';
+		}
+		//echo "prepare:".."<br>";
+		$sql71="UPDATE  $tableName SET 
+				_50A = '".$_POST["_50A"]."'
+				WHERE id=".$id;
+		$sql72="UPDATE  $tableName SET 
+				_50A = NULL
+				WHERE id=".$id;
+				
 					$sql6="UPDATE  $tableName SET 
 					date ='".$_POST["date"]."',
 					custumerid ='".$_POST["custumerid"]."',
@@ -775,24 +746,41 @@ function SetOneData($conn,$tableName,$data,$id)
 					_28A = ".$_POST["_28A"].",
 					_28B = ".$_POST["_28B"].",
 					_29A = ".$_POST["_29A"].",
-					_50A = "."'".$_POST["_50A"]."',
-					_50B = "."'".$_POST["_50B"]."',
-					_51A = "."'".$_POST["_51A"]."',
-					_51B = "."'".$_POST["_51B"]."', 
+					
+					_50B = '".$_POST["_50B"]."',
+					_51A = '".$_POST["_51A"]."',
+					_51B = '".$_POST["_51B"]."', 
 					_52A = ".$_POST["_52A"].",
 					_52B = ".$_POST["_52B"].",
 					_53A = ".$_POST["_53A"].",
 					_53B = ".$_POST["_53B"]."
 					WHERE id=".$id;
+					////_50A = ".$_POST["_50A"].",
 					/* _50B = "."'".$_POST["_50B"]."',
 					_51A = "."'".$_POST["_51A"]."',
 					_51B = "."'".$_POST["_51B"]."', */
 		if ($conn->query($sql6) === TRUE) {
-				// echo "数据插入成功";
+				 //echo "数据插入成功";
 			} else {
 				echo $conn->error;
 			}
-
+		//echo "---1---<br>";
+		if(empty($_POST["_50A"])==false)
+		{
+			if ($conn->query($sql71) === TRUE) {
+				 echo "数据插入成功";
+			} else {
+				echo $conn->error;
+			}
+		}
+		else
+		{
+			if ($conn->query($sql72) === TRUE) {
+				 echo "数据插入成功";
+			} else {
+				echo $conn->error;
+			}
+		}
 		
 	}
 	
@@ -867,7 +855,7 @@ function ShowCustumerOutline($conn,$tableName,$data)
 		echo "<tr>";
 		
 		echo "<th>";
-		echo "<a href=\"CustumerDetail.php?tableName=".$tableName."&"."id=".$data[$x][0]."\">";
+		echo "<a class='item' href=\"CustumerDetail.php?tableName=".$tableName."&"."id=".$data[$x][0]."\">";
 		echo $data[$x][0];
 		echo "</a>";
 		echo "</th>";

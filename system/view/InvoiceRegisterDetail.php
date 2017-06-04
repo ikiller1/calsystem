@@ -1,18 +1,19 @@
 <?php
-include '../header.php';
+include '../../header.php';
 ?>
 
 
 <?php
-include '../system/basicOperation.php';
-include 'Common.php';
+include '../basicOperation.php';
+include '../model/InvoiceRegister.php';
+//include '../../test/Common.php';
 
 $id=$_GET["id"];
 $tableName=$_GET["tableName"];
 
 $conn=Login($ROLE_ROOT);
 UseDatabase($conn);
-$data=GetOneCustumer($conn,$tableName,$id);
+$data=GetInvoiceRegister($conn,$tableName,$id);
 Logout($conn);
 // ShowDetail($data);
 /* echo $data["date"]."<br>";
@@ -22,58 +23,44 @@ echo $data["address"]."<br>";
 echo $data["_50A"]."<br>"; */
 //<th><a id="link" href="">2</a></th>
 echo "<p id=\"id\" hidden>".$id."</p>";
-echo "<form action=\"insertCustumer.php?"."id=".$id."\" method=\"post\" name=\"myForm\" id=\"myForm\" onsubmit=\"return check()\">";
+echo "<form action=\"../controller/invoiceregister.php?"."id=".$id."\" method=\"post\" name=\"myForm\" id=\"myForm\" onsubmit=\"return check()\">";
+
 ?> 
 
 <table id="tabletest" style="text-align:center" border="1" >
-  <caption>custumer detail</caption>
+  <caption>InvoiceRegister detail</caption>
   <tr>
     <th style="background-color:PaleTurquoise" colspan="1">order id</th>
     <td colspan="1"><input type="text" id="_50A" name="_50A" value=<?php echo $data["_50A"]; ?>></td>
 	<td><a id="link" href="">LinkToOrder</a></td>
   </tr>
   <tr>
-	<th style="background-color:PaleTurquoise" colspan="1">name</th>
-    <td colspan="1"><input type="text" name="name" value=<?php echo $data["name"]; ?>></td>
-	<th style="background-color:PaleTurquoise" colspan="1">日期</th>
-    <td colspan="1"><input type="date" name="date" value=<?php echo $data["date"]; ?>></td>
+	<th style="background-color:PaleTurquoise" colspan="1">unit</th>
+    <td colspan="1"><input type="text" name="unit" value=<?php echo $data["unit"]; ?>></td>
+	<th style="background-color:PaleTurquoise" colspan="1">number</th>
+    <td colspan="1"><input type="number" name="number" value=<?php echo $data["number"]; ?>></td>
 	
   </tr>
   <tr>
-	<th style="background-color:PaleTurquoise" colspan="1">sourceaddress</th>
-    <td colspan="1"><input type="text" name="sourceaddress" value=<?php echo $data["sourceaddress"]; ?>></td>
-	<th style="background-color:PaleTurquoise" colspan="1">destaddress</th>
-    <td colspan="1"><input type="text" name="destaddress" value=<?php echo $data["destaddress"]; ?>></td>
+	<th style="background-color:PaleTurquoise" colspan="1">开票日期</th>
+    <td colspan="1"><input type="date" name="billingdate" value=<?php echo $data["billingdate"]; ?>></td>
+	<th style="background-color:PaleTurquoise" colspan="1">邮寄日期</th>
+    <td colspan="1"><input type="date" name="deliverdate" value=<?php echo $data["deliverdate"]; ?>></td>
+	<th style="background-color:PaleTurquoise" colspan="1">签收日期</th>
+    <td colspan="1"><input type="date" name="signingdate" value=<?php echo $data["signingdate"]; ?>></td>
   </tr>
   <tr>
-	<th style="background-color:PaleTurquoise" colspan="1">mailaddress</th>
-    <td colspan="1"><input type="email" name="mailaddress" value=<?php echo $data["mailaddress"]; ?>></td>
-	<th style="background-color:PaleTurquoise" colspan="1">phonenumber</th>
-    <td colspan="1"><input type="text" name="phonenumber" value=<?php echo $data["phonenumber"]; ?>></td>
+	<th style="background-color:PaleTurquoise" colspan="1">amount</th>
+    <td colspan="1"><input type="number" step="0.0001" name="amount" value=<?php echo $data["amount"]; ?>></td>
+	<th style="background-color:PaleTurquoise" colspan="1">title</th>
+    <td colspan="1"><input type="text" name="title" value=<?php echo $data["title"]; ?>></td>
   </tr>
   <tr>
-	<th style="background-color:PaleTurquoise" colspan="1">transfertype</th>
-    <td colspan="1"><input list="transfertypes" type="text" name="transfertype" value=<?php echo $data["transfertype"]; ?>>
-		<datalist id="transfertypes">
-		  <option value="国际搬家">
-		  <option value="国内搬家">
-		  <option value="市内搬家">
-		  <option value="国际快递">
-		  <option value="进口清关">
-		  <option value="一般贸易">
-		</datalist>
-	</td>
-	<th style="background-color:PaleTurquoise" colspan="1">custmertype</th>
-    <td colspan="1"><input list="custmertypes" type="text" name="custmertype" value=<?php echo $data["custmertype"]; ?>>
-		<datalist id="custmertypes">
-		  <option value="公司">
-		  <option value="个人">
-		</datalist>
-	</td>
-  </tr>
-  <tr>
-	  <th rowspan="3" colspan="1">备注(请不要输入">"."<"等字符)</th>
-	  <td rowspan="3" colspan="4"><input type="text" style="height:97%; width:97%;" name="notes" rows="3" cols="50" value=<?php echo $data["notes"]; ?> ></td>
+	<th style="background-color:PaleTurquoise" colspan="1">notes</th>
+    <td colspan="1"><input type="text" name="notes" value=<?php echo $data["notes"]; ?>></td>
+	<th style="background-color:PaleTurquoise" colspan="1">expressnumber</th>
+    <td colspan="1"><input type="text" name="expressnumber" value=<?php echo $data["expressnumber"]; ?>></td>
+	
   </tr>
 
 </table>
@@ -153,7 +140,7 @@ else
 $(function() {
 
     $( "#_50A" ).autocomplete({
-      source: "EchoOrderId.php",
+      source: "/test/EchoOrderId.php",
       minLength: 1
 
     });

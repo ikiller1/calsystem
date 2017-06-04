@@ -3,6 +3,7 @@ include '../header.php';
 ?>
 
 <?php
+include '../system/basicOperation.php';
 include 'Common.php';
 
 //$id=$_GET["id"];
@@ -21,10 +22,10 @@ UseDatabase($conn);
 			//echo substr_compare($row[0],"orders",0,6,FALSE);
 			if(substr_compare($row[0],"ordersdetail",0,12,FALSE)==0)
 			{
-			echo "<a href=\"printOrders.php?tableName=".$row[0]."\">";
+			echo "<a class='item' href=\"printOrders.php?tableName=".$row[0]."\">";
 			echo $row[0];
 			echo "</a>";
-			echo "<br>";
+			//echo "<br>";
 			//echo $row[0]."<br>";
 			// echo $row["pay"]."<br>".$row["cost"]."<br>";
 			//$id=$row["id"];
@@ -47,7 +48,7 @@ UseDatabase($conn);
 
 ?> 
 <fieldset style="width:250px;height:80px">
-<legend>NEW</legend>
+<legend>创造新的一个月</legend>
 <input type="month" id="date" name="tableName" >
 <input type="button" class="buttonNew" value="new" onclick="addOrderTable()"  >
 <label id="state"></label>

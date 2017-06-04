@@ -1,5 +1,13 @@
 <?php
+include '../system/basicOperation.php';
 include 'Common.php';
+session_start();
+$mode=$_SESSION["mode"];
+if($mode!="write")
+{
+	echo "没有权限进行此操作";
+	return;
+}
 $id=$_POST["id"];
 $tableName=$_POST["tableName"];
 $conn=Login($ROLE_ROOT);
