@@ -1,18 +1,13 @@
 <?php
-function CreateTable_InvoiceRegister($conn)
+function CreateTable_SupervisionFees($conn)
 {//UNIQUE (_50A)
-	$sql1 = "CREATE TABLE IF NOT EXISTS invoiceregister (
+	$sql1 = "CREATE TABLE IF NOT EXISTS supervisionfees (
 					id INT UNSIGNED AUTO_INCREMENT,
 					_50A CHAR(30) DEFAULT NULL,
-					billingdate DATE NOT NULL,
-					number INT NOT NULL,
-					title TEXT NOT NULL,
-					amount DOUBLE NOT NULL,
-					expressnumber TEXT NOT NULL,
-					unit TEXT NOT NULL,
-					deliverdate DATE NOT NULL,
-					signingdate DATE NOT NULL,
-					notes TEXT NOT NULL,
+					date DATE NOT NULL,
+					event TEXT NOT NULL,
+					people TEXT NOT NULL,
+					fees DOUBLE NOT NULL,
 					PRIMARY KEY (id) 
 					)
 					engine=InnoDB DEFAULT CHARSET='utf8'";
@@ -23,22 +18,22 @@ function CreateTable_InvoiceRegister($conn)
 			die();
 		}
 }
-function AddInvoiceRegister($conn)
+function AddSupervisionFees($conn)
 {
-	$sql5 = "INSERT INTO invoiceregister (billingdate)VALUES (CURDATE())";
+	$sql5 = "INSERT INTO supervisionfees (date)VALUES (CURDATE())";
 	if ($conn->query($sql5) === TRUE) {
-		echo "invoiceregister加入新纪录成功";
+		echo "supervisionfees加入新纪录成功";
 	} 
 	else {
 		echo $conn->error;
 	}
 }
-function SketchInvoiceRegister($conn)
+function SketchSupervisionFees($conn)
 {
 	//if($tag==1)
 	{
 		$data=array();
-		$sql7="select id,title, _50A from invoiceregister";
+		$sql7="select id,date, _50A from supervisionfees";
 		$result=$conn->query($sql7);
 		echo $conn->error;
 		if($result->num_rows>0)
@@ -47,24 +42,18 @@ function SketchInvoiceRegister($conn)
 			{
 				// echo $row["pay"]."<br>".$row["cost"]."<br>";
 				$id=$row["id"];
-				$title=$row["title"];
+				$date=$row["date"];
 				$_50A=$row["_50A"];
-				$t_array=array($id,$title,$_50A);
+				$t_array=array($id,$date,$_50A);
 				array_push($data,$t_array);
 			}
 			return $data;
 		}
 		else return null;
 	}
-	/* else if(tag==2)
-	{
-		
-	}
-	else {
-		return null;
-	} */
+	
 }
-function ShowSketchInvoiceRegister($tableName,$data)
+function ShowSketchSupervisionFees($tableName,$data)
 {
 	echo "<table border=\"1\">";
 	// echo "<caption>".$tableName."</caption>";
@@ -80,7 +69,7 @@ function ShowSketchInvoiceRegister($tableName,$data)
 	
 	echo "<tr>";
 	echo "<th>";
-	echo "开票抬头";
+	echo "日期";
 	echo "</th>";
 	
 	echo "<th>";
@@ -95,7 +84,7 @@ function ShowSketchInvoiceRegister($tableName,$data)
 		echo "<tr>";
 		
 		echo "<th>";
-		echo "<a class='item' href=\"InvoiceRegisterDetail.php?tableName=".$tableName."&"."id=".$data[$x][0]."\">";
+		echo "<a class='item' href=\"SupervisionFeesDetail.php?tableName=".$tableName."&"."id=".$data[$x][0]."\">";
 		echo $data[$x][0];
 		echo "</a>";
 		echo "</th>";
@@ -110,19 +99,13 @@ function ShowSketchInvoiceRegister($tableName,$data)
 		//echo $data[$x][2];
 		echo "</td>";
 		
-		/* echo "<td>";
-		echo $data[$x][3];
-		echo "</td>";
 		
-		echo "<td>";
-		echo $data[$x][4];
-		echo "</td>"; */
 		
 		echo "</tr>";
 	}
 	echo "</table>";
 }
-function GetInvoiceRegister($conn,$tableName,$id)
+function GetSupervisionFees($conn,$tableName,$id)
 {
 	$data=array();
 	$sql7="select * from $tableName where id=$id ";
@@ -133,36 +116,21 @@ function GetInvoiceRegister($conn,$tableName,$id)
 		$row = $result->fetch_array();
 		// echo $row["_1B"];
 		return $row;
-		/* while($row = $result->fetch_array()) 
-		{
-			$id=$row["id"];
-			$pay=$row["pay"];
-			$data["pay"]=$pay;
-			// array_push($data,"pay",$pay);
-			$cost=$row["cost"];
-			$data["cost"]=$cost;
-			// array_push($data,"cost",$cost);
-		}
-		return $data; */
+		
 	}
 }
-function SetInvoiceRegister($conn,$id)
+function SetSupervisionFees($conn,$id)
 {
-	$sql6="UPDATE  invoiceregister SET 
+	$sql6="UPDATE  supervisionfees SET 
 					_50A = '".$_POST["_50A"]."' ,
-					billingdate ='".$_POST["billingdate"]."',
-					number ='".$_POST["number"]."',
-					title ='".$_POST["title"]."',
-					amount ='".$_POST["amount"]."',
-					expressnumber ='".$_POST["expressnumber"]."',
-					unit ='".$_POST["unit"]."',
-					deliverdate ='".$_POST["deliverdate"]."',
-					signingdate ='".$_POST["signingdate"]."',
-					notes ='".$_POST["notes"]."'
+					date ='".$_POST["date"]."',
+					event ='".$_POST["event"]."',
+					people ='".$_POST["people"]."',
+					fees =".$_POST["fees"]."
 					WHERE id=".$id;
-					
+
 	if ($conn->query($sql6) === TRUE) {
-		echo "invoiceregister更新纪录成功";
+		echo "supervisionfees更新纪录成功";
 	} 
 	else {
 		echo $conn->error;

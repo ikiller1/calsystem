@@ -173,6 +173,7 @@ li a:hover, .dropdown:hover .dropbtn {
     <a href="#" class="dropbtn">表格</a>
     <div class="dropdown-content">
       <a href="/system/view/SketchInvoiceregister.php">发票登记</a>
+	  <a href="/system/view/SketchSupervisionFees.php">督导费用</a>
       
     </div>
   </div>
