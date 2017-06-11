@@ -174,6 +174,7 @@ li a:hover, .dropdown:hover .dropbtn {
     <div class="dropdown-content">
       <a href="/system/view/SketchInvoiceregister.php">发票登记</a>
 	  <a href="/system/view/SketchSupervisionFees.php">督导费用</a>
+	  <a href="/system/main/SketchMain.php">main</a>
       
     </div>
   </div>
