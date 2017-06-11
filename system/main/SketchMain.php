@@ -50,6 +50,7 @@ echo $data["_50A"]."<br>"; */
 </script>
 <script>
 var originJson;
+
 /* $(function() {
 
     $( "#_50A" ).autocomplete({
@@ -58,6 +59,7 @@ var originJson;
 
     });
   }); */
+
 $(document).ready(function() 
 {
 	console.log("ready()");
