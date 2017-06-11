@@ -33,7 +33,7 @@ UseDatabase($conn);
 				$tables=$row["tables"];
 				//$t_array=array($id,$_50A,$date,$type,$tables);
 				$t1=array("tableName"=>"main1","id"=>"id1","tag"=>"fees");
-				$t2=array("tableName"=>"main2","id"=>"id2","tag"=>"fees");
+				$t2=array("tableName"=>"main2","id"=>"id2","tag"=>"cars");
 				$tables=array($t1,$t2);
 				array_push($data, array("id"=>$id, "_50A" => $_50A,"date" => $date,"type"=> $type, "tables"=>$tables));
 				//array_push($data,$t_array);
