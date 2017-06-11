@@ -51,7 +51,7 @@ echo $data["_50A"]."<br>"; */
 $(document).ready(function() 
 {
 	console.log("ready()");
-	$("#getbutton").click(function(){
+	//$("#getbutton").click(function(){
 		$.post("echoMain.php",{
 			//name:"菜鸟教程",
 			//url:"http://www.runoob.com"
@@ -83,7 +83,7 @@ $(document).ready(function()
 			//var obj = JSON.parse(data);
 			//console.log(obj[0].date);
 		});
-	});
+	//});
 });
 function addRow(row)
 {
@@ -160,8 +160,8 @@ function editItem(row,col,data)
 		var child=document.getElementsByTagName("tr");
 		//var target=child[3].parentNode;
 		var target=child[row].childNodes[col];
-		console.log(child[row].childNodes.length);
-		console.log(target);
+		//console.log(child[row].childNodes.length);
+		//console.log(target);
 		target.childNodes[0].setAttribute("href",data);
 	}
 	else
@@ -187,9 +187,28 @@ function switchMode(item)
 		inputItem.removeAttribute("readonly");
 		item.innerHTML="Save";
 	}
-	else {
-		inputItem.setAttribute("readonly","readonly");
-		item.innerHTML="Edit";
+	else 
+	{
+		var id=item.parentNode.previousSibling.previousSibling.innerHTML;
+		var orderid=item.parentNode.previousSibling.childNodes[0].value;
+		console.log(item.parentNode.previousSibling.childNodes[0]);
+		$.post("editOrderId.php",{
+			id:id,
+			orderId:orderid
+		},
+		function(data,status){
+			alert("数据: \n" + data + "\n状态: " + status);
+			//console.log(data.length);
+			//console.log(data[0].date);
+			
+			//var obj = JSON.parse(data);
+			//console.log(obj[0].date);
+			if(status=="success")
+			{
+			inputItem.setAttribute("readonly","readonly");
+			item.innerHTML="Edit";
+			}
+		});	
 	}
 }
 function add(){

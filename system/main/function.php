@@ -157,4 +157,17 @@ function SetMain($conn,$id)
 		echo $conn->error;
 	}
 }
+function SetOrderIdInMain($conn,$id,$orderid)
+{
+	$sql6="UPDATE  main SET 
+					_50A = '".$orderid."'
+					WHERE id=".$id;
+
+	if ($conn->query($sql6) === TRUE) {
+		echo "orderid更新成功";
+	} 
+	else {
+		echo $conn->error;
+	}
+}
 ?>
