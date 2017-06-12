@@ -27,7 +27,8 @@ function AddInvoiceRegister($conn)
 {
 	$sql5 = "INSERT INTO invoiceregister (billingdate)VALUES (CURDATE())";
 	if ($conn->query($sql5) === TRUE) {
-		echo "invoiceregister加入新纪录成功";
+		//echo "invoiceregister加入新纪录成功";
+		return true;
 	} 
 	else {
 		echo $conn->error;
@@ -162,7 +163,7 @@ function SetInvoiceRegister($conn,$id)
 					WHERE id=".$id;
 					
 	if ($conn->query($sql6) === TRUE) {
-		echo "invoiceregister加入新纪录成功";
+		echo "invoiceregister更新纪录成功";
 	} 
 	else {
 		echo $conn->error;

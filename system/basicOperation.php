@@ -63,7 +63,11 @@ function AuthCheck()
 		return false;
 	}
 	else{
-		echo "权限检查通过";
+		//echo "权限检查通过";
 	}
+}
+function GetLastInsertId($conn)
+{
+	return $conn->insert_id;
 }
 ?>
