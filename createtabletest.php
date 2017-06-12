@@ -2,6 +2,8 @@
 include './system/basicOperation.php';
 include './test/Common.php';
 include './system/model/InvoiceRegister.php';
+include './system/model/SupervisionFees.php';
+include './system/main/function.php';
 AuthCheck();
 //$id=$_GET["id"];
 //$tableName=$_POST["tableName"];
@@ -9,6 +11,8 @@ AuthCheck();
 $conn=Login($ROLE_ROOT);
 UseDatabase($conn);
 CreateTable_InvoiceRegister($conn);
+CreateTable_SupervisionFees($conn);
+CreateTable_Main($conn);
 //AddInvoiceRegister($conn);
 Logout($conn);
 // CreateTestData($conn);
