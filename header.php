@@ -23,8 +23,9 @@ if(!isset($_SESSION['mode']))
 <head>
 <title></title>
 <meta charset="utf-8">
-
+<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
 <script src="/resource/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="/resource/highcharts.js"></script>
 <!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
 <!--<script src="https://cdn.bootcss.com/highcharts/5.0.11/highcharts.js"></script>-->

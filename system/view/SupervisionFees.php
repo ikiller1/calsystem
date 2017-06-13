@@ -54,7 +54,7 @@ echo "<form action=\"../controller/supervisionfees.php?"."id=".$id."\" method=\"
 <br>
 <input type="submit" value="提交">
 </form>
-<input type="button" onclick="onpreexport()" value="preexport"></button>
+<input type="button" class="btn btn-primary" onclick="onpreexport()" value="preexport"></button>
 	<script>
 function onpreexport()
 {
@@ -123,16 +123,22 @@ else
 	</script>
 	
 <script language="JavaScript">
-$(function() {
-
-    $( "#_50A" ).autocomplete({
+//var series=new Array();
+$(document).ready(function() {
+	///////////////////////
+	$("input").focus(function(){
+    $(this).css("background-color","#cccccc");
+  });
+  $("input").blur(function(){
+    $(this).css("background-color","#ffffff");
+  });
+  ///////////////////////
+  $( "#_50A" ).autocomplete({
       source: "/test/EchoOrderId.php",
       minLength: 1
 
     });
-  });
-//var series=new Array();
-$(document).ready(function() {
+///////////////////////
 
 	//<p><a id="link" href="demo.php">2</a></p>
 	var Orderid=document.forms["myForm"]["_50A"].value;
