@@ -141,6 +141,16 @@ if(!isset($_SESSION['mode']))
 
 <div style="height:60px;"></div>
 <p id="sessionid" hidden><?php $sid=session_id(); echo $sid; ?></p>
+<style type="text/css">  
+    .navbar .nav > li .dropdown-menu {  
+        margin: 0;  
+    }  
+    .navbar .nav > li:hover .dropdown-menu {  
+        display: block;  
+    }  
+</style> 
+
+
 
 <script language=javascript>
 var int=self.setInterval("clock()",300)
