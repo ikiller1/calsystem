@@ -25,7 +25,7 @@ UseDatabase($conn);
 			echo "<a class='item' href=\"printOrders.php?tableName=".$row[0]."\">";
 			echo $row[0];
 			echo "</a>";
-			//echo "<br>";
+			echo "<br>";
 			//echo $row[0]."<br>";
 			// echo $row["pay"]."<br>".$row["cost"]."<br>";
 			//$id=$row["id"];

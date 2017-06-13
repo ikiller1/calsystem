@@ -23,7 +23,7 @@ if(!isset($_SESSION['mode']))
 <head>
 <title></title>
 <meta charset="utf-8">
-<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">  
+<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="/resource/jquery.min.js"></script>
 	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="/resource/highcharts.js"></script>
@@ -50,90 +50,7 @@ if(!isset($_SESSION['mode']))
 <script type="text/javascript" src="/resource/tableexport.js"></script>
   
 <style>
-/*Comment:
-a.three:link {color:#ff0000;}
-a.three:visited {color:#0000ff;}
-a.three:hover {background:#66ff66;}*/
 
-.item:link,.item:visited
-{
-	display:block;
-	font-weight:bold;
-	color:#FFFFFF;
-	background-color:#C0C0C0;
-	width:200px;
-	text-align:center;
-	padding:2px;
-	text-decoration:none;
-}
-.item:hover,.item:active
-{
-	background-color:#000000;
-}
-
-ul {
-	/* position:absolute;
-	top:0;
-	left:0; */
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-}
-
-li {
-    float: left;
-}
-
-li a, .dropbtn {
-    display: inline-block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-li a:hover, .dropdown:hover .dropbtn {
-    background-color: #111;
-}
-
-.dropdown {
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-.button {
-    background-color: #f9f9f9;
-    border: none;
-    color: black;
-    padding: 12px 16px;
-    text-align: center;
-    text-decoration: none;
-    display: block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
-
-.dropdown-content a:hover {background-color: #f1f1f1}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
 .mode
 {
 	color:white;
@@ -156,87 +73,72 @@ li a:hover, .dropdown:hover .dropbtn {
 </head>
 <body>
 
-<div style="position: fixed;top:0px;left:0px;width:100%;height:50px;">
 
-<ul>
-	
-  
-  <li><a class="active" href="/index.php">主页</a></li>
-  <li><a href="/test/printCustumer.php?tableName=t_custumer">客户</a></li>
-  <div class="dropdown">
-    <a href="#" class="dropbtn">订单</a>
-    <div class="dropdown-content">
-      <a href="/test/showtables.php">进口</a>
-      <a href="#">出口</a>
-    </div>
-  </div>
-  <div class="dropdown">
-    <a href="#" class="dropbtn">表格</a>
-    <div class="dropdown-content">
-      <a href="/system/view/SketchInvoiceregister.php">发票登记</a>
-	  <a href="/system/view/SketchSupervisionFees.php">督导费用</a>
-	  <a href="/system/main/SketchMain.php">main</a>
-      
-    </div>
-  </div>
-  <div class="dropdown">
-    <a href="#" class="dropbtn">报表</a>
-    <div class="dropdown-content">
-	  <a href="/test/js.php">每日明细</a>
-      <a href="#">日报</a>
-      <a href="#">月报</a>
-      <a href="#">季报</a>
-	  <a href="/test/chartByMonth.php">年报</a>
-    </div>
-  </div>
-  
-  <div class="dropdown">
-    <a href="#" id="modetag" class="dropbtn">
-	<?php
-		if(count($_SESSION['mode'])>0)
-			echo $_SESSION['mode'];
-		else 
-			echo "access mode";
-		//$sid=session_id();
-		//echo $sid;
-	?>
-	</a>
-    <div class="dropdown-content">
-	<input class="button" onclick="setMode(this)" type="button" value="read-only">
-	<input class="button" onclick="setMode(this)" type="button" value="write">
-      <!-- <a onclick="">read-only</a> -->
-      <!-- <a onclick="">write</a> -->
-    </div>
-  </div>
-  
-  <div class="dropdown">
-    <a  id="fresh" class="dropbtn" onclick="refresh()" href="#">刷新</a>
-    <div class="dropdown-content">
-	
-      <!-- <a onclick="">read-only</a> -->
-      <!-- <a onclick="">write</a> -->
-    </div>
-  </div>
-  <div class="dropdown">
-    <a class="dropbtn"  id="clock" size="35" href="#"></a>
-    <div class="dropdown-content">
-	
-      <!-- <a onclick="">read-only</a> -->
-      <!-- <a onclick="">write</a> -->
-    </div>
-  </div>
-  
-  <div class="dropdown">
-    <a  id="fresh" class="dropbtn"  href="/test/help.html">帮助</a>
-    <div class="dropdown-content">
-	
-      <!-- <a onclick="">read-only</a> -->
-      <!-- <a onclick="">write</a> -->
-    </div>
-  </div>
-  
-</ul>
-</div>
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container-fluid"> 
+		<div class="navbar-header"> 
+			<a class="navbar-brand" href="#">管理系统</a> 
+		</div> 
+		<div>
+			<ul class="nav navbar-nav"> 
+			  <li><a class="active" href="/index.php">主页</a></li>
+			  <li><a href="/test/printCustumer.php?tableName=t_custumer">客户</a></li>
+			  <li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">订单<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+				  <li><a href="/test/showtables.php">进口</a></li>
+				  <li><a href="#">出口</a></li>
+				</ul>
+			  </li>
+			  <li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">表格<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+				  <li><a href="/system/view/SketchInvoiceregister.php">发票登记</a></li>
+				  <li><a href="/system/view/SketchSupervisionFees.php">督导费用</a></li>
+				  <li><a href="/system/main/SketchMain.php">main</a></li>
+				</ul>
+			  </li>
+			  <li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">报表<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+				  <li><a href="/test/js.php">每日明细</a></li>
+				  <li><a href="#">日报</a></li>
+				  <li><a href="#">月报</a></li>
+				  <li><a href="#">季报</a></li>
+				  <li><a href="/test/chartByMonth.php">年报</a></li>
+				</ul>
+			  </li>
+			  <li class="dropdown">
+				<a href="#" id="modetag" class="dropdown-toggle" data-toggle="dropdown">
+				<?php
+					if(count($_SESSION['mode'])>0)
+						echo $_SESSION['mode'];
+					else 
+						echo "access mode";
+				?>
+				<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+				<li><input class="button" onclick="setMode(this)" type="button" value="read-only"></li>
+				<li><input class="button" onclick="setMode(this)" type="button" value="write"></li>
+				</ul>
+			  </li>
+			  <li>
+				<a id="fresh" class="dropdown-toggle" data-toggle="dropdown" onclick="refresh()" href="#">刷新</a>
+			  </li>
+			  <li class="dropdown">
+				<a class="dropbtn"  id="clock" size="35" href="#"></a>
+				<div class="dropdown-content">
+				</div>
+			  </li>
+			  <li>
+				<a  id="fresh" class="dropbtn"  href="/test/help.html">帮助</a>
+			  </li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
 <div style="height:60px;"></div>
 <p id="sessionid" hidden><?php $sid=session_id(); echo $sid; ?></p>
 
