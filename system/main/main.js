@@ -68,9 +68,9 @@ function encodeJson(mainId,tableName,insertId)
 function createRecord(item)
 {
 	//console.log("createRecord "+originJson);
-	console.log(item.className);
-	var indexof_=item.className.indexOf("_");
-	var tableName=item.className.substr(0,indexof_);
+	console.log(item.id);
+	var indexof_=item.id.indexOf("_");
+	var tableName=item.id.substr(0,indexof_);
 	//var tableName=tag;
 	$.post("createRecord.php",{
 			tableName:tableName
@@ -78,7 +78,8 @@ function createRecord(item)
 			//url:"http://www.runoob.com"
 		},
 		function(data,status){
-			
+			console.log("createRecord return data");
+			console.log(data);
 			var json=JSON.parse(data);
 			var mainId=item.parentNode.parentNode.childNodes[0].innerHTML;
 			//console.log(mainId);
@@ -90,18 +91,22 @@ function createRecord(item)
 			var lastInsertId=json.lastInsertId;
 			alert("数据: \n" + data + "\n状态: " + status);
 			encodeJson(mainId,tableName,lastInsertId);
-			editItem(mainId-1,item.className,genHref(tableName,lastInsertId));
+			editItem(mainId-1,item.id,genHref(tableName,lastInsertId));
+			setTimeout(function(){window.location.reload();},1000);
 		});
 }
 function addRow(row,type)
 {
 		console.log("addRow()");
+		row=row-2;
 		var child=document.getElementsByTagName("tr");
-		var target=child[0].parentNode;
+		//var target=child[0].parentNode;
+		var target=document.getElementsByTagName("tbody")[0];
+		console.log(target);
 		var paran=document.createElement("tr");
 		{
 			var para1=document.createElement("td");
-			para1.setAttribute("class","id");
+			para1.setAttribute("id","id_"+row);
 			var node1=document.createTextNode("1");
 			para1.appendChild(node1);
 			paran.appendChild(para1);
@@ -110,7 +115,7 @@ function addRow(row,type)
 			var node2=document.createElement("input");
 			node2.setAttribute("type","text");
 			node2.setAttribute("required","required");
-			node2.setAttribute("class","orderid");
+			node2.setAttribute("id","orderid_"+row);
 			//node2.setAttribute("id","_50A");
 			node2.setAttribute("readonly","readonly");
 			para2.appendChild(node2);
@@ -120,7 +125,8 @@ function addRow(row,type)
 			var node3=document.createElement("button");
 			node3.innerHTML="Edit";
 			node3.setAttribute("onclick","switchMode(this)");
-			//node2.setAttribute("required","required");
+			
+			node3.setAttribute("class","btn btn-default btn-xs");
 			//node2.setAttribute("value","0");
 			//node2.setAttribute("readonly","readonly");
 			para3.appendChild(node3);
@@ -128,7 +134,7 @@ function addRow(row,type)
 			
 			var para4=document.createElement("td");
 			var node4=document.createTextNode("4");
-			para4.setAttribute("class","date");
+			para4.setAttribute("id","date_"+row);
 			para4.appendChild(node4);
 			paran.appendChild(para4);
 			
@@ -136,23 +142,26 @@ function addRow(row,type)
 			var node5=document.createElement("button");
 			if(type==1)
 			{
-				node5.setAttribute("class","invoiceregister_"+row);
+				node5.setAttribute("id","invoiceregister_"+row);
 			}
 			else if(type==2)
 			{
-				node5.setAttribute("class","supervisionfees_"+row);
+				node5.setAttribute("id","supervisionfees_"+row);
 			}
-			//node5.setAttribute("class","supervisionfees");
+			
 			node5.setAttribute("onclick","createRecord(this)");
-			node5.innerHTML="new";
+			node5.setAttribute("class","btn btn-default btn-xs");
+			node5.innerHTML="---";
 			para5.appendChild(node5);
 			paran.appendChild(para5);
 			
 			var para6=document.createElement("td");
 			var node6=document.createElement("button");
-			node6.setAttribute("class","cars");
+			node6.setAttribute("id","cars_"+row);
 			node6.setAttribute("onclick","createRecord(this)");
-			node6.innerHTML="new";
+			node6.setAttribute("disabled","disabled");
+			node6.setAttribute("class","btn btn-default btn-xs disabled");
+			node6.innerHTML="---";
 			para6.appendChild(node6);
 			paran.appendChild(para6);
 			
@@ -166,9 +175,11 @@ function addRow(row,type)
 			{
 				
 			}
-			node7.setAttribute("class","empty");
+			node7.setAttribute("id","empty_"+row);
 			node7.setAttribute("onclick","createRecord(this)");
-			node7.innerHTML="new";
+			node7.setAttribute("disabled","disabled");
+			node7.setAttribute("class","btn btn-default btn-xs disabled");
+			node7.innerHTML="---";
 			para7.appendChild(node7);
 			paran.appendChild(para7);
 		}
@@ -181,13 +192,14 @@ function editItem(row,tag,data)
 	console.log(row);
 	console.log(tag);
 	console.log(data);
-	var child=document.getElementsByClassName(tag);
+	//console.log(tag+"_"+row);
+	var child=document.getElementById(tag+"_"+row);
 	//var index=tag.indexOf("_");
 	//var t_tag=tag.substr(0,index);
 	//console.log("child");
 	//console.log(child);
-	var target=child[row];
-	//console.log(target);
+	var target=child;
+	console.log(target);
 	if(tag=="id"||tag=="date")
 	{
 		target.innerHTML=data;
@@ -198,14 +210,15 @@ function editItem(row,tag,data)
 	}
 	else if((tag=="invoiceregister"||tag=="supervisionfees"||tag=="cars"||tag=="empty"))
 	{
-		target=document.getElementsByClassName(tag+"_"+(row+2).toString())[0];
+		console.log(tag+"_"+(row+2).toString());
+		target=document.getElementById(tag+"_"+(row).toString());
 		console.log(target);
 		var parent=target.parentNode;
 		target.setAttribute("href",data);
 		var newtarget=document.createElement("a");
-		newtarget.setAttribute("class",tag);
+		newtarget.setAttribute("id",tag);
 		newtarget.setAttribute("href",data);
-		newtarget.innerHTML="link";
+		newtarget.innerHTML="<span class='glyphicon glyphicon-link' style='font-size: 16px;'></span>Go";
 		parent.replaceChild(newtarget,target);
 	}
 	else

@@ -19,31 +19,19 @@ if(!isset($_SESSION['mode']))
 	exit;
 } */
 ?>
-<html>
+<html lang="zh-CN">
 <head>
 <title></title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta charset="utf-8">
-<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="/resource/bootstrap/dist/css/bootstrap.min.css">
 <script src="/resource/jquery.min.js"></script>
-	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="/resource/highcharts.js"></script>
-<!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
-<!--<script src="https://cdn.bootcss.com/highcharts/5.0.11/highcharts.js"></script>-->
-   <script src="/resource/jquery-ui.min.js"></script>
-<!--<script src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>-->
-   <!--<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
-   <!--<link href="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.theme.min.css" rel="stylesheet">-->
-   <!--<script src="http://cdn.hcharts.cn/jquery/jquery.min.js"></script>-->
-   <!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
-  <!--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>-->
-  <!--<script src="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.js"></script>-->
-  <!--<script src="http://localhost/resource/jquery.min.js"></script>-->
-  <link rel="stylesheet" href="/resource/jquery-ui.css">
- <!-- <script src="http://cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>-->
- 
-  <!--<script src="https://cdn.bootcss.com/highcharts/5.0.11/highcharts.js"></script>-->
-  <!--<script src="http://localhost/resource/highcharts.js"></script>-->
-  
+<script src="/resource/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/resource/highcharts.js"></script><!--
+<script src="/resource/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="/resource/jquery-ui.css">-->
+
 <script type="text/javascript" src="/resource/xlsx.core.min.js"></script>
 <!--<script type="text/javascript" src="../resource/Blob.min.js"></script>-->
 <script type="text/javascript" src="/resource/FileSaver.min.js"></script>
@@ -55,20 +43,17 @@ if(!isset($_SESSION['mode']))
 {
 	color:white;
 }
-<!--------------------------------------------------->
-.buttonNew {
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 12px 16px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
+.table th { 
+text-align: center; 
+font-size: 15px;
+//height:20px;
 }
 
+.table td { 
+text-align: center; 
+//font-size: 14px;
+//height:20px;
+}
 </style>
 </head>
 <body>
@@ -119,21 +104,22 @@ if(!isset($_SESSION['mode']))
 				?>
 				<span class="caret"></span></a>
 				<ul class="dropdown-menu">
-				<li><input class="button" onclick="setMode(this)" type="button" value="read-only"></li>
-				<li><input class="button" onclick="setMode(this)" type="button" value="write"></li>
+				<li><input class="btn btn-default navbar-btn" onclick="setMode(this)" type="button" value="read-only"></li>
+				<li><input class="btn btn-default navbar-btn" onclick="setMode(this)" type="button" value="write"></li>
 				</ul>
 			  </li>
 			  <li>
 				<a id="fresh" class="dropdown-toggle" data-toggle="dropdown" onclick="refresh()" href="#">刷新</a>
 			  </li>
-			  <li class="dropdown">
-				<a class="dropbtn"  id="clock" size="35" href="#"></a>
-				<div class="dropdown-content">
-				</div>
-			  </li>
+			  
 			  <li>
-				<a  id="fresh" class="dropbtn"  href="/test/help.html">帮助</a>
+				<a  id="fresh" class="dropbtn"  target="_blank" href="/test/help.html">帮助</a>
 			  </li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right"> 
+				<!--<li><a href="#"><span class="glyphicon glyphicon-user"></span> 注册</a></li> 
+				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li> -->
+				<li><a href="#" id="clock"><span class="glyphicon glyphicon-time"></span>  <text class="text"></text></a></li> 
 			</ul>
 		</div>
 	</div>
@@ -156,8 +142,11 @@ if(!isset($_SESSION['mode']))
 var int=self.setInterval("clock()",300)
 function clock()
   {
-  var t=new Date()
-  document.getElementById("clock").innerHTML=t;
+  var t=new Date();
+  //var text=$("#clock").text();
+  //document.getElementById("clock").innerHTML=t;
+  //$("#clock").text(t);
+  $(".text").text(t);
   }
 </script>
 <script>
@@ -186,8 +175,6 @@ function setMode(item)
 	else
 		PSID=PSID2;
 	$.post("/Login.php",{
-			//name:"菜鸟教程",
-			//url:"http://www.runoob.com",
 			mode:item.value,
 			PHPSESSID:PSID
 		},
@@ -202,8 +189,6 @@ function setMode(item)
 			//alert(data);
 			document.getElementById("modetag").innerHTML=item.value;
 		});
-	//document.getElementById("modetag").innerHTML=item.value;
-	//document.getElementById("dest").setAttribute("src","http://localhost");
 }
 
 function refresh()

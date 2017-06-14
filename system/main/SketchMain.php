@@ -7,25 +7,58 @@ include '../basicOperation.php';
 include 'function.php';
 include '../../test/Common.php';
 ?>
-<table border="1">
-<caption>Index</caption>
-
-<tr>
-<th rowspan="2">id</th>
-<th rowspan="2" colspan="2">orderid</th>
-<th colspan="4" >detail</th>
-</tr>
-	
-<tr>
-<th>date</th>
-<th>fees</th>
-<th>cars</th>
-<th>empty</th>
-</tr>
-
-</table>
-	
-<button id="getbutton">获取外部内容</button>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-2"></div>
+		<div class="col-lg-8 table-responsive">
+			<table class="table table-hover table-bordered table-condensed  ">
+			<caption>Index</caption>
+			<thead>
+				<tr>
+					<th rowspan="2" class="col-lg-1 ">id</th>
+					<th rowspan="2" colspan="2" class="col-lg-1">orderid</th>
+					<th colspan="4">detail</th>
+				</tr>
+				<tr>
+					<th class="col-lg-3">date</th>
+					<th class="col-lg-1">fees</th>
+					<th class="col-lg-1">cars</th>
+					<th class="col-lg-1">empty</th>
+					
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+			</table>
+		</div>
+		<div class="col-lg-2"></div>
+	</div>
+	<div class="row">
+		<form class="bs-example bs-example-form" role="form">
+			<div class="row">
+				<div class="col-lg-1">
+					<label for="name">选择列表</label>
+				</div>
+				<div class="col-lg-4">
+					<div class="input-group ">
+					<select id="typeoption1" class="form-control">
+						<option value="0">请填入正确类型（选择后不可更改）</option>
+						<option value="1">invoiceregister</option>
+						<option value="2">supervisionfees</option>
+						<option value="3">4</option>
+						<option value="4">5</option>
+					</select>
+					<span class="input-group-btn">
+						<input type="button" class="btn btn-primary" value="new" onclick="add()"  >
+					</span>
+					
+					</div>
+				</div>
+			</div>
+			<label id="status"></label>
+		</form>
+	</div>
+</div>
 <script type="text/javascript" src="main.js">
 </script>
 <script>
@@ -94,6 +127,7 @@ function switchMode(item)
 	if(inputItem.hasAttribute("readonly")==true)
 	{
 		inputItem.removeAttribute("readonly");
+		item.setAttribute("class","btn btn-danger");
 		item.innerHTML="Save";
 	}
 	else 
@@ -114,15 +148,16 @@ function switchMode(item)
 			//console.log(obj[0].date);
 			if(status=="success")
 			{
-			inputItem.setAttribute("readonly","readonly");
-			item.innerHTML="Edit";
+				inputItem.setAttribute("readonly","readonly");
+				item.setAttribute("class","btn btn-default");
+				item.innerHTML="Edit";
 			}
 		});	
 	}
 }
 function add(){
 //test();
- var type=document.getElementById("typeoption").value;
+ var type=document.getElementById("typeoption1").value;
  console.log(type);
 if(type==0)
 {
@@ -159,8 +194,8 @@ var xmlhttp;
   xmlhttp.send("id=0&type="+type);	
 }
 </script>
-
-<fieldset style="width:300px;height:50px">
+<!--
+<fieldset >
 <legend>choose a type</legend>
 <select id="typeoption" name="cars">
 <option value="0">请填入正确类型（选择后不可更改）</option>
@@ -169,9 +204,14 @@ var xmlhttp;
 <option value="3">Fiat</option>
 <option value="4">Audi</option>
 </select>
-<input type="button" class="buttonNew" value="new" onclick="add()"  >
+<input type="button" class="btn btn-primary" value="new" onclick="add()"  >
 <label id="status"></label>
 </fieldset>
 
+<div style="padding: 100px 100px 10px;">
+-->
+
+
+<!--</div>-->
 </body>
 </html>
