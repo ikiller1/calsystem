@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <script src="/resource/jquery.min.js"></script>
+  <link rel="stylesheet" href="/resource/bootstrap/dist/css/bootstrap.min.css">
+  <script src="/resource/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="https://static.runoob.com/assets/jquery/jquery.growl/javascripts/jquery.growl.js" type="text/javascript"></script>
+<link href="https://static.runoob.com/assets/jquery/jquery.growl/stylesheets/jquery.growl.css" rel="stylesheet" type="text/css" />
+<script src="/resource/bootstrap-notify.js"></script>
+ </head>
+ <body>
+  
+ <div id="result"></div>
+
+ </body>
+<script>
+/*
+setInterval("PerRefresh()", 10000);
+
+function PerRefresh() {
+     var today = new Date();
+	 console.log(today);
+     //alert("The time is: " + today.toString());
+	 $.ajax({
+	 url: "/system/InfoCenter/infoData.json", 
+	 context: document.body, 
+	 ifModified:true,
+	 success: function(){
+        //$(this).addClass("done");
+		
+      }});
+}*/
+var b=0;
+if(typeof(EventSource)!=="undefined")
+  {
+  var source=new EventSource("/system/InfoCenter/broadcastInfo.php");
+  source.onmessage=function(event)
+    {
+    //document.getElementById("result").innerHTML+=event.data + "<br />";
+	console.log(event.lastEventId);
+	console.log(event.data);
+	if(b==0)
+	{
+		b=1;
+		/*$.growl({ title: event.lastEventId, message: event.data });*/
+		$.notify({
+			icon: 'glyphicon glyphicon-warning-sign',
+			title: event.lastEventId,
+			message: event.data,
+			url:"http://www.baidu.com",
+			target: '_blank'
+		},{
+			
+			//showProgressbar: true,
+			timer:2000
+		});
+	}
+	else if(b==1)
+	{
+		b=2;
+		/*$.growl.notice({ title: event.lastEventId, message: event.data });*/
+		$.notify({
+			icon: 'glyphicon glyphicon-warning-sign',
+			title: event.lastEventId,
+			message: event.data,
+			url:"http://www.baidu.com",
+			target: '_blank'
+		},{
+			type: 'success',
+			//showProgressbar: true,
+			timer:2000
+		});
+	}
+	else if(b==2)
+	{
+		b=3;
+		/*$.growl.error({ title: event.lastEventId, message: event.data });*/
+		$.notify({
+			icon: 'glyphicon glyphicon-warning-sign',
+			title: event.lastEventId,
+			message: event.data,
+			url:"http://www.baidu.com",
+			target: '_blank'
+		},{
+			type: 'error',
+			//showProgressbar: true,
+			timer:2000
+		});
+	}
+	else if(b==3)
+	{
+		b=0;
+		/*$.growl.warning({ title: event.lastEventId, message: event.data });*/
+		$.notify({
+			icon: 'glyphicon glyphicon-warning-sign',
+			title: event.lastEventId,
+			message: event.data,
+			url:"http://www.baidu.com",
+			target: '_blank'
+		},{
+			type: 'danger',
+			//showProgressbar: true,
+			timer:2000
+		});
+	}
+    };
+  }
+else
+  {
+  document.getElementById("result").innerHTML="抱歉，您的浏览器不支持 server-sent 事件 ...";
+  }
+  
+</script>
+</html>

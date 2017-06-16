@@ -147,7 +147,14 @@ $(function() {
   });
 //var series=new Array();
 $(document).ready(function() {
-
+///////////////////////////////////////////
+	$("input").focus(function(){
+    $(this).css("background-color","#cccccc");
+  });
+  $("input").blur(function(){
+    $(this).css("background-color","#ffffff");
+  });
+///////////////////////////////////////////
 	//<p><a id="link" href="demo.php">2</a></p>
 	var Orderid=document.forms["myForm"]["_50A"].value;
 	console.log("text length :"+Orderid.length);

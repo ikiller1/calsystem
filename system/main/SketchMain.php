@@ -41,17 +41,16 @@ include '../../test/Common.php';
 				</div>
 				<div class="col-lg-4">
 					<div class="input-group ">
-					<select id="typeoption1" class="form-control">
-						<option value="0">请填入正确类型（选择后不可更改）</option>
-						<option value="1">invoiceregister</option>
-						<option value="2">supervisionfees</option>
-						<option value="3">4</option>
-						<option value="4">5</option>
-					</select>
-					<span class="input-group-btn">
-						<input type="button" class="btn btn-primary" value="new" onclick="add()"  >
-					</span>
-					
+						<select id="typeoption1" class="form-control">
+							<option value="0">请填入正确类型（选择后不可更改）</option>
+							<option value="1">invoiceregister</option>
+							<option value="2">supervisionfees</option>
+							<option value="3">4</option>
+							<option value="4">5</option>
+						</select>
+						<span class="input-group-btn">
+							<input type="button" class="btn btn-primary" value="new" onclick="add()">
+						</span>
 					</div>
 				</div>
 			</div>
@@ -59,18 +58,10 @@ include '../../test/Common.php';
 		</form>
 	</div>
 </div>
-<script type="text/javascript" src="main.js">
-</script>
+
+<script type="text/javascript" src="main.js"></script>
 <script>
 var originJson;
-/* $(function() {
-
-    $( "#_50A" ).autocomplete({
-      source: "/test/EchoOrderId.php",
-      minLength: 1
-
-    });
-  }); */
 
 $(document).ready(function() 
 {
@@ -85,9 +76,6 @@ $(document).ready(function()
 			console.log(data);
 			originJson=data;
 			console.log();
-			//alert("数据: \n" + data + "\n状态: " + status);
-			//console.log(data.length);
-			//console.log(data[0].date);
 			for (var i=0;i<data.length;i++)
 			{
 				console.log("row:"+i);
@@ -102,21 +90,17 @@ $(document).ready(function()
 				editItem(i,"date",data[i].date);
 				for (var j=0;j<tables.length;j++)
 				{
-					//console.log("col:"+j+" tablename:"+tables[j].tableName+" id:"+tables[j].id);
-					//document.write(cars[i] + "<br>");
-					//addItem(i,j,data[i].id,data[i].type,tables[j].tableName,tables[j].id);
 					editItem(i,tables[j].tag,genHref(tables[j].tableName,tables[j].id));
-					//console.log(genHref(tables[j].tableName,tables[j].id));
 				}
 			}
-			
-			//var obj = JSON.parse(data);
-			//console.log(obj[0].date);
 		});
 	/* $("#newButton").click(function(){
 		console.log("newButton click");
 		createRecord(this);
 	}); */
+	////////////////////////////////////////////////////
+	
+	////////////////////////////////////////////////////
 });
 
 function switchMode(item)
@@ -127,7 +111,7 @@ function switchMode(item)
 	if(inputItem.hasAttribute("readonly")==true)
 	{
 		inputItem.removeAttribute("readonly");
-		item.setAttribute("class","btn btn-danger");
+		item.setAttribute("class","btn btn-danger btn-xs");
 		item.innerHTML="Save";
 	}
 	else 
@@ -141,77 +125,54 @@ function switchMode(item)
 		},
 		function(data,status){
 			alert("数据: \n" + data + "\n状态: " + status);
-			//console.log(data.length);
-			//console.log(data[0].date);
-			
-			//var obj = JSON.parse(data);
-			//console.log(obj[0].date);
 			if(status=="success")
 			{
 				inputItem.setAttribute("readonly","readonly");
-				item.setAttribute("class","btn btn-default");
+				item.setAttribute("class","btn btn-default btn-xs");
 				item.innerHTML="Edit";
 			}
 		});	
 	}
 }
-function add(){
-//test();
- var type=document.getElementById("typeoption1").value;
- console.log(type);
-if(type==0)
+function add()
 {
-	alert("choose a valid type");
-	return ;
-}
+	var type=document.getElementById("typeoption1").value;
+	console.log(type);
+	if(type==0)
+	{
+		alert("choose a valid type");
+		return ;
+	}
 
-var xmlhttp;
-  if (window.XMLHttpRequest)
-  {
-    // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
-    xmlhttp=new XMLHttpRequest();
-  }
-  else
-  {
-    // IE6, IE5 浏览器执行代码
-    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  }
-  xmlhttp.onreadystatechange=function()
-  {
-    if (xmlhttp.readyState==4 && xmlhttp.status==200)
-    {
-      document.getElementById("status").innerHTML=xmlhttp.responseText;
-	  //sleep(2);
-	  //location.reload(true);
-	  //if(xmlhttp.responseText=="success")
-	  //document.getElementById("orderid").innerHTML="新记录创建成功";
-	  setTimeout(function(){window.location.reload();},1500);
-    }
-  }
-  xmlhttp.open("POST","controller.php",true);
-  xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-  var emptyJson={};
-  xmlhttp.send("id=0&type="+type);	
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	{
+	// IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+	xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{
+	// IE6, IE5 浏览器执行代码
+	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+		{
+			if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			{
+			  document.getElementById("status").innerHTML=xmlhttp.responseText;
+			  //sleep(2);
+			  //location.reload(true);
+			  //if(xmlhttp.responseText=="success")
+			  //document.getElementById("orderid").innerHTML="新记录创建成功";
+			  setTimeout(function(){window.location.reload();},1500);
+			}
+		}
+	xmlhttp.open("POST","controller.php",true);
+	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	var emptyJson={};
+	xmlhttp.send("id=0&type="+type);	
 }
 </script>
-<!--
-<fieldset >
-<legend>choose a type</legend>
-<select id="typeoption" name="cars">
-<option value="0">请填入正确类型（选择后不可更改）</option>
-<option value="1">invoiceregister</option>
-<option value="2">supervisionfees</option>
-<option value="3">Fiat</option>
-<option value="4">Audi</option>
-</select>
-<input type="button" class="btn btn-primary" value="new" onclick="add()"  >
-<label id="status"></label>
-</fieldset>
 
-<div style="padding: 100px 100px 10px;">
--->
-
-
-<!--</div>-->
 </body>
 </html>

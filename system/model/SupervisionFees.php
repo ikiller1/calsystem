@@ -56,7 +56,7 @@ function SketchSupervisionFees($conn)
 }
 function ShowSketchSupervisionFees($tableName,$data)
 {
-	echo "<table border=\"1\">";
+	echo "<table class='table table-hover table-bordered table-condensed'>";
 	// echo "<caption>".$tableName."</caption>";
 	///
 	echo "<tr>";
@@ -85,7 +85,7 @@ function ShowSketchSupervisionFees($tableName,$data)
 		echo "<tr>";
 		
 		echo "<th>";
-		echo "<a class='item' href=\"SupervisionFeesDetail.php?tableName=".$tableName."&"."id=".$data[$x][0]."\">";
+		echo "<a class='item' href=\"SupervisionFees.php?tableName=".$tableName."&"."id=".$data[$x][0]."\">";
 		echo $data[$x][0];
 		echo "</a>";
 		echo "</th>";
