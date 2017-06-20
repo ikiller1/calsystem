@@ -68,7 +68,7 @@ text-align: center;
 		<div>
 			<ul class="nav navbar-nav"> 
 			  <li><a class="active" href="/index.php">主页</a></li>
-			  <li><a href="/test/printCustumer.php?tableName=t_custumer">客户</a></li>
+			  <li><a href="/system/view/SketchCustumer.php?tableName=t_custumer">客户</a></li>
 			  <li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">订单<span class="caret"></span></a>
 				<ul class="dropdown-menu">

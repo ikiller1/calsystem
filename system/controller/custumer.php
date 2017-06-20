@@ -8,7 +8,7 @@ $conn=Login($ROLE_ROOT);
 UseDatabase($conn);
 if($id==0)
 {
-	AddInvoiceRegister($conn);
+	AddCustumerData($conn);
 	
 }
 else

@@ -110,7 +110,7 @@ function GetCustumer($conn,$tableName,$id)
 		return $data; */
 	}
 }
-function ShowSketchCustumer($conn,$tableName,$data)
+function ShowSketchCustumer($tableName,$data)
 {
 	echo "<table border=\"1\">";
 	// echo "<caption>".$tableName."</caption>";
@@ -129,9 +129,9 @@ function ShowSketchCustumer($conn,$tableName,$data)
 	echo "名字";
 	echo "</th>";
 	
-	echo "<th>";
+	/* echo "<th>";
 	echo "业务编号";
-	echo "</th>";
+	echo "</th>"; */
 	
 	echo "</tr>";
 	///
@@ -141,7 +141,7 @@ function ShowSketchCustumer($conn,$tableName,$data)
 		echo "<tr>";
 		
 		echo "<th>";
-		echo "<a class='item' href=\"CustumerDetail.php?tableName=".$tableName."&"."id=".$data[$x][0]."\">";
+		echo "<a class='item' href=\"../view/Custumer.php?tableName=".$tableName."&"."id=".$data[$x][0]."\">";
 		echo $data[$x][0];
 		echo "</a>";
 		echo "</th>";
@@ -150,9 +150,9 @@ function ShowSketchCustumer($conn,$tableName,$data)
 		echo $data[$x][1];
 		echo "</td>";
 		
-		echo "<td>";
+		/* echo "<td>";
 		echo $data[$x][2];
-		echo "</td>";
+		echo "</td>"; */
 		
 		/* echo "<td>";
 		echo $data[$x][3];
