@@ -157,10 +157,10 @@ function addRow(row,type)
 			
 			var para6=document.createElement("td");
 			var node6=document.createElement("button");
-			node6.setAttribute("id","cars_"+row);
+			node6.setAttribute("id","custumer_"+row);
 			node6.setAttribute("onclick","createRecord(this)");
-			node6.setAttribute("disabled","disabled");
-			node6.setAttribute("class","btn btn-default btn-xs disabled");
+			//node6.setAttribute("disabled","disabled");
+			node6.setAttribute("class","btn btn-default btn-xs ");
 			node6.innerHTML="---";
 			para6.appendChild(node6);
 			paran.appendChild(para6);
@@ -208,7 +208,7 @@ function editItem(row,tag,data)
 	{
 		target.setAttribute("value",data);
 	}
-	else if((tag=="invoiceregister"||tag=="supervisionfees"||tag=="cars"||tag=="empty"))
+	else if((tag=="invoiceregister"||tag=="supervisionfees"||tag=="custumer"||tag=="empty"))
 	{
 		console.log(tag+"_"+(row+2).toString());
 		target=document.getElementById(tag+"_"+(row).toString());

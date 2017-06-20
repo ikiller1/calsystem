@@ -3,6 +3,7 @@ include '../basicOperation.php';
 include '../../test/Common.php';
 include '../model/SupervisionFees.php';
 include '../model/InvoiceRegister.php';
+include '../model/Custumer.php';
 //header("Content-type: text/json");
 //echo $_POST["tableName"];
 $tableName=$_POST["tableName"];
@@ -31,9 +32,18 @@ else if($tableName=="invoiceregister")
 	}
 	$lastInsertId=GetLastInsertId($conn);
 }
-else
+else if($tableName=="custumer")
 {
-	
+	if(true==AddCustumerData($conn))
+	{
+		//echo "createRecord table custumer";
+		$code=0;
+	}
+	$lastInsertId=GetLastInsertId($conn);
+}
+else 
+{
+		echo "unknown tableName";
 }
 //echo "\n";
 //echo $lastInsertId;

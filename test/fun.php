@@ -11,7 +11,7 @@
 <?php
 include '../system/basicOperation.php';
 include 'Common.php';
-
+include '../system/model/Custumer.php';
 $tableName="t_201705";
 $conn=Login($ROLE_ROOT);
 CreateTestData($conn);

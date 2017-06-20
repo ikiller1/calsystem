@@ -22,7 +22,7 @@ include '../../test/Common.php';
 				<tr>
 					<th class="col-lg-3">date</th>
 					<th class="col-lg-1">fees</th>
-					<th class="col-lg-1">cars</th>
+					<th class="col-lg-1">custumer</th>
 					<th class="col-lg-1">empty</th>
 					
 				</tr>
