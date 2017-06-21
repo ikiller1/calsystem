@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta charset="UTF-8">
+    <title></title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="/resource/bootstrap/dist/css/bootstrap.min.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="/resource/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="/resource/bootstrap/dist/js/bootstrap.min.js"></script>
+	<style>
+	.input-group{
+		margin:10px 0px;//输入框上下外边距为10px,左右为0px
+		}
+		h3{
+		padding:5px;
+		border-bottom:1px solid #ddd;//h3字体下边框
+		}
+		li{
+		list-style-type:square;//列表项图标为小正方形
+		margin:10px 0;//上下外边距是10px
+		}
+		em{//强调的样式
+		color:#c7254e;
+		font-style: inherit;
+		background-color: #f9f2f4;
+		} 
+		</style>
+</head>
+<body>
+<div class="container">
+<div class="row">
+	<h3>欢迎使用管理系统</h3>
+</div>
+<div class="row" style="margin-top:30px;">
+	<div class="col-sm-1 col-md-3"></div>
+	<div class="col-sm-8 col-md-6" style="border-right:1px solid #ddd;">
+		<div class="well col-md-10">
+			<h3>用户登录</h3>
+			<form action="/home.php" >
+				<div class="input-group input-group-md">
+					<span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-user" aria-hidden="true"></i></span>
+					<input id="username" type="text" class="form-control" placeholder="用户名" aria-describedby="sizing-addon1">
+				</div>
+				<div class="input-group input-group-md">
+					<span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-lock"></i></span>
+					<input id="pwd" type="password" class="form-control" placeholder="密码" aria-describedby="sizing-addon1">
+				</div>
+				<div class="well well-sm" style="text-align:center;">
+					<input type="radio" name="kind" value="tea"> 管理员
+					<input type="radio" name="kind" value="stu"> 员工
+				</div>
+				<button id="trytologin" type="submit" class="btn btn-success btn-block">登录</button>
+			</form>
+			<div id="loginstatus" role="alert"></div>
+		</div>
+	</div>
+	<div class="col-sm-3 col-md-3">
+		<h5>今日通知</h5>
+		<p>1.用户名为个人名字，英文字母全部小写。</p>
+		<p>2.初始密码为123456，请尽快修改密码。</p>
+	</div>
+</div>
+</div>
+</body>
+<script>
+$("#trytologin").click(function(){
+    // 动作触发后执行的代码!!
+	console.log("try to login");
+	console.log($("#username").val());
+	console.log($("#pwd").val());
+	var username=$("#username").val();
+	var pwd=$("#pwd").val();
+	if(username=="root")
+	{
+		return true;
+	}
+	else 
+	{
+		$("#loginstatus").attr("class","alert alert-danger");
+		$("#loginstatus").text("alert");
+		return false;
+	}
+	
+});
+</script>
+</html>

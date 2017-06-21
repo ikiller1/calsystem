@@ -60,14 +60,20 @@ text-align: center;
 
 
 
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-	<div class="container-fluid"> 
-		<div class="navbar-header"> 
-			<a class="navbar-brand" href="#">管理系统</a> 
-		</div> 
-		<div>
+<div class="navbar navbar-default navbar-static-top" role="navigation">
+	<div class="container"> 
+		<div class="navbar-header">
+		  <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-navbar" aria-controls="bs-navbar" aria-expanded="false">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		  </button>
+		  <a class="navbar-brand" href="#">管理系统</a>
+		</div>
+		<nav id="bs-navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav"> 
-			  <li><a class="active" href="/index.php">主页</a></li>
+			  <li><a class="active" href="/home.php">主页</a></li>
 			  <li><a href="/system/view/SketchCustumer.php?tableName=t_custumer">客户</a></li>
 			  <li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">订单<span class="caret"></span></a>
@@ -121,11 +127,12 @@ text-align: center;
 				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li> -->
 				<li><a href="#" id="clock"><span class="glyphicon glyphicon-time"></span>  <text class="text"></text></a></li> 
 			</ul>
-		</div>
+		</nav>
 	</div>
-</nav>
+</div>
 
-<div style="height:60px;"></div>
+<!--
+<div style="height:60px;"></div>-->
 <p id="sessionid" hidden><?php $sid=session_id(); echo $sid; ?></p>
 <style type="text/css">  
     .navbar .nav > li .dropdown-menu {  

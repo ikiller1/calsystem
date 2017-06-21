@@ -1,7 +1,7 @@
 <?php
 include 'header.php';
 ?>
-
+<div class="container">
 <p>
 <a class="item" href="test/fun.php">1.快速创建环境</a>
 </p>
@@ -29,6 +29,6 @@ include 'header.php';
 <p>
 <a class="item" href="/createtabletest.php">2.createtabletest</a>
 </p>
-
+</div>
 </body>
 </html>
