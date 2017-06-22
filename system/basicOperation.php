@@ -1,25 +1,16 @@
 <?php
 $ROLE_ROOT="ROLE_ROOT";
-$servername = "localhost";
-$username = "root";
-$password = "root";
 // header("Content-type: text/html;charset=utf-8");
 function Login($role)
 {
-	// global $conn;
-	global $ROLE_ROOT;
-	global $servername;
-	global $username;
-	global $password;
-	//var_dump($conn);
-/* 	if($conn!=NULL){
-		echo "conn in the pool"."<br>";
-		return $conn;
-	} */
-	if($role===$ROLE_ROOT)
+	
+	$servername = "localhost";
+	$username = "root";
+	$password = "root";
+	/* if($role===$ROLE_ROOT)
 	{
 		//echo "role=root"."<br>";
-	}
+	} */
 	// 创建连接
 	$conn = new mysqli($servername, $username, $password);
 	// 检测连接
@@ -45,7 +36,7 @@ function UseDatabase($conn)
 	if ($conn->query("USE myDB") === TRUE) 
 	{
 		// echo "数据库选择成功";
-	} 
+	}
 	else 
 	{
 		echo "Error creating database: " . $conn->error;
@@ -55,6 +46,12 @@ function UseDatabase($conn)
 function AuthCheck()
 {
 	session_start();
+	if(!isset($_SESSION['username']))
+	{
+		echo "非法登录";
+		die();
+		return;
+	}
 	$mode=$_SESSION["mode"];
 	if($mode!="write")
 	{

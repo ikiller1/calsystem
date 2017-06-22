@@ -1,23 +1,12 @@
 <!DOCTYPE html>
 <?php
-//session_id($_GET["PHPSESSID"]);
-ini_set("session.use_trans_sid",1);
-
-ini_set("session.use_only_cookies",0);
-
-ini_set("session.use_cookies",1);
 session_start();
-//$_SESSION['var1']="中华人民共和国";
-//echo "------------------".session_id();
-if(!isset($_SESSION['mode']))
-{	
-	$_SESSION['mode']="default";
+if(!isset($_SESSION['username'])||!isset($_SESSION['type']))
+{
+	echo "非法登录";
+	die();
+	return;
 }
-/* if(!isset($_SESSION['entry'])||$_SESSION['entry']!="default")
-{	
-	echo "<p><a href='/oa-center.php'>进入系统</a></p>";
-	exit;
-} */
 ?>
 <html lang="zh-CN">
 <head>
@@ -123,8 +112,18 @@ text-align: center;
 			  </li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right"> 
-				<!--<li><a href="#"><span class="glyphicon glyphicon-user"></span> 注册</a></li> 
-				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li> -->
+				<li><a href="#"><span class="glyphicon glyphicon-user"></span> 
+				<?php
+				if(isset($_SESSION['username'])){echo $_SESSION['username'];}
+				?></a></li>
+				<li id="logout"><a href="#"><span class="glyphicon glyphicon-log-in"></span> 登出</a></li>
+				<?php
+				if($_SESSION['type']<10)
+				{
+					echo "<li id=''><a href='/system/user/admin.php'><span class='glyphicon glyphicon-cog'></span> 帐号管理</a></li>";
+				}
+				?>
+				<li id=""><a href="/system/user/PersonDetail.php"><span class="glyphicon glyphicon-cog"></span>我的信息</a></li>
 				<li><a href="#" id="clock"><span class="glyphicon glyphicon-time"></span>  <text class="text"></text></a></li> 
 			</ul>
 		</nav>
@@ -134,7 +133,7 @@ text-align: center;
 <!--
 <div style="height:60px;"></div>-->
 <p id="sessionid" hidden><?php $sid=session_id(); echo $sid; ?></p>
-<style type="text/css">  
+<!--<style type="text/css">  
     .navbar .nav > li .dropdown-menu {  
         margin: 0;  
     }  
@@ -142,18 +141,47 @@ text-align: center;
         display: block;  
     }  
 </style> 
-
+-->
 
 
 <script language=javascript>
-var int=self.setInterval("clock()",300)
+var int=self.setInterval("clock()",300);
+
+$("#logout").click(function(){
+    // 动作触发后执行的代码!!
+		$.post("/system/user/logout.php",
+    {    },
+        function(data,status){
+        //alert("数据: \n" + data + "\n状态: " + status);
+		var json=JSON.parse(data);
+		console.log(json.code);
+		console.log(json.msg);
+		if(json.code!=0)
+		{
+			//$("#loginstatus").attr("class","alert alert-danger");
+			//$("#loginstatus").text(json.msg);
+			return;
+		}
+		else if(json.code==0)
+		{
+		/*	if (confirm("登录成功"))
+			{
+				window.location.href="/home.php";
+			} */
+			/* $('#myModal').modal({
+					keyboard: false
+			}); */
+			setTimeout(function(){
+			window.location.href="/index.html";
+			},500);
+		}
+    });
+});
+
 function clock()
   {
   var t=new Date();
-  //var text=$("#clock").text();
-  //document.getElementById("clock").innerHTML=t;
-  //$("#clock").text(t);
-  $(".text").text(t);
+  $(".text").text(t.toLocaleString());
   }
 </script>
 <script>

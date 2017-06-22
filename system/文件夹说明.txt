@@ -1,0 +1,6 @@
+main	主表
+user	用户权限管理
+
+model	基本操作
+controller	一般为针对某个表进行ajax的url对象
+view	表格的展现（包括sketch & detail）
