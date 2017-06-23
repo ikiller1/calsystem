@@ -74,7 +74,7 @@ function checkUserNamePwd($conn,$username,$pwd)
 			}
 			else
 			{
-				$_SESSION['type']=$type;
+				//$_SESSION['type']=$type;
 				return 0;
 			}
 			//echo "\n".$pwd."\n".$password."\n";
@@ -87,9 +87,9 @@ function checkUserNamePwd($conn,$username,$pwd)
 		return 1;
 	}
 }
-function GetUserType($conn,$username)
+function GetUserInfo($conn,$username)
 {
-	$sql7="select type from user_namepwd where username='".$username."'";
+	$sql7="select type ,id from user_namepwd where username='".$username."'";
 	$result=$conn->query($sql7);
 	echo $conn->error;
 	if($result->num_rows>0)
@@ -97,7 +97,8 @@ function GetUserType($conn,$username)
 		$row = $result->fetch_array();
 		
 		$type=$row["type"];
-		return $type;
+		$id=$row["id"];
+		return array($id,$type);
 	}
 	else
 	{
@@ -153,8 +154,9 @@ function ShowSketchUser($data)
 		echo "<tr>";
 		
 		echo "<th>";
-		echo "<a href='#'>";
-		//echo "<a class='item' href=\"../view/Custumer.php?tableName=".$tableName."&"."id=".$data[$x][0]."\">";
+		//echo "<a href='#'>";
+		echo '<a class="item" href="./RightsDetail.php?id=';
+		echo $data[$x][0].'">';
 		echo $data[$x][0];
 		echo "</a>";
 		echo "</th>";
@@ -230,18 +232,18 @@ function SetUserValid($conn,$id,$b_valid)
 		echo $conn->error;
 	}
 }
-/* function GetCustumer($conn,$tableName,$id)
+function GetPersonalDetail($conn,$id)
 {
 	$data=array();
-	$sql7="select * from $tableName where id=$id ";
+	$sql7="select * from user_detail where id=$id ";
 	$result=$conn->query($sql7);
 	echo $conn->error;
 	if($result->num_rows>0)
 	{
 		$row = $result->fetch_array();
 		// echo $row["_1B"];
-		return $row;
-		 while($row = $result->fetch_array()) 
+		return array($row["id"],$row["sex"]);
+		/*  while($row = $result->fetch_array()) 
 		{
 			$id=$row["id"];
 			$pay=$row["pay"];
@@ -251,9 +253,29 @@ function SetUserValid($conn,$id,$b_valid)
 			$data["cost"]=$cost;
 			// array_push($data,"cost",$cost);
 		}
-		return $data; 
+		return $data;  */
 	}
-} */
+	else
+	{
+		echo "error record is not exist";
+		return null;
+	}
+}
+function UpdatePersonalDetail($conn,$id)
+{
+	$sql6="UPDATE  user_detail SET 
+					sex =".$_POST['sex']."				
+					WHERE id=".$id;
+	if ($conn->query($sql6) === TRUE) {
+		//echo "Custumer更改纪录成功";
+		return true;
+	} 
+	else 
+	{
+		echo $conn->error;
+		return false;
+	}
+}
 /* function ShowSketchCustumer($tableName,$data)
 {
 	echo "<table border=\"1\">";

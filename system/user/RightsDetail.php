@@ -19,7 +19,7 @@ else
 }
 $conn=Login($ROLE_ROOT);
 UseDatabase($conn);
-$data=GetPersonalDetail($conn,$id);
+//$data=GetPersonalDetail($conn,$id);
 
 Logout($conn);
 ?>

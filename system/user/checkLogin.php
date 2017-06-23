@@ -30,6 +30,7 @@ if($username=="root")
 		$_SESSION['username']=$username;
 	}
 	$_SESSION['type']=1;
+	$_SESSION['id']=0;
 	$result = array("code"=>0,"msg"=>$msg0);
 	$output = json_encode($result);
 	echo $output;
@@ -41,7 +42,7 @@ UseDatabase($conn);
 $ret=checkUserNamePwd($conn,$username,md5($pwd));
 if($ret==0)
 {
-	$type=GetUserType($conn,$username);
+	$info=GetUserInfo($conn,$username);//0:id 1:type
 }
 Logout($conn);
 //0成功，1用户不存在，2密码错误,3账号未启用
@@ -85,7 +86,8 @@ else if($ret==0)
 	//if(!isset($_SESSION['username']))
 	{
 		$_SESSION['username']=$username;
-		$_SESSION['type']=$type;
+		$_SESSION['type']=$info[1];
+		$_SESSION['id']=$info[0];
 	}
 	
 	$result = array("code"=>$ret,"msg"=>$msg0);
