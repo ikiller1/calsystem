@@ -1,0 +1,130 @@
+<include file="Home:pp_header2" />
+<div class="warp">
+<div class="nline"></div>
+<div class="sideleft">
+<div class="submenu">
+<div class="subtitle">
+<h2>分类索引</h2>
+</div>
+<div class="subList">
+<volist name="list_menu" id="cid"><li class="<eq name="type_id" value="$cid['list_id']">cur</eq><eq name="type_pid" value="$cid['list_id']">cur</eq>"><a href="{:UU('Home-vod/type',array('id'=>$cid['list_id'],'wd'=>'','letter'=>'','year'=>0,'area'=>'','order'=>'addtime','p'=>1),false,true)}">{$cid.list_name}</a></li></volist>
+</div>
+</div></div>
+<div class="sideright">
+<div class="ibox">
+<div class="boxTt">
+<h2>索引</h2>
+<a href="{:UU('Home-vod/type',array('id'=>$type_id,'wd'=>'','letter'=>'','year'=>0,'area'=>'','order'=>'addtime','p'=>1),false,true)}" class="act">重置筛选</a></div>
+<php>
+    $array_area = explode(',',C('play_area'));
+    $array_year = explode(',',C('play_year'));
+    if($type_pid){
+    	$array_list = getlistarr($type_pid);
+        $type_cid = $type_pid;
+    }else{
+    	$array_list = getlistarr($type_id);
+        $type_cid = $type_id;
+    }
+</php> 
+<div class="boxCon1">
+<div class="open">
+<dl class="taglist">
+  <dt>按类型：</dt>
+  <dd> 
+<empty name="list_pid" value="">
+ <php>$array_listid = getlistarr($list_id);</php>
+<li><a  <eq name="list_pid" value="0">class="Class"</eq>  target="_self" href="{$root}{$vodlist}-{$list_pid}{$u_mcid}{$u_area}{$u_year}{$u_language}{$u_letter}{$u_order}{$u_picm}.html" data="id-{$list_pid}"><span>全部</span></a></li>
+<volist name="array_listid" id="ff_listid" offset="0" length='7'><li><a <eq name="list_id" value="$ff_listid">class="Class"</eq> href="{:getlistname($ff_listid,'list_url')}" data="id-{$ff_listid}"><span>{:getlistname($ff_listid)}</span></a></li> </volist>
+<else />
+ <li><a  <eq name="list_lid" value="0">class="Class"</eq>  target="_self" href="{$root}{$vodlist}-{$list_pid}{$u_mcid}{$u_area}{$u_year}{$u_language}{$u_letter}{$u_order}{$u_picm}.html" data="id-{$list_pid}"><span>全部</span></a></li>
+ <php>$array_listid = getlistarr($list_pid);</php><volist name="array_listid" id="ff_listid" offset="0" length='7'><li><a <eq name="list_id" value="$ff_listid">class="Class"</eq> href="{:getlistname($ff_listid,'list_url')}" data="id-{$ff_listid}"><span>{:getlistname($ff_listid)}</span></a></li></volist>
+ </empty>
+
+
+</dl>
+<dl class="taglist">
+  <dt>按地区：</dt>
+  <dd><a href="{:UU('Home-vod/type',array('id'=>$type_id,'wd'=>$type_wd,'letter'=>$type_letter,'year'=>$type_year,'area'=>'','order'=>$type_order,'p'=>1),false,true)}" class="<empty name="type_area">Class</empty>"><span>全部</span></a> <volist name="array_area" id="area"><a href="{:UU('Home-vod/type',array('id'=>$type_id,'wd'=>$type_wd,'letter'=>$type_letter,'year'=>$type_year,'area'=>urlencode($area),'order'=>$type_order,'p'=>1),false,true)}" class="<eq name="type_area" value="$area">Class</eq>"><span>{$area}</span></a></volist>
+</dd></dl>
+<dl class="taglist">
+<dt>按年代：</dt>
+  <dd><a href="{:UU('Home-vod/type',array('id'=>$type_id,'wd'=>$type_wd,'letter'=>$type_letter,'year'=>0,'area'=>urlencode($type_area),'order'=>$type_order,'p'=>1),false,true)}" class="<eq name="type_year" value="0">Class</eq>"><span>全部</span></a> <volist name="array_year" id="year" offset="0" length="14"><a href="{:UU('Home-vod/type',array('id'=>$type_id,'wd'=>$type_wd,'letter'=>$type_letter,'year'=>$year,'area'=>urlencode($type_area),'order'=>$type_order,'p'=>1),false,true)}" class="<eq name="type_year" value="$year">Class</eq>"><span>{$year}</span></a></volist><a href="{:UU('Home-vod/type',array('id'=>$type_id,'wd'=>$type_wd,'letter'=>$type_letter,'year'=>'19901999','area'=>urlencode($type_area),'order'=>$type_order,'p'=>1),false,true)}" class="<eq name="type_year" value="19901999">Class</eq>"><span>90年代</span></a><a href="{:UU('Home-vod/type',array('id'=>$type_id,'wd'=>$type_wd,'letter'=>$type_letter,'year'=>'19801989','area'=>urlencode($type_area),'order'=>$type_order,'p'=>1),false,true)}" class="<eq name="type_year" value="19801989">Class</eq>"><span>80后</span></a><a href="{:UU('Home-vod/type',array('id'=>$type_id,'wd'=>$type_wd,'letter'=>$type_letter,'year'=>'19001980','area'=>urlencode($type_area),'order'=>$type_order,'p'=>1),false,true)}" class="<eq name="type_year" value="19001980">Class</eq>"></a></dd></dl>
+<dl class="taglist">
+  <dt>按字母：</dt>
+  <dd> <li><a href="{:UU('Home-vod/type',array('id'=>$type_id,'wd'=>$type_wd,'letter'=>'','year'=>$type_year,'area'=>urlencode($type_area),'order'=>$type_order,'p'=>1),false,true)}" class="<empty name="type_letter">Class</empty>"><span>全部</span></a> <php>for($i=1;$i<=26;$i++){if($type_letter==chr($i+64)){echo '<a href="'.UU('Home-vod/type',array('id'=>$type_id,'wd'=>$type_wd,'letter'=>chr($i+64),'year'=>$year,'area'=>urlencode($type_area),'order'=>$type_order,'p'=>1),false,true).'" class="Class"><span>'.chr($i+64).'</span></a><span>';}else{echo '</span><a href="'.UU('Home-vod/type',array('id'=>$type_id,'wd'=>$type_wd,'letter'=>chr($i+64),'year'=>$year,'area'=>urlencode($type_area),'order'=>$type_order,'p'=>1),false,true).'"><span>'.chr($i+64).'</span></a>';}}</php><a href="{:UU('Home-vod/type',array('id'=>$type_id,'wd'=>$type_wd,'letter'=>'0,1,2,3,4,5,6,7,8,9','year'=>$type_year,'area'=>$type_area,'order'=>$type_order,'p'=>1),false,true)}" class="<eq name="type_letter" value="0,1,2,3,4,5,6,7,8,9">Class</eq>"><span>0-9</span></a></li></dd></dl>
+</div>
+<div class="openBtn"><span></span></div>
+
+</div>
+</div><script type="text/javascript" src="/Runtime/js/list720.js" charset="utf-8"></script><div class="ibox">
+<div class="titleBar"><strong>排序：</strong>
+<p class="<eq name="type_order" value="addtime">active</eq>">
+<a href="{:UU('Home-vod/type',array('id'=>$type_id,'wd'=>$type_wd,'letter'=>$type_letter,'year'=>$type_year,'area'=>urlencode($type_area),'order'=>'addtime','p'=>1),false,true)}"><span>按时间</span></a></p>
+<p class="<eq name="type_order" value="hits">active</eq>">
+<a href="{:UU('Home-vod/type',array('id'=>$type_id,'wd'=>$type_wd,'letter'=>$type_letter,'year'=>$type_year,'area'=>urlencode($type_area),'order'=>'hits','p'=>1),false,true)}"><span>按热门</span></a></p>
+<p class="<eq name="type_order" value="gold">active</eq>">
+<a href="{:UU('Home-vod/type',array('id'=>$type_id,'wd'=>$type_wd,'letter'=>$type_letter,'year'=>$type_year,'area'=>urlencode($type_area),'order'=>'gold','p'=>1),false,true)}"><span>按评分</span></a></p>
+
+<div class="plist">
+<span title="海报" class="ltA" id="ltA" onclick="lvs(2)">海报</span>
+<span title="列表" class="lzB" id="lzA" onclick="lvs(1)">列表</span>
+</div>
+<div class="pagetop" id="short-page"></div>
+</div>
+<php>
+    if(strlen($type_year)==8){
+        $type_year = substr($type_year,0,4).','.substr($type_year,4,8);
+    }
+    if($type_id){    
+        C('jumpurl',UU('Home-vod/type',array('id'=>$type_id,'wd'=>$type_wd,'year'=>$type_year,'area'=>$type_area,'order'=>$type_order,'p'=>'{!page!}'),false,true));
+        $vod_list = ff_mysql_vod('cid:'.$type_id.';tag:'.$type_wd.';year:'.$type_year.';area:'.$type_area.';letter:'.$type_letter.';actor:'.$type_actor.';limit:20;page:true;order:vod_'.$type_order.' desc,vod_id desc');
+        $page = $vod_list[0]['page'];
+    }
+</php>
+
+<php>
+    if($list_id){
+        $vod_list = ff_mysql_vod('cid:'.$list_id.';limit:20;page:true;order:vod_addtime desc,vod_id desc');
+        $page = $vod_list[0]['page'];
+    }
+</php>  
+<div class="list">
+<div id="videoData" class="jsonPP boxList">
+<ul>
+<volist name="vod_list" id="ppvod">
+<li class="mov ">
+      <div class="imgBox"><a title="{$ppvod.vod_name}" href="{$ppvod.vod_readurl}" class="pic"> <img src="{$ppvod.vod_picurl}" data-original="{$ppvod.vod_picurl}" alt="{$ppvod.vod_name}" class="imgpic"/>
+                </a>
+                  <div class="ver"></div>      </div>
+      <div class="minfo">
+        <div class="movTt"><a href="{$ppvod.vod_readurl}" title="{$ppvod.vod_name}">{$ppvod.vod_name}</a><a target="_blank" class="movInfo" title="{$ppvod.vod_name}" href="{$ppvod.vod_readurl}">{$ppvod.vod_name}</a><span>{$ppvod.vod_title}</span></div>
+        <div class="showgoldbox">
+       <span class="showGold">
+	   
+	   <span id="0" class="half"></span>
+	   <span id="1" class="none"></span>
+	   <span id="2" class="none"></span>
+	   <span id="3" class="none"></span>
+	   <span id="4" class="none"></span></span>
+          <span class="goldtxt">{$ppvod.vod_gold}</span>
+          <span class="pno">({$ppvod.vod_golder}人评分)</span>
+
+        </div>
+        <div class="r3 dy"><span>导演：{$ppvod.vod_director|ff_search_url}</span></div>                          
+        <div class="r1"><span>主演：{$ppvod.vod_actor|ff_search_url}</span> </div>
+        <div class="r1">{$ppvod.vod_title}</div>
+        <div class="r2">评分：<i>{$ppvod.vod_gold}</i></div>
+        <div class="r4"><span>主演：{$ppvod.vod_actor|ff_search_url}</span></div>
+        <div class="r3"><span>类型：{$ppvod.list_name}</span> <span>地区：{$ppvod.vod_area|ff_search_url}</span> </div>
+        <div class="r3"><span>上映：{$ppvod.vod_year}</span><span>更新：{$ppvod.vod_addtime|date='Y-m-d',###}</span></div>
+        <div class="r5">{$ppvod.vod_content|msubstr=0,150,'utf-8',true}…</div>
+        <div class="r6"><a href="{$ppvod.vod_readurl}" target="_blank" title="《{$ppvod.vod_name}》在线观看">在线观看</a></div>
+      </div>
+    </li>
+    </volist>
+	</ul>
+<div class="pages">{$page}</div>
+
+
+</div></div></div></div></div>
+<include file="Home:pp_footer2" />

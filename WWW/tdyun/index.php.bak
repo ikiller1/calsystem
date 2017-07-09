@@ -1,0 +1,70 @@
+<?php 
+$vid=$_GET['vid'];
+$height=$_GET['height'];
+include('tdyun_jx1.php');
+$Urlobj = new Urlobj(); 
+$url=$Urlobj ->url($vid);
+
+?> 
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>qq2228184004</title>
+</head>
+<style>
+body,html,div{background-color:black;padding:0;margin:0;width:100%;height:100%;}
+html,body{
+width:100%;
+background:#000;
+text-align: center;
+}
+*{
+padding:0;
+margin:0;
+}
+#bfq_if{background:#000;}
+</style>
+<body>
+<!-- 播放器容器 -->
+<div id="a1"></div>
+<script type="text/javascript" src="/tdyun/js/jquery-v1.10.2.min.js"></script>
+
+<script type="text/javascript" src="/tdyun/ckplayer/ckplayer.js" charset="utf-8"></script>
+<script type="text/javascript">
+    var isPhone = navigator.userAgent.match(/iPad|iPhone|Android|Linux|iPod/i) != null;
+
+	var id ="<?php echo $vid?>",height = "<?php echo $height?>";
+	if(id==''){
+		alert('错误的参数');
+	}
+    if(!height){
+		height = '100%'; 
+	}
+	var isM3u8 =0;
+	var playerUrl = '<?php echo $url?>';
+	player(playerUrl,'a1','100%',height,isM3u8);
+	//API全能解析
+
+	//播放地址，播放id容器，播放器宽度，播放器高度
+	//alert(playerUrl)
+	function player(url,id,w,h,isM3u8) {
+		
+		if (isPhone) {
+			var htm = '<video id="bfq_if" width="'+ w +'" height="'+ h +'" controls="controls" autoplay="autoplay" x-webkit-airplay="allow" src="' + url + '"></video>';
+				document.getElementById(id).innerHTML = htm;
+		} else {
+			if(isM3u8){ 
+			     flashvars = {f:'/tdyun/ckplayer/m3u8.swf',a:encodeURIComponent(url),c:0,s:4,lv:0,p:1,v:100,b:1} 
+			}else{
+				flashvars={f:url,s: 0,lv: 0,c: 0,p: 1, b:0,loaded:'loadedHandler'};
+			}
+			var params={bgcolor:'#000',allowFullScreen:true,allowScriptAccess:'always'};
+			CKobject.embedSWF('/tdyun/ckplayer/ckplayer.swf',id,'ckplayer_a1',w,h,flashvars,params);
+		}
+	}
+  </script>
+
+
+</body>
+</html>
